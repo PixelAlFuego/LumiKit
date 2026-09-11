@@ -9,7 +9,7 @@ Actualizado: 2026-09-10 · Sesión 00
 ## Últimas 3 sesiones
 | Sesión | Fecha | Tarea | Resultado | Commit |
 |---|---|---|---|---|
-| 00 | 2026-09-10 | Andamiaje | 🟡 | [LK-00] |
+| 00 | 2026-09-10 | Andamiaje | 🟡 | dfd6fe7 |
 
 ## Pendiente de verificación en Unity
 - [ ] Unity regenera los `.meta` de las carpetas y archivos nuevos al recuperar foco.
@@ -25,7 +25,7 @@ Actualizado: 2026-09-10 · Sesión 00
   se pueblan o se regeneran por script. No borrar sin autorización.
 - `Assets/TutorialInfo/` y `Assets/Readme.asset` son plantilla de Unity, fuera del pack.
   No se tocan sin que lo pidas.
-- Git LFS declarado en `.gitattributes` pero no verificado (`git lfs install`).
+- Rama única `main`. `develop` y `feature/LK-XX-*` del GDD §4.9 aún no creadas.
 
 ## Handoff
 Empezar por: LK-09 — leer `docs/specs/LK-09_EffectDefinition.md`.
