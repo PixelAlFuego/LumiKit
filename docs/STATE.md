@@ -10,7 +10,7 @@ Actualizado: 2026-09-10 · Sesión 01
 | Sesión | Fecha | Tarea | Resultado | Commit |
 |---|---|---|---|---|
 | 00 | 2026-09-10 | Andamiaje | ✅ | dfd6fe7 |
-| 01 | 2026-09-10 | LK-09 EffectDefinition | 🟡 | — |
+| 01 | 2026-09-10 | LK-09 EffectDefinition | 🟡 | b2cd34c |
 
 ## Pendiente de verificación en Unity
 Banco de pruebas: material URP de stock (`Universal Render Pipeline/Unlit`) + `_BaseColor`,
