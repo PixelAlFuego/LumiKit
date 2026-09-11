@@ -15,6 +15,9 @@ Actualizado: 2026-09-10 · Sesión 01
 ## Pendiente de verificación en Unity
 Banco de pruebas: material URP de stock (`Universal Render Pipeline/Unlit`) + `_BaseColor`,
 con un `EFF_Debug.asset` desechable en `Assets/_Development/`. No hay shader del pack aún.
+Disparador: `Assets/_Development/Tests/EffectDebugTester.cs` (OnGUI, 3 sliders RGB +
+botones de efecto y reset). El `EFF_Debug.asset` debe declarar un parámetro `Color`
+con PropertyName exactamente `_BaseColor`.
 
 - [ ] Compila sin errores ni warnings nuevos.
 - [ ] `Create → LumiKit → Effect Definition` y `→ Effect Registry` generan el `.asset`.
@@ -36,6 +39,9 @@ con un `EFF_Debug.asset` desechable en `Assets/_Development/`. No hay shader del
   hace falta, va sólo en `MaterialPropertyHelper.ConvertColor`. Diferido a LK-01.
 - **`SetEffectEnabled` no verificable aún.** Escribe `_EffectEnabled`, pero ningún shader
   la declara todavía. Criterio diferido a `docs/specs/LK-01_Outline2D.md`.
+- **Borrar al cerrar la Fase 5:** `Assets/_Development/Tests/EffectDebugTester.cs` y el
+  `EFF_Debug.asset`. Código desechable, fuera del pack, deliberadamente ausente de
+  CODEMAP y BACKLOG. Lo reemplaza el panel de parámetros real (LK-11).
 - `EffectController.cs` salió de 316 líneas, más de las ~140 estimadas en el plan.
 - `Assets/TutorialInfo/` y `Assets/Readme.asset` son plantilla de Unity, fuera del pack.
 - Rama única `main`. `develop` y `feature/LK-XX-*` del GDD §4.9 aún no creadas.
