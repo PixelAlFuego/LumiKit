@@ -12,9 +12,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e9d5228f3dea91c49831917c26c80353, type: 3}
   m_Name: EFF_Debug
   m_EditorClassIdentifier: 
-  _displayNameEs: 
+  _displayNameEs: Color de Prueba
   _displayNameEn: 
   _descriptionEs: 
   _descriptionEn: 
   _shader: {fileID: 0}
-  _parameters: []
+  _parameters:
+  - _displayNameEs: 
+    _displayNameEn: 
+    _propertyName: _BaseColor
+    _type: 1
+    _minValue: 0
+    _maxValue: 0
+    _defaultFloat: 0
+    _defaultColor: {r: 0.4010805, g: 1, b: 0, a: 0}
+    _defaultBool: 0
+    _defaultEnumIndex: 0
+    _enumOptions: []

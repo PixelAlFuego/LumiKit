@@ -12,13 +12,13 @@ Reglas de esta tabla:
 
 | Archivo | Capa | Tipo | Responsabilidad | Depende de | LK | Estado |
 |---|---|---|---|---|---|---|
-| `Core/ParameterType.cs` | Core | enum | `Float, Color, Boolean, Enum`. Orden congelado | — | LK-09 | 🟡 |
-| `Core/EffectParameter.cs` | Core | clase `[Serializable]` | Un parámetro: propertyName, tipo, rango, defecto. Cachea `PropertyId` | ParameterType | LK-09 | 🟡 |
-| `Core/EffectDefinition.cs` | Core | ScriptableObject | Catálogo de un efecto. `LumiKit/Effect Definition` | EffectParameter | LK-09 | 🟡 |
-| `Core/EffectRegistry.cs` | Core | ScriptableObject | Catálogo global. `LumiKit/Effect Registry` | EffectDefinition | LK-09 | 🟡 |
-| `Core/EffectController.cs` | Core | MonoBehaviour | Estado vivo + aplicación al Renderer. Setters/getters tipados, reset, `SetEffectEnabled` | EffectDefinition, MaterialPropertyHelper | LK-09 | 🟡 |
-| `Utils/MaterialPropertyHelper.cs` | Utils | estática | Único punto que escribe el MPB. Declara `_EffectEnabled` y `ConvertColor` | — | LK-09 | 🟡 |
-| `Utils/Singleton.cs` | Utils | clase abstracta | Base genérica de managers. Sin `DontDestroyOnLoad` automático | — | LK-09 | 🟡 |
+| `Core/ParameterType.cs` | Core | enum | `Float, Color, Boolean, Enum`. Orden congelado | — | LK-09 | ✅ |
+| `Core/EffectParameter.cs` | Core | clase `[Serializable]` | Un parámetro: propertyName, tipo, rango, defecto. Cachea `PropertyId` | ParameterType | LK-09 | ✅ |
+| `Core/EffectDefinition.cs` | Core | ScriptableObject | Catálogo de un efecto. `LumiKit/Effect Definition` | EffectParameter | LK-09 | ✅ |
+| `Core/EffectRegistry.cs` | Core | ScriptableObject | Catálogo global. `LumiKit/Effect Registry` | EffectDefinition | LK-09 | ✅ |
+| `Core/EffectController.cs` | Core | MonoBehaviour | Estado vivo + aplicación al Renderer. Setters/getters tipados, reset, `SetEffectEnabled` | EffectDefinition, MaterialPropertyHelper | LK-09 | ✅ |
+| `Utils/MaterialPropertyHelper.cs` | Utils | estática | Único punto que escribe el MPB. Declara `_EffectEnabled` y `ConvertColor` | — | LK-09 | ✅ |
+| `Utils/Singleton.cs` | Utils | clase abstracta | Base genérica de managers. Sin `DontDestroyOnLoad` automático | — | LK-09 | ✅ |
 
 Raíz de los anteriores: `Assets/LumiKit/Runtime/Scripts/`.
 Sin consumidores todavía: `Singleton` y `EffectRegistry` los usan `Systems` y LK-30.

@@ -1,5 +1,5 @@
 # LK-09 — Arquitectura de EffectDefinition
-Estado: 🟡 · Depende de: — · Diseño: GDD §4.3 (líneas 1001-1016), §4.4 (líneas 1065-1081), §1.3 Mecánica 2 (líneas 44-56)
+Estado: ✅ verificado por el usuario 2026-09-11 · Depende de: — · Diseño: GDD §4.3 (líneas 1001-1016), §4.4 (líneas 1065-1081), §1.3 Mecánica 2 (líneas 44-56)
 
 ## Objetivo
 Definir en datos qué parámetros expone un efecto y aplicarlos a un `Renderer` vía
@@ -59,14 +59,15 @@ Banco de pruebas: no hay shader del pack todavía. Material URP de stock
 (`Universal Render Pipeline/Unlit`) + `_BaseColor`, con un `EFF_Debug.asset` desechable
 en `Assets/_Development/`, que no se exporta.
 
-- [ ] Compila sin errores ni warnings nuevos en la consola.
-- [ ] `Create → LumiKit → Effect Definition` genera un `.asset` y el Inspector muestra
+- [x] Compila sin errores ni warnings nuevos en la consola.
+- [x] `Create → LumiKit → Effect Definition` genera un `.asset` y el Inspector muestra
       la lista de parámetros (min/max sólo relevantes en `Float`).
-- [ ] `EffectController` sobre un objeto con Renderer: mover `_BaseColor` por código en
+- [x] `EffectController` sobre un objeto con Renderer: mover `_BaseColor` por código en
       Play Mode cambia el aspecto del objeto.
-- [ ] Al salir de Play Mode, el `.mat` usado **no** aparece modificado en disco (D-001).
-- [ ] `ResetToDefaults()` devuelve todos los valores a los del `EffectDefinition`.
-- [ ] Buscar `renderer.material` en `Assets/LumiKit/` no devuelve resultados.
+- [x] Al salir de Play Mode, el `.mat` usado **no** aparece modificado en disco (D-001).
+- [x] `ResetToDefaults()` devuelve todos los valores a los del `EffectDefinition`.
+- [x] Buscar `renderer.material` en `Assets/LumiKit/` no devuelve resultados.
+
 Dos criterios quedan **diferidos a `docs/specs/LK-01_Outline2D.md`**, no cumplidos:
 `SetEffectEnabled` (ningún shader declara `_EffectEnabled` aún) y el color en espacio
 Linear (verificación visual).
