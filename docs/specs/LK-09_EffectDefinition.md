@@ -1,23 +1,13 @@
 # LK-09 — Arquitectura de EffectDefinition
-Estado: ⬜ · Depende de: — · Diseño: GDD §4.3 (líneas 1001-1016), §4.4 (líneas 1065-1081), §1.3 Mecánica 2 (líneas 44-56)
+Estado: 🟡 · Depende de: — · Diseño: GDD §4.3 (líneas 1001-1016), §4.4 (líneas 1065-1081), §1.3 Mecánica 2 (líneas 44-56)
 
 ## Objetivo
 Definir en datos qué parámetros expone un efecto y aplicarlos a un `Renderer` vía
 `MaterialPropertyBlock`, sin que ningún código de UI conozca un efecto concreto.
 
 ## Archivos
-| Ruta | Acción |
-|---|---|
-| `Assets/LumiKit/Runtime/Scripts/Core/ParameterType.cs` | crear |
-| `Assets/LumiKit/Runtime/Scripts/Core/EffectParameter.cs` | crear |
-| `Assets/LumiKit/Runtime/Scripts/Core/EffectDefinition.cs` | crear |
-| `Assets/LumiKit/Runtime/Scripts/Core/EffectRegistry.cs` | crear |
-| `Assets/LumiKit/Runtime/Scripts/Core/EffectController.cs` | crear |
-| `Assets/LumiKit/Runtime/Scripts/Utils/MaterialPropertyHelper.cs` | crear |
-| `Assets/LumiKit/Runtime/Scripts/Utils/Singleton.cs` | crear |
-| `docs/CODEMAP.md`, `docs/BACKLOG.md`, `docs/STATE.md` | modificar |
-
-Namespace: `LumiKit.Core` y `LumiKit.Utils`. Ninguno referencia `UI` ni `Demo`.
+7 archivos bajo `Assets/LumiKit/Runtime/Scripts/`, listados en `docs/CODEMAP.md` > Runtime.
+Namespaces `LumiKit.Core` y `LumiKit.Utils`. Ninguno referencia `UI` ni `Demo`.
 
 ## Contrato
 
@@ -39,7 +29,6 @@ Expone el ID de propiedad cacheado (`Shader.PropertyToID`), calculado una vez, n
 
 `EffectDefinition` — ScriptableObject con `[CreateAssetMenu]` bajo `LumiKit/`. Campos:
 nombre y descripción bilingües, `Shader` asociado, `EffectParameter[]`. Sin setters.
-
 `EffectRegistry` — ScriptableObject. Lista de `EffectDefinition`, consulta por índice y
 por nombre. Lo consume el contador de exploración (LK-30).
 
@@ -50,31 +39,40 @@ y `[SerializeField] private EffectDefinition _definition;`.
 |---|---|---|
 | Definition | propiedad pública de sólo lectura | expone la definición activa |
 | SetFloat / SetColor / SetBool / SetEnum | público, `(string propertyName, valor)` | escribe en el block y lo aplica |
-| GetCurrentValue | público | valor actual para que el widget se inicialice |
+| GetFloat / GetColor / GetBool / GetEnum | público, `(string propertyName)` | valor actual para que el widget se inicialice |
 | ResetToDefaults | público | Mecánica 5 (GDD línea 67) |
-| SetEffectEnabled | público, `(bool)` | Mecánica 3, comparación TAB (GDD línea 59) |
-| OnValueChanged | evento | notifica a la UI sin conocerla |
+| SetEffectEnabled | público, `(bool)` | escribe `_EffectEnabled` (D-005). Mecánica 3, TAB |
+| OnValueChanged | `event Action<string>` | notifica a la UI sin conocerla |
 
-`MaterialPropertyHelper` (`LumiKit.Utils`) — estática. Centraliza la escritura en el
-`MaterialPropertyBlock` y la conversión bool→float. Único punto que toca el block.
+Cuatro getters tipados en vez de un `GetCurrentValue`: sin boxing y sin tipo nuevo. El
+estado vivo se guarda en un struct privado dentro de `EffectController`.
+
+`MaterialPropertyHelper` (`LumiKit.Utils`) — estática. Único punto que toca el block:
+centraliza escritura, conversión bool→float y `ConvertColor`. Declara
+`EFFECT_ENABLED_PROPERTY` (D-005): el nombre vive sólo aquí.
 
 `Singleton<T>` (`LumiKit.Utils`) — MonoBehaviour genérica base. `DontDestroyOnLoad` no
 automático: lo decide la subclase.
 
 ## Criterios de aceptación (verificables en el editor)
+Banco de pruebas: no hay shader del pack todavía. Material URP de stock
+(`Universal Render Pipeline/Unlit`) + `_BaseColor`, con un `EFF_Debug.asset` desechable
+en `Assets/_Development/`, que no se exporta.
+
 - [ ] Compila sin errores ni warnings nuevos en la consola.
 - [ ] `Create → LumiKit → Effect Definition` genera un `.asset` y el Inspector muestra
       la lista de parámetros (min/max sólo relevantes en `Float`).
-- [ ] `EffectController` sobre un objeto con Renderer: mover un valor por código en Play
-      Mode cambia el aspecto del objeto.
+- [ ] `EffectController` sobre un objeto con Renderer: mover `_BaseColor` por código en
+      Play Mode cambia el aspecto del objeto.
 - [ ] Al salir de Play Mode, el `.mat` usado **no** aparece modificado en disco (D-001).
 - [ ] `ResetToDefaults()` devuelve todos los valores a los del `EffectDefinition`.
-- [ ] `SetEffectEnabled(false)` muestra el objeto sin efecto; `true` lo restaura.
 - [ ] Buscar `renderer.material` en `Assets/LumiKit/` no devuelve resultados.
+Dos criterios quedan **diferidos a `docs/specs/LK-01_Outline2D.md`**, no cumplidos:
+`SetEffectEnabled` (ningún shader declara `_EffectEnabled` aún) y el color en espacio
+Linear (verificación visual).
 
 ## Fuera de alcance
-- Widgets, panel y cualquier archivo bajo `Scripts/UI/` — eso es LK-11.
-- Raycast y selección de objetos — LK-10.
-- Crear los `.asset` `EFF_*` concretos y los shaders — LK-01, LK-02, LK-03.
+- Widgets, panel y cualquier archivo bajo `Scripts/UI/` — LK-11. Raycast — LK-10.
+- Los `.asset` `EFF_*` del pack y los shaders — LK-01, LK-02, LK-03.
 - Localización real: por ahora dos strings en el SO, sin `LocalizationManager` (LK-19).
 - Serialización a JSON o portapapeles — LK-29, LK-46.

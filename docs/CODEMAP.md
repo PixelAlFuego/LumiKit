@@ -12,7 +12,16 @@ Reglas de esta tabla:
 
 | Archivo | Capa | Tipo | Responsabilidad | Depende de | LK | Estado |
 |---|---|---|---|---|---|---|
-| _(vacío)_ | | | | | | |
+| `Core/ParameterType.cs` | Core | enum | `Float, Color, Boolean, Enum`. Orden congelado | — | LK-09 | 🟡 |
+| `Core/EffectParameter.cs` | Core | clase `[Serializable]` | Un parámetro: propertyName, tipo, rango, defecto. Cachea `PropertyId` | ParameterType | LK-09 | 🟡 |
+| `Core/EffectDefinition.cs` | Core | ScriptableObject | Catálogo de un efecto. `LumiKit/Effect Definition` | EffectParameter | LK-09 | 🟡 |
+| `Core/EffectRegistry.cs` | Core | ScriptableObject | Catálogo global. `LumiKit/Effect Registry` | EffectDefinition | LK-09 | 🟡 |
+| `Core/EffectController.cs` | Core | MonoBehaviour | Estado vivo + aplicación al Renderer. Setters/getters tipados, reset, `SetEffectEnabled` | EffectDefinition, MaterialPropertyHelper | LK-09 | 🟡 |
+| `Utils/MaterialPropertyHelper.cs` | Utils | estática | Único punto que escribe el MPB. Declara `_EffectEnabled` y `ConvertColor` | — | LK-09 | 🟡 |
+| `Utils/Singleton.cs` | Utils | clase abstracta | Base genérica de managers. Sin `DontDestroyOnLoad` automático | — | LK-09 | 🟡 |
+
+Raíz de los anteriores: `Assets/LumiKit/Runtime/Scripts/`.
+Sin consumidores todavía: `Singleton` y `EffectRegistry` los usan `Systems` y LK-30.
 
 ## Editor
 
@@ -41,13 +50,16 @@ Reglas de esta tabla:
 
 ## Escenas
 
+Las 5 escenas existen y están **vacías** (confirmado por el usuario, Sesión 01).
+Se pueblan con generadores de editor (D-002). No se crean escenas nuevas.
+
 | Escena | Construida por | Contenido | LK | Estado |
 |---|---|---|---|---|
-| `Assets/LumiKit/Scenes/00_Splash.unity` | — | preexistente, sin auditar | — | ⬜ |
-| `Assets/LumiKit/Scenes/01_MainMenu.unity` | — | preexistente, sin auditar | LK-13 | ⬜ |
-| `Assets/LumiKit/Scenes/02_Demo_2D.unity` | — | preexistente, sin auditar | LK-14 | ⬜ |
-| `Assets/LumiKit/Scenes/03_Demo_3D.unity` | — | preexistente, sin auditar | LK-15 | ⬜ |
-| `Assets/LumiKit/Scenes/04_Demo_VFX.unity` | — | preexistente, sin auditar | LK-16 | ⬜ |
+| `Assets/LumiKit/Scenes/00_Splash.unity` | _(planeado)_ | vacía | — | ⬜ |
+| `Assets/LumiKit/Scenes/01_MainMenu.unity` | _(planeado)_ | vacía | LK-13 | ⬜ |
+| `Assets/LumiKit/Scenes/02_Demo_2D.unity` | _(planeado)_ | vacía | LK-14 | ⬜ |
+| `Assets/LumiKit/Scenes/03_Demo_3D.unity` | — | vacía · fuera del MVP 2D | LK-15 | ⬜ |
+| `Assets/LumiKit/Scenes/04_Demo_VFX.unity` | — | vacía · fuera del MVP 2D | LK-16 | ⬜ |
 
 ## Prefabs
 

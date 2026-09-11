@@ -61,6 +61,27 @@ rompe la serialización de todos ellos. El contrato se cierra en LK-09.
 
 ---
 
+## D-005 — El efecto se apaga con la propiedad `_EffectEnabled`
+Fecha: 2026-09-10 · Sesión 01 · Irreversible: **sí**
+
+**Decisión.** Todo Shader Graph del pack expone una propiedad `Float` llamada
+`_EffectEnabled` (0 = sin efecto, 1 = con efecto) y termina en
+`Lerp(colorBase, colorConEfecto, _EffectEnabled)`. `EffectController.SetEffectEnabled`
+la escribe por `MaterialPropertyBlock`.
+
+**Motivo.** D-001 prohíbe modificar el material, y un `MaterialPropertyBlock` no puede
+activar keywords de shader. Apagar el efecto escribiendo "valores neutros" no sirve:
+en un Dissolve al 0% el borde emisivo puede seguir siendo visible.
+
+**Alcance.** Grafos de LK-01, LK-02 y LK-03. Comparación con TAB (LK-24).
+`MaterialPropertyHelper.EFFECT_ENABLED_PROPERTY` es el único sitio donde vive el nombre.
+
+**Consecuencia.** Un grafo sin `_EffectEnabled` compila y no falla: la escritura se
+ignora en silencio y el TAB no hace nada. Es criterio de aceptación de cada shader.
+Prohibición asociada de keywords: `.claude/rules/shaders.md`.
+
+---
+
 ## D-004 — El GDD se renombró a `docs/reference/GDD_v2.md`
 Fecha: 2026-09-10 · Sesión 00 · Irreversible: **no**
 
