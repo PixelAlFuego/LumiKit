@@ -91,3 +91,25 @@ Fecha: 2026-09-10 · Sesión 00 · Irreversible: **no**
 referencian CLAUDE.md y el resto de la documentación.
 
 **Alcance.** Sólo el nombre del archivo. El contenido no se tocó (1274 líneas).
+
+---
+
+## D-006 — El input se lee sólo con Input System
+Fecha: 2026-09-14 · Sesión 02 · Irreversible: **no**
+
+**Decisión.** Active Input Handling = `Input System Package (New)`: `activeInputHandler: 1`
+en `ProjectSettings/ProjectSettings.asset`, confirmado por el usuario (Sesión 02). Todo el
+pack lee input con `UnityEngine.InputSystem` y con ninguna otra API.
+Forma única: `Keyboard.current` y `Mouse.current` leídos en `Update`, con comprobación de
+null. Sin `InputAction` creadas en código ni assets `.inputactions`.
+
+**Motivo.** Con ese valor, la API antigua `UnityEngine.Input` lanza excepción en runtime.
+Una sola API evita dos formas de leer el mismo ratón (LK-10, LK-12, LK-24).
+
+**Alcance.** Todo script bajo `Assets/LumiKit/`.
+Prohibido: `UnityEngine.Input` (`Input.GetKey`, `Input.mousePosition`…), `StandaloneInputModule`,
+`InputSystem.actions` y `Assets/InputSystem_Actions.inputactions` (son del proyecto, no se exportan).
+Obligatorio: el `EventSystem` de toda escena del pack usa `InputSystemUIInputModule`.
+
+**Consecuencia.** El proyecto del comprador necesita `com.unity.inputsystem` y Active Input
+Handling en `New` o `Both`. Se documenta en LK-26.

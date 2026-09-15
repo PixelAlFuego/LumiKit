@@ -12,10 +12,19 @@ paths: ["docs/**","CLAUDE.md"]
 5. Tablas y listas, nunca prosa larga. Sin adjetivos, sin justificaciones.
 6. Toda ruta escrita en un doc debe existir en disco. Si es futura: `(planeado)`.
 7. Al superar el tope se condensa o se archiva; no se deja crecer.
+8. Subir un tope requiere aprobación explícita del usuario, caso por caso. Por defecto se
+   condensa. Aprobados en la Sesión 02: docs-style 30→40 y DECISIONS 100→150.
 
 ## Topes (líneas)
-CLAUDE.md 120 · STATE 100 · BACKLOG 80 · CODEMAP 120 · CONVENTIONS 80 · DECISIONS 100 ·
-VERIFICATION 60 · specs/LK-XX 80 · rules: unity-assets 40, ui-style 60, shaders 40, docs-style 30.
+CLAUDE.md 120 · STATE 100 · BACKLOG 80 · CODEMAP 120 · CONVENTIONS 80 · DECISIONS 150 ·
+VERIFICATION 60 · specs/LK-XX 80 · rules: unity-assets 40, ui-style 60, shaders 40, docs-style 40.
+
+## Plantilla de spec — `docs/specs/LK-XX_Nombre.md`
+Cabecera `# LK-XX — Nombre` y línea `Estado · Depende de · Diseño (GDD §, líneas)`.
+Secciones en orden: Objetivo · Archivos · Contrato · Banco de pruebas · Criterios de
+aceptación · Fuera de alcance. En shaders, Contrato = tabla de propiedades del grafo.
+**Banco de pruebas** — obligatoria desde LK-12: escena, objetos y componentes con los que
+se verifica, y qué criterios no se pueden verificar aún y a qué `LK-XX` quedan diferidos.
 
 ## Archivado
 STATE.md guarda 3 sesiones; la cuarta se resume en una línea en
