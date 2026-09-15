@@ -1,5 +1,5 @@
 # LK-12 — Cámara ortográfica 2D (DemoCameraController)
-Estado: 🟡 implementado, pendiente de verificar en el editor · Depende de: — · Diseño: GDD §1.3 Mecánica 4 (línea 63), §1.4 regla 5 (línea 83), §3.2 (línea 668), §4.4 (línea 1073)
+Estado: ✅ verificado por el usuario 2026-09-15 · Depende de: — · Diseño: GDD §1.3 Mecánica 4 (línea 63), §1.4 regla 5 (línea 83), §3.2 (línea 668), §4.4 (línea 1073)
 
 ## Objetivo
 Mover la cámara ortográfica de la demo 2D con `WASD` y arrastrando con botón derecho, sólo
@@ -55,18 +55,18 @@ No verificable todavía:
   Incluye el issue conocido del `OnGUI` de `EffectDebugTester` (ver STATE.md).
 
 ## Criterios de aceptación (verificables en el editor)
-- [ ] Compila sin errores ni warnings nuevos en la consola.
-- [ ] Buscar `Input.Get`, `Input.mouse` e `InputAction` en `Assets/LumiKit/` no da resultados (D-006).
-- [ ] Play: `WASD` mueve la cámara en X/Y. Z y rotación no cambian.
-- [ ] Botón derecho + arrastrar: el marcador bajo el cursor se queda bajo el cursor.
-- [ ] Dirección del arrastre: cursor hacia arriba → la escena sube con él; hacia la derecha →
+- [x] Compila sin errores ni warnings nuevos en la consola.
+- [x] Buscar `Input.Get`, `Input.mouse` e `InputAction` en `Assets/LumiKit/` no da resultados (D-006).
+- [x] Play: `WASD` mueve la cámara en X/Y. Z y rotación no cambian.
+- [x] Botón derecho + arrastrar: el marcador bajo el cursor se queda bajo el cursor.
+- [x] Dirección del arrastre: cursor hacia arriba → la escena sube con él; hacia la derecha →
       va a la derecha. Si va al revés, es el fallo de signo.
-- [ ] Botón izquierdo, con clic o arrastrando: la cámara no se mueve.
-- [ ] Rueda hacia delante acerca y hacia atrás aleja. Size nunca sale del mínimo y máximo.
-- [ ] Ni con `WASD` ni paneando sale el centro de `_bounds`: en el tope, el marcador de esa
+- [x] Botón izquierdo, con clic o arrastrando: la cámara no se mueve.
+- [x] Rueda hacia delante acerca y hacia atrás aleja. Size nunca sale del mínimo y máximo.
+- [x] Ni con `WASD` ni paneando sale el centro de `_bounds`: en el tope, el marcador de esa
       esquina queda en el centro de la pantalla.
-- [ ] Mínimo mayor que máximo en el Inspector: se corrige solo.
-- [ ] Con Projection = Perspective: un warning al entrar en Play y la cámara no se mueve.
+- [x] Mínimo mayor que máximo en el Inspector: se corrige solo.
+- [x] Con Projection = Perspective: un warning al entrar en Play y la cámara no se mueve.
 
 ## Fuera de alcance
 - Zoom hacia el cursor. Flechas, gamepad y táctil. Suavizado o inercia.
