@@ -11,7 +11,7 @@ Actualizado: 2026-09-15 · Sesión 02
 |---|---|---|---|---|
 | 00 | 2026-09-10 | Andamiaje | ✅ | dfd6fe7 |
 | 01 | 2026-09-11 | LK-09 EffectDefinition | ✅ | b2cd34c |
-| 02 | 2026-09-15 | LK-12 DemoCameraController | 🟡 | pendiente |
+| 02 | 2026-09-15 | LK-12 DemoCameraController | 🟡 | 434636d |
 
 ## Pendiente de verificación en Unity
 LK-12 · criterios de `docs/specs/LK-12_DemoCameraController.md` · banco en TestBench:
