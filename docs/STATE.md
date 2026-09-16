@@ -11,7 +11,7 @@ Actualizado: 2026-09-16 · Sesión 03
 |---|---|---|---|---|
 | 01 | 2026-09-11 | LK-09 EffectDefinition | ✅ | b2cd34c |
 | 02 | 2026-09-15 | LK-12 DemoCameraController | ✅ | 434636d |
-| 03 | 2026-09-16 | LK-10 ObjectSelector | 🟡 | (pendiente) |
+| 03 | 2026-09-16 | LK-10 ObjectSelector | 🟡 | 6d4da8d |
 
 Sesión 00 archivada en `docs/archive/sesiones_2026-Q3.md`.
 
