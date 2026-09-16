@@ -20,7 +20,7 @@ Reglas de esta tabla:
 | `Utils/MaterialPropertyHelper.cs` | Utils | estática | Único punto que escribe el MPB. Declara `_EffectEnabled` y `ConvertColor` | — | LK-09 | ✅ |
 | `Utils/Singleton.cs` | Utils | clase abstracta | Base genérica de managers. Sin `DontDestroyOnLoad` automático | — | LK-09 | ✅ |
 | `Demo/DemoCameraController.cs` | Demo | MonoBehaviour | Cámara ortográfica 2D: paneo `WASD` y botón derecho, zoom con rueda acotado, límite `_bounds`. Ignora el ratón sobre UI de `EventSystem` | — | LK-12 | ✅ |
-| `Demo/ObjectSelector.cs` | Demo | MonoBehaviour | Selección con botón izquierdo: raycast `Physics2D` acotado por `LayerMask`, un objeto activo a la vez, evento `OnSelectionChanged`. Ignora el ratón sobre UI de `EventSystem` | EffectController | LK-10 | 🟡 |
+| `Demo/ObjectSelector.cs` | Demo | MonoBehaviour | Selección con botón izquierdo: raycast `Physics2D` acotado por `LayerMask`, un objeto activo a la vez, evento `OnSelectionChanged`. Ignora el ratón sobre UI de `EventSystem` | EffectController | LK-10 | ✅ |
 
 Raíz de los anteriores: `Assets/LumiKit/Runtime/Scripts/`.
 Sin consumidores todavía: `Singleton` y `EffectRegistry` los usan `Systems` y LK-30.

@@ -28,7 +28,7 @@ Una tarea por sesión. No adelantar fases. 3D y VFX están fuera de alcance.
 | LK-07 | Partículas Magic Sparkles | VFX | — | ⬜ fuera de alcance |
 | LK-08 | Partículas Hit Flash / Impact | VFX | — | ⬜ fuera de alcance |
 | LK-09 | Arquitectura `EffectDefinition` (ScriptableObject) | Sistema | 1 | ✅ |
-| LK-10 | Selección de objetos por raycast | Sistema | 2 | 🟡 |
+| LK-10 | Selección de objetos por raycast | Sistema | 2 | ✅ |
 | LK-11 | Panel de parámetros con widgets dinámicos | UI | 3 | ⬜ |
 | LK-12 | Controlador de cámara (ortográfica 2D) | Sistema | 2 | ✅ |
 | LK-13 | Escena de menú principal con navegación | UI | 7 | ⬜ |

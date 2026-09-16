@@ -2,8 +2,8 @@
 Actualizado: 2026-09-16 · Sesión 03
 
 ## Ahora
-- Fase: 2 (Interacción) · LK-12 ✅ · LK-10 🟡. LK-24 pasa a la Fase 5, tras LK-01.
-- Tarea activa: LK-10, a la espera de verificación en el editor.
+- Fase: 2 (Interacción) cerrada · LK-12 ✅ · LK-10 ✅. LK-24 pasa a la Fase 5, tras LK-01.
+- Tarea activa: ninguna
 - Siguiente: LK-11 (Fase 3), que consume `ObjectSelector.OnSelectionChanged`.
 
 ## Últimas 3 sesiones
@@ -11,28 +11,12 @@ Actualizado: 2026-09-16 · Sesión 03
 |---|---|---|---|---|
 | 01 | 2026-09-11 | LK-09 EffectDefinition | ✅ | b2cd34c |
 | 02 | 2026-09-15 | LK-12 DemoCameraController | ✅ | 434636d |
-| 03 | 2026-09-16 | LK-10 ObjectSelector | 🟡 | 6d4da8d |
+| 03 | 2026-09-16 | LK-10 ObjectSelector | ✅ | 6d4da8d |
 
 Sesión 00 archivada en `docs/archive/sesiones_2026-Q3.md`.
 
 ## Pendiente de verificación en Unity
-Criterios de `docs/specs/LK-10_ObjectSelector.md`. Antes: añadir a TestBench un GameObject vacío
-`Selector` con `ObjectSelector` (`_camera` = Main Camera · `_selectableLayers` = sólo `Selectable`)
-y asignarlo en el `_selector` del `EffectDebugTester` del cubo.
-- [ ] Compila sin errores ni warnings nuevos en la consola.
-- [ ] Buscar `Input.Get`, `Input.mouse` e `InputAction` en `Assets/LumiKit/` no da resultados (D-006).
-- [ ] Play: clic sobre Marker_Center → la línea del tester muestra su nombre y el contador sube a 1.
-- [ ] Clic en zona vacía → la línea pasa a "ninguno" y el contador sube.
-- [ ] Clic sobre SPR_Crystal con Marker_Center activo → la línea cambia a SPR_Crystal.
-- [ ] Reclicar SPR_Crystal, ya activo → el nombre no cambia y el contador no sube.
-- [ ] Clic dentro del rectángulo de SPR_Crystal pero fuera de su silueta → pasa a "ninguno".
-- [ ] Clic sobre Marker_SW (capa `Default`, fuera de la máscara) → "ninguno"; su nombre no sale nunca.
-- [ ] Clic sobre el cubo de LK-09 (collider 3D) → "ninguno"; su nombre no sale nunca.
-- [ ] Primer clic de la sesión sin `EventSystem` en la escena → no salta `NullReferenceException`.
-- [ ] Panear con el botón derecho de un objeto a otro, y usar la rueda → la línea nunca cambia.
-- [ ] Salir de Play y volver a entrar: arranca en "ninguno", contador a 0.
-- [ ] (opcional) SPR_Crystal movido sobre Marker_Center: el clic en la zona solapada elige siempre
-      el mismo, sin alternar.
+- [ ] (nada)
 
 ## Entorno confirmado
 - Unity 6000.0.83f1 · URP 17.0.4 · Input System 1.19.0 · uGUI 2.0.0 · 2D Sprite 1.0.0.
@@ -67,19 +51,17 @@ y asignarlo en el `_selector` del `EffectDebugTester` del cubo.
   `Marker_RuneCoin` en (3,0,0). El estado real, confirmado por el usuario en la Sesión 03, es
   `SPR_Crystal` en (3,0,0) y `SPR_RuneCoin` en (-3,0,0). La spec de LK-10 usa los nombres reales.
   La de LK-12 está cerrada y no se toca: decisión del usuario.
-- `Assets/LumiKit/Runtime/Scripts/Demo/ObjectSelector.cs.meta` aún no existe: lo genera Unity al
-  importar. Entra en el commit de cierre, como el de `DemoCameraController.cs`.
-- `TestBench.unity` y `ProjectSettings/TagManager.asset` (capa `Selectable`) tienen cambios sin
-  commitear hechos por el usuario. Claude ni los editó ni los incluyó en el commit de LK-10.
+- `ProjectSettings/TagManager.asset` entró en el cierre de LK-10 con la capa `Selectable` (índice
+  6) que creó el usuario. Unity aprovechó para migrarlo a `serializedVersion: 3` y borrar las
+  entradas de capa vacías del final. Migración del editor, no revisada línea a línea.
 - Rama única `main`. `develop` y `feature/LK-XX-*` del GDD §4.9 aún no creadas.
 
 ## Handoff
-Empezar por: verificar LK-10 en el editor con la checklist de arriba. Si pasa, "verificado LK-10";
-si falla, la tarea vuelve a 🟠 y se corrige antes de tocar LK-11.
-Lo entregado en la Sesión 03: `Demo/ObjectSelector.cs` (nuevo) y `EffectDebugTester.cs` (suscripción
-al evento + línea en pantalla, aditivo). Nada más se tocó.
+Empezar por: LK-11 — redactar `docs/specs/LK-11_ParameterPanelUI.md` (planeado). Abre la Fase 3.
 Para LK-11: la selección se consume por `OnSelectionChanged`, nunca sondeando `Selected` cada frame.
-`Selected.Definition` da el `EffectDefinition` con el que poblar el panel.
+`Selected.Definition` da el `EffectDefinition` con el que poblar el panel. LK-11 trae el
+`EventSystem` con `InputSystemUIInputModule` (D-006) y cierra dos issues conocidos: el ratón sobre
+la UI en LK-10 y LK-12, y el `OnGUI` del `EffectDebugTester`, al que sustituye.
 No tocar: `Scripts/Core/` y `Scripts/Utils/` (verificados en LK-09), `Demo/DemoCameraController.cs`
 (verificado en LK-12), `Assets/LumiKit/Scenes/`, `ProjectSettings/`, `Packages/manifest.json`,
 nada de 3D ni VFX.

@@ -1,5 +1,5 @@
 # LK-10 — Selección de objetos por raycast (ObjectSelector)
-Estado: 🟡 implementado, sin verificar en el editor · Depende de: LK-09 (`EffectController`) · Diseño: GDD §1.3 Mecánica 1 (líneas 38-42), §1.4 regla 1 (línea 79), §4.4 (líneas 1044, 1072), §4.8 (línea 1178)
+Estado: ✅ verificado por el usuario 2026-09-16 · Depende de: LK-09 (`EffectController`) · Diseño: GDD §1.3 Mecánica 1 (líneas 38-42), §1.4 regla 1 (línea 79), §4.4 (líneas 1044, 1072), §4.8 (línea 1178)
 
 ## Objetivo
 Clic izquierdo sobre un objeto con `EffectController` lo convierte en el objeto activo; sólo uno a
@@ -59,18 +59,18 @@ LK-23 · clic ignorado sobre UI (punto 5) → LK-11: no hay panel ni `EventSyste
 tester tampoco pasa por él (issue conocido, STATE.md).
 
 ## Criterios de aceptación (verificables en el editor)
-- [ ] Compila sin errores ni warnings nuevos en la consola.
-- [ ] Buscar `Input.Get`, `Input.mouse` e `InputAction` en `Assets/LumiKit/` no da resultados (D-006).
-- [ ] Play: clic sobre Marker_Center → la línea del tester muestra su nombre y el contador sube a 1.
-- [ ] Clic en zona vacía → la línea pasa a "ninguno" y el contador sube.
-- [ ] Clic sobre SPR_Crystal con Marker_Center activo → la línea cambia a SPR_Crystal.
-- [ ] Reclicar SPR_Crystal, ya activo → el nombre no cambia y **el contador no sube**.
-- [ ] Clic dentro del rectángulo de SPR_Crystal pero fuera de su silueta → pasa a "ninguno".
-- [ ] Clic sobre Marker_SW (capa `Default`, fuera de la máscara) → "ninguno"; su nombre no sale nunca.
-- [ ] Clic sobre el cubo de LK-09 (collider 3D) → "ninguno"; su nombre no sale nunca.
-- [ ] Primer clic de la sesión sin `EventSystem` en la escena → no salta `NullReferenceException`.
-- [ ] Panear con el botón derecho de un objeto a otro, y usar la rueda → la línea nunca cambia.
-- [ ] Salir de Play y volver a entrar: arranca en "ninguno", contador a 0.
+- [x] Compila sin errores ni warnings nuevos en la consola.
+- [x] Buscar `Input.Get`, `Input.mouse` e `InputAction` en `Assets/LumiKit/` no da resultados (D-006).
+- [x] Play: clic sobre Marker_Center → la línea del tester muestra su nombre y el contador sube a 1.
+- [x] Clic en zona vacía → la línea pasa a "ninguno" y el contador sube.
+- [x] Clic sobre SPR_Crystal con Marker_Center activo → la línea cambia a SPR_Crystal.
+- [x] Reclicar SPR_Crystal, ya activo → el nombre no cambia y **el contador no sube**.
+- [x] Clic dentro del rectángulo de SPR_Crystal pero fuera de su silueta → pasa a "ninguno".
+- [x] Clic sobre Marker_SW (capa `Default`, fuera de la máscara) → "ninguno"; su nombre no sale nunca.
+- [x] Clic sobre el cubo de LK-09 (collider 3D) → "ninguno"; su nombre no sale nunca.
+- [x] Primer clic de la sesión sin `EventSystem` en la escena → no salta `NullReferenceException`.
+- [x] Panear con el botón derecho de un objeto a otro, y usar la rueda → la línea nunca cambia.
+- [x] Salir de Play y volver a entrar: arranca en "ninguno", contador a 0.
 - [ ] (opcional) SPR_Crystal movido sobre Marker_Center: el clic en la zona solapada elige siempre el mismo, sin alternar.
 
 ## Fuera de alcance
