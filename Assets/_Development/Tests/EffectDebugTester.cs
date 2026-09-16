@@ -1,4 +1,5 @@
 using LumiKit.Core;
+using LumiKit.Demo;
 using UnityEngine;
 
 namespace LumiKit.Development
@@ -15,6 +16,7 @@ namespace LumiKit.Development
     ///   2. EffectController con un EFF_Debug.asset que declare un parámetro
     ///      de tipo Color y PropertyName exactamente "_BaseColor".
     ///   3. Este componente en el mismo objeto. Play.
+    ///   4. LK-10: asignar el ObjectSelector de la escena en _selector.
     /// </remarks>
     public class EffectDebugTester : MonoBehaviour
     {
@@ -24,10 +26,15 @@ namespace LumiKit.Development
         [Tooltip("Sube esto si el texto se ve diminuto en pantallas grandes.")]
         [SerializeField] private float _uiScale = 1.5f;
 
+        [Tooltip("LK-10. Sin outline todavía, esta es la única forma de ver qué está seleccionado.")]
+        [SerializeField] private ObjectSelector _selector;
+
         private float _red = 1f;
         private float _green = 1f;
         private float _blue = 1f;
         private bool _synced;
+        private string _selectedName = "ninguno";
+        private int _selectionChanges;
 
         private void Awake()
         {
@@ -35,6 +42,41 @@ namespace LumiKit.Development
             {
                 _controller = GetComponent<EffectController>();
             }
+        }
+
+        /// <summary>
+        /// LK-10 se consume por evento, no sondeando Selected cada frame: es lo que hará
+        /// ParameterPanelUI (LK-11). El estado inicial se lee una vez al suscribirse y no
+        /// cuenta como cambio.
+        /// </summary>
+        private void OnEnable()
+        {
+            if (_selector == null)
+            {
+                return;
+            }
+
+            _selector.OnSelectionChanged += HandleSelectionChanged;
+            _selectedName = NameOf(_selector.Selected);
+        }
+
+        private void OnDisable()
+        {
+            if (_selector != null)
+            {
+                _selector.OnSelectionChanged -= HandleSelectionChanged;
+            }
+        }
+
+        private void HandleSelectionChanged(EffectController selected)
+        {
+            _selectedName = NameOf(selected);
+            _selectionChanges++;
+        }
+
+        private static string NameOf(EffectController controller)
+        {
+            return controller == null ? "ninguno" : controller.gameObject.name;
         }
 
         /// <summary>
@@ -60,7 +102,12 @@ namespace LumiKit.Development
         private void OnGUI()
         {
             GUIUtility.ScaleAroundPivot(Vector2.one * _uiScale, Vector2.zero);
-            GUILayout.BeginArea(new Rect(10f, 10f, 300f, 260f), GUI.skin.box);
+            GUILayout.BeginArea(new Rect(10f, 10f, 300f, 290f), GUI.skin.box);
+
+            GUILayout.Label(_selector != null
+                ? $"LK-10 · seleccionado: {_selectedName} · cambios: {_selectionChanges}"
+                : "LK-10 · sin ObjectSelector asignado");
+            GUILayout.Space(6f);
 
             if (_controller == null)
             {
