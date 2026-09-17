@@ -29,6 +29,7 @@ Fuente: GDD §4.5 (líneas 1085-1123). Aquí sólo lo aplicable; nada se duplica
 | Campos serializados | `[SerializeField] private` + `_camelCase` | `[SerializeField] private Renderer _targetRenderer;` |
 | Propiedades públicas | `PascalCase` | `public EffectDefinition Definition { get; }` |
 | Constantes | `UPPER_SNAKE_CASE` | `MAX_PARAMETERS` |
+| `public static readonly` | `PascalCase`, nombre del token que representa | `public static readonly Color LumiCyan` |
 | Namespace | `LumiKit.<Capa>` | `namespace LumiKit.Core` |
 
 Capas válidas para el namespace: `Core`, `Demo`, `UI`, `UI.Widgets`, `Systems`, `Utils`, `Editor`.

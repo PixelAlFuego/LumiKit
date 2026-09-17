@@ -113,3 +113,21 @@ Obligatorio: el `EventSystem` de toda escena del pack usa `InputSystemUIInputMod
 
 **Consecuencia.** El proyecto del comprador necesita `com.unity.inputsystem` y Active Input
 Handling en `New` o `Both`. Se documenta en LK-26.
+
+---
+
+## D-008 — Los widgets de parámetros se llaman `<Tipo>ParameterWidget`
+Fecha: 2026-09-17 · Sesión 04 · Irreversible: **no**
+
+**Decisión.** El widget de `Float` es `SliderParameterWidget`, no `SliderWidget` como escribe el
+árbol de archivos del GDD §4.2 (línea 770). Misma regla para los que faltan (LK-11b):
+`ColorParameterWidget`, `ToggleParameterWidget` y `EnumParameterWidget`.
+
+**Motivo.** `SliderWidget` nombra el control de interfaz; `SliderParameterWidget` nombra lo que la
+clase es: el widget de un `EffectParameter`, que hereda de `ParameterWidgetBase` y se configura sólo
+desde la `EffectDefinition` (D-003). El pack va a tener sliders que no editan parámetros de efecto
+—volumen y calidad en LK-18— y el nombre corto los mezclaría en la misma carpeta `Widgets/`.
+
+**Alcance.** LK-11a y LK-11b. Los prefabs mantienen el nombre del GDD: `PRF_Widget_Slider.prefab`.
+El árbol del GDD (líneas 768-773) queda desactualizado en ese punto y no se reescribe: la fuente de
+verdad de los nombres de clase es CODEMAP.md, y el GDD se referencia, no se duplica.

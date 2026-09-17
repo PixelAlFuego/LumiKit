@@ -21,6 +21,10 @@ Reglas de esta tabla:
 | `Utils/Singleton.cs` | Utils | clase abstracta | Base genérica de managers. Sin `DontDestroyOnLoad` automático | — | LK-09 | ✅ |
 | `Demo/DemoCameraController.cs` | Demo | MonoBehaviour | Cámara ortográfica 2D: paneo `WASD` y botón derecho, zoom con rueda acotado, límite `_bounds`. Ignora el ratón sobre UI de `EventSystem` | — | LK-12 | ✅ |
 | `Demo/ObjectSelector.cs` | Demo | MonoBehaviour | Selección con botón izquierdo: raycast `Physics2D` acotado por `LayerMask`, un objeto activo a la vez, evento `OnSelectionChanged`. Ignora el ratón sobre UI de `EventSystem` | EffectController | LK-10 | ✅ |
+| `UI/LumiTheme.cs` | UI | estática | Paleta y medidas de `ui-style.md`. Único sitio del pack con colores literales. Sin fuentes: LK-22 | — | LK-11a | 🟡 |
+| `UI/ParameterPanelUI.cs` | UI | MonoBehaviour | Escucha `OnSelectionChanged`, instancia un widget por parámetro y vacía y oculta el panel al deseleccionar. `RefreshFromController()` para cambios externos | EffectController, EffectDefinition, ObjectSelector, ParameterWidgetBase | LK-11a | 🟡 |
+| `UI/Widgets/ParameterWidgetBase.cs` | UI | clase abstracta | Contrato común de los widgets: `Initialize(parámetro, controller)`, `Refresh()`, evento `OnValueChanged` | EffectParameter, EffectController | LK-11a | 🟡 |
+| `UI/Widgets/SliderParameterWidget.cs` | UI | MonoBehaviour | Widget del tipo `Float`: slider acotado al rango y valor en Mono. Escribe por `SetFloat` | ParameterWidgetBase | LK-11a | 🟡 |
 
 Raíz de los anteriores: `Assets/LumiKit/Runtime/Scripts/`.
 Sin consumidores todavía: `Singleton` y `EffectRegistry` los usan `Systems` y LK-30.
@@ -29,7 +33,7 @@ Sin consumidores todavía: `Singleton` y `EffectRegistry` los usan `Systems` y L
 
 | Archivo | Tipo | Responsabilidad | Depende de | LK | Estado |
 |---|---|---|---|---|---|
-| _(vacío)_ | | | | | |
+| `Assets/Editor/ParameterPanelBuilder.cs` | estática | Genera `PRF_Widget_Slider` y `PRF_ParameterPanel`; monta `UI_Root`, `EventSystem` y el panel en la escena abierta. Aborta si el prefab ya existe y no guarda la escena | LumiTheme, ParameterPanelUI, SliderParameterWidget, ObjectSelector | LK-11a | 🟡 |
 
 ## Shaders y materiales
 
