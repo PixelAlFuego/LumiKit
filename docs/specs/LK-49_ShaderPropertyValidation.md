@@ -13,7 +13,7 @@ el `propertyName` del asset, y allí costará mucho más verlo.
 
 ## Archivos
 - `Assets/LumiKit/Runtime/Scripts/Utils/MaterialPropertyHelper.cs` (existe · ✅ LK-09) · **aditiva**: `HasProperty(Material, string)`, ~12 líneas. No se reescribe nada de lo que ya hay.
-- `Assets/LumiKit/Runtime/Scripts/Core/EffectController.cs` (existe · ✅ LK-09) · **una línea insertada** al final de `EnsureInitialized()` más un método privado nuevo `ValidateProperties()`, ~35 líneas. Ninguna línea existente cambia de contenido.
+- `Assets/LumiKit/Runtime/Scripts/Core/EffectController.cs` (existe · ✅ LK-09) · **una línea insertada** al final de `EnsureInitialized()` más un método privado nuevo `ValidateProperties()`, ~55 líneas con su comentario. Ninguna línea existente cambia de contenido.
 - No se tocan: `UI/`, `Demo/`, los prefabs, `EffectDefinition`, `EffectParameter`, el `EffectDebugTester`.
 
 ## Contrato
