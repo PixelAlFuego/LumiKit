@@ -12,8 +12,8 @@ paths: ["docs/**","CLAUDE.md"]
 5. Tablas y listas, nunca prosa larga. Sin adjetivos, sin justificaciones.
 6. Toda ruta escrita en un doc debe existir en disco. Si es futura: `(planeado)`.
 7. Al superar el tope se condensa o se archiva; no se deja crecer.
-8. Subir un tope requiere aprobación explícita del usuario, caso por caso. Por defecto se
-   condensa. Aprobados en la Sesión 02: docs-style 30→40 y DECISIONS 100→150.
+8. Los topes no se suben. Al llegar al tope se condensan entradas antiguas, sin borrar
+   ninguna. Excepción histórica y cerrada: Sesión 02 (docs-style 30→40, DECISIONS 100→150).
 
 ## Topes (líneas)
 CLAUDE.md 120 · STATE 100 · BACKLOG 80 · CODEMAP 120 · CONVENTIONS 80 · DECISIONS 150 ·

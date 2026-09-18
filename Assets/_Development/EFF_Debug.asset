@@ -40,3 +40,39 @@ MonoBehaviour:
     _defaultBool: 0
     _defaultEnumIndex: 0
     _enumOptions: []
+  - _displayNameEs: Base Color
+    _displayNameEn: 
+    _propertyName: _BaseColor
+    _type: 1
+    _minValue: 0
+    _maxValue: 1
+    _defaultFloat: 0.25
+    _defaultColor: {r: 1, g: 1, b: 1, a: 1}
+    _defaultBool: 0
+    _defaultEnumIndex: 0
+    _enumOptions: []
+  - _displayNameEs: Pulse
+    _displayNameEn: 
+    _propertyName: _Pulse
+    _type: 2
+    _minValue: 0
+    _maxValue: 0
+    _defaultFloat: 0.25
+    _defaultColor: {r: 0.4010805, g: 1, b: 0, a: 0}
+    _defaultBool: 0
+    _defaultEnumIndex: 0
+    _enumOptions: []
+  - _displayNameEs: Outline Mode
+    _displayNameEn: 
+    _propertyName: _OutlineMode
+    _type: 0
+    _minValue: 0
+    _maxValue: 1
+    _defaultFloat: 0.25
+    _defaultColor: {r: 0.4010805, g: 1, b: 0, a: 0}
+    _defaultBool: 0
+    _defaultEnumIndex: 0
+    _enumOptions:
+    - "S\xF3lido"
+    - Punteado
+    - Animado

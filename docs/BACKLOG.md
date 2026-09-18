@@ -9,7 +9,7 @@ Una tarea por sesión. No adelantar fases. 3D y VFX están fuera de alcance.
 | 0 | Andamiaje | Docs + carpetas + asmdefs + git |
 | 1 | LK-09 | EffectParameter, ParameterType, EffectDefinition, EffectRegistry, EffectController, MaterialPropertyHelper, Singleton |
 | 2 | LK-12, LK-10 | DemoCameraController ortográfico, ObjectSelector (raycast) |
-| 3 | LK-11a, LK-11b, LK-22 | ParameterWidgetBase + Slider/Color/Toggle/Enum, ParameterPanelUI, LumiTheme.cs con la paleta, prefabs de UI generados por script |
+| 3 | LK-11a, LK-11b, LK-22 | ParameterWidgetBase + Slider/Color/Toggle/Enum, ParameterPanelUI, LumiTheme.cs con la paleta, prefabs de UI generados por script. El pie del panel (Reset) cae en LK-22 |
 | 4 | LK-23 | UIAudioManager + AMX_LumiKit + enganche hover/click/select |
 | 5 | LK-01, LK-24, LK-03, LK-02 | Outline 2D, ComparisonToggle (TAB, necesita `_EffectEnabled` de LK-01), Glow 2D, Dissolve 2D + generador procedural de texturas de ruido y rampas |
 | 6 | LK-20 | Sprites Lumi, Cristal, Runa (entrega SVG para exportar a PNG 512) |
@@ -30,7 +30,7 @@ Una tarea por sesión. No adelantar fases. 3D y VFX están fuera de alcance.
 | LK-09 | Arquitectura `EffectDefinition` (ScriptableObject) | Sistema | 1 | ✅ |
 | LK-10 | Selección de objetos por raycast | Sistema | 2 | ✅ |
 | LK-11a | Panel de parámetros + widget `Float` (slider) | UI | 3 | ✅ |
-| LK-11b | Widgets `Color`, `Toggle` y `Enum` + pie del panel | UI | 3 | ⬜ |
+| LK-11b | Widgets `Color`, `Toggle` y `Enum` | UI | 3 | 🟡 |
 | LK-12 | Controlador de cámara (ortográfica 2D) | Sistema | 2 | ✅ |
 | LK-13 | Escena de menú principal con navegación | UI | 7 | ⬜ |
 | LK-14 | Escena `02_Demo_2D` construida y poblada | Escena | 7 | ⬜ |
@@ -41,7 +41,7 @@ Una tarea por sesión. No adelantar fases. 3D y VFX están fuera de alcance.
 | LK-19 | Localización ES / EN | Sistema | — | ⬜ |
 | LK-20 | Objetos demo 2D (Lumi, cristal, runa) | Arte | 6 | ⬜ |
 | LK-21 | Objetos demo 3D low-poly en Blender | Arte | — | ⬜ fuera de alcance |
-| LK-22 | Identidad visual aplicada a toda la UI | Arte | 3 | ⬜ |
+| LK-22 | Identidad visual, fuentes y pie del panel (Reset) | Arte | 3 | ⬜ |
 | LK-23 | Efectos de sonido de interfaz | Audio | 4 | ⬜ |
 | LK-24 | Comparación antes / después (TAB) | Sistema | 5 | ⬜ |
 | LK-25 | Pantalla de créditos e info del pack | UI | — | ⬜ |

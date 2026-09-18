@@ -1,10 +1,10 @@
 # Estado del proyecto
-Actualizado: 2026-09-17 · Sesión 05
+Actualizado: 2026-09-18 · Sesión 05
 
 ## Ahora
 - Fase: 3 (Interfaz) en curso. LK-11a ✅ verificado en TestBench por el usuario.
-- Tarea activa: LK-11b — widgets `Color`, `Toggle` y `Enum`. Spec en redacción.
-- Siguiente: tras LK-11b, LK-22 cierra la Fase 3.
+- Tarea activa: LK-11b 🟡 implementado, sin abrir Unity. Spec: `docs/specs/LK-11b_ParameterWidgets.md`.
+- Siguiente: tras LK-11b, LK-22 (identidad visual, fuentes y pie del panel) cierra la Fase 3.
 
 ## Últimas 3 sesiones
 | Sesión | Fecha | Tarea | Resultado | Commit |
@@ -16,8 +16,19 @@ Actualizado: 2026-09-17 · Sesión 05
 Sesiones 00 y 01 archivadas en `docs/archive/sesiones_2026-Q3.md`.
 
 ## Pendiente de verificación en Unity
-- [ ] Prefabs regenerados tras subir el tamaño de texto (Sesión 05): etiqueta y valor legibles,
-  filas que no se solapan y ancho del valor estable al arrastrar.
+LK-11b. Antes: cambiar el Type de `_OutlineMode` a `Enum` en `EFF_Debug.asset`, borrar los prefabs
+`PRF_*` de `Prefabs/UI/` y volver a ejecutar los dos menús `LumiKit/UI/…`. Criterios en la spec.
+- [ ] Compila sin errores ni warnings nuevos.
+- [ ] Los cinco parámetros salen con su widget y ya no hay aviso de tipos omitidos.
+- [ ] La muestra de color abre y cierra el desplegable; las filas de debajo se recolocan.
+- [ ] R, G y B cambian el color del sprite en el acto y repintan la muestra.
+- [ ] Una muestra de la paleta tiñe el sprite y mueve los tres sliders.
+- [ ] El toggle cambia de color y la manija cambia de lado.
+- [ ] En el enum sólo queda activo el botón pulsado.
+- [ ] Deseleccionar y reseleccionar: los tres vuelven con lo elegido, no con el defecto.
+- [ ] `ResetToDefaults()` en el tester + `Refresh from controller`: los cinco widgets al defecto.
+- [ ] A → B → A: sin widgets ni botones de enum duplicados.
+- [ ] Arrastrar un slider RGB no panea ni cambia la selección; `MAT_Debug.mat` sin cambios (D-001).
 
 ## Entorno confirmado
 - Unity 6000.0.83f1 · URP 17.0.4 · Input System 1.19.0 · uGUI 2.0.0 · 2D Sprite 1.0.0.
@@ -50,12 +61,15 @@ Sesiones 00 y 01 archivadas en `docs/archive/sesiones_2026-Q3.md`.
 - **`Assets/TextMesh Pro/` (4 MB) entra al repositorio** (usuario, Sesión 05): los prefabs de UI
   referencian esas fuentes por GUID. No se ignora ni se exporta, pero es dependencia del proyecto
   del comprador: documentar en LK-26 junto a la de Input System.
-- **Tamaño de texto por encima del GDD:** ui-style.md y el GDD (líneas 451-457) fijan Label y Mono
-  en 13 px; a 1280×720 con el `CanvasScaler` en match=height eso se renderiza a ~8,7 px reales y no
-  se lee. Subido en `LumiTheme` en la Sesión 05 por decisión del usuario. Sin entrada en
-  DECISIONS: el archivo está en su tope de 150 líneas y subirlo necesita tu aprobación.
-- `docs/DECISIONS.md` está en 150/150 líneas y `.claude/rules/ui-style.md` en 60/60: la próxima
-  decisión estructural o regla de estilo obliga a condensar o a subir el tope.
+- **Tamaño de texto por encima del GDD:** Label y Mono a 16 px en vez de los 13 del GDD (líneas
+  451-457), con la resolución de diseño fijada en 1920×1080. Cerrado por el usuario en la Sesión 05
+  y anotado en `LumiTheme` y en D-007. `ui-style.md` sigue con los 13 px y está en 60/60 líneas: la
+  corrección espera a que toque condensarlo, en LK-22.
+- **`_OutlineMode` de `EFF_Debug.asset` está como `Float` (`_type: 0`), no `Enum` (`_type: 3`)**,
+  aunque ya tiene las tres opciones. Hasta que se cambie el desplegable Type en el Inspector saldrá
+  como slider y el criterio del widget de Enum no se puede verificar.
+- **Los topes no se suben** (usuario, Sesión 05): al llegar al tope se condensa. Regla 8 de
+  `docs-style.md` actualizada; D-004 condensada para hacer sitio a D-007.
 - `Assets/_Development/SPR_Crystal.png` y `SPR_RuneCoin.png`: borradores del usuario, no del
   pack. No van a CODEMAP ni se mueven a `Assets/LumiKit/`. Se usan como marcadores en TestBench.
 - **Nombres y posiciones de TestBench:** la spec de LK-12 escribió `Marker_Crystal` en (-3,0,0) y

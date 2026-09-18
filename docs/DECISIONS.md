@@ -83,14 +83,10 @@ Prohibición asociada de keywords: `.claude/rules/shaders.md`.
 ---
 
 ## D-004 — El GDD se renombró a `docs/reference/GDD_v2.md`
-Fecha: 2026-09-10 · Sesión 00 · Irreversible: **no**
-
-**Decisión.** `LumiKit_Avance2_GDDv2_Arquitectura.md` pasó a llamarse `GDD_v2.md`.
-
-**Motivo.** Toda ruta escrita en un doc debe existir en disco. El nombre corto es el que
-referencian CLAUDE.md y el resto de la documentación.
-
-**Alcance.** Sólo el nombre del archivo. El contenido no se tocó (1274 líneas).
+Fecha: 2026-09-10 · Sesión 00 · Irreversible: **no** · Condensada en la Sesión 05
+**Decisión.** `LumiKit_Avance2_GDDv2_Arquitectura.md` → `GDD_v2.md`: toda ruta escrita en un doc
+debe existir en disco, y el nombre corto es el que referencian CLAUDE.md y el resto de la
+documentación. Sólo cambió el nombre; el contenido (1274 líneas) no se tocó.
 
 ---
 
@@ -146,5 +142,8 @@ en runtime no pasa por `EventSystem`. Y un único sitio para la paleta evita que
 de hexadecimales por todo el pack.
 
 **Alcance.** LK-11a/b, LK-13, LK-18, LK-22, LK-25, LK-30 a LK-34 y todo prefab de `Assets/LumiKit/Prefabs/UI/` (D-002).
+La resolución de diseño es **1920×1080** (usuario, Sesión 05): `CanvasScaler` en `ScaleWithScreenSize`
+con match = height y esa referencia, y el Game view igual. Es lo que hace comparable un tamaño de
+texto entre sesiones; sin fijarla, la escala del panel depende del tamaño de la ventana.
 
 **Consecuencia.** Depende de `com.unity.ugui` y de los TMP Essential Resources (`Assets/TextMesh Pro/`, en el repo desde la Sesión 05): los prefabs referencian esas fuentes por GUID. Se documenta en LK-26.

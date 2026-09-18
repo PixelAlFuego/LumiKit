@@ -13,7 +13,8 @@ namespace LumiKit.UI
     /// </summary>
     /// <remarks>
     /// D-003: el panel no sabe qué efecto está mostrando. Lo único específico de un tipo es
-    /// PrefabFor, que traduce ParameterType a prefab.
+    /// PrefabFor, que traduce ParameterType a prefab. Añadir un tipo nuevo es un campo y un
+    /// case, nunca lógica de efecto.
     /// LK-10 se consume por evento: no hay Update ni sondeo de Selected.
     /// </remarks>
     [AddComponentMenu("LumiKit/Parameter Panel UI")]
@@ -31,8 +32,11 @@ namespace LumiKit.UI
         [SerializeField] private TMP_Text _effectNameLabel;
 
         [Header("Prefabs de widget")]
-        [Tooltip("Widget del tipo Float. Color, Boolean y Enum llegan en LK-11b.")]
+        [Tooltip("Widget del tipo Float.")]
         [SerializeField] private SliderParameterWidget _floatWidgetPrefab;
+        [SerializeField] private ColorParameterWidget _colorWidgetPrefab;
+        [SerializeField] private ToggleParameterWidget _toggleWidgetPrefab;
+        [SerializeField] private EnumParameterWidget _enumWidgetPrefab;
 
         private readonly List<ParameterWidgetBase> _widgets = new List<ParameterWidgetBase>();
 
@@ -78,7 +82,7 @@ namespace LumiKit.UI
         /// cambio hecho fuera del panel.
         /// </summary>
         /// <remarks>
-        /// Sin llamador todavía: lo necesitan ResetToDefaults desde el botón Reset (LK-11b) y
+        /// Sin llamador todavía: lo necesitan ResetToDefaults desde el botón Reset (LK-22) y
         /// SetEffectEnabled desde la comparación con TAB (LK-24), que escriben en el controller
         /// sin pasar por los widgets. Existe desde ya para no tener que tocar este panel después
         /// de verificarlo. En el editor se puede disparar desde el menú contextual del componente.
@@ -169,12 +173,13 @@ namespace LumiKit.UI
                 _widgets.Add(widget);
             }
 
-            // Un aviso por reconstrucción, no uno por parámetro: con cuatro tipos y un solo
-            // widget implementado, lo contrario llenaría la consola en cada clic.
+            // Un aviso por reconstrucción, no uno por parámetro: el clic es demasiado
+            // frecuente. Con los cuatro tipos cubiertos (LK-11b), esto sólo salta si a algún
+            // prefab le falta la referencia en el Inspector.
             if (omitted != null)
             {
                 Debug.LogWarning(
-                    $"[LumiKit] {definition.name}: todavía no hay widget para {string.Join(", ", omitted)} (LK-11b). Esos parámetros no se muestran.",
+                    $"[LumiKit] {definition.name}: sin prefab de widget para {string.Join(", ", omitted)}. Esos parámetros no se muestran.",
                     this);
             }
 
@@ -182,7 +187,7 @@ namespace LumiKit.UI
         }
 
         /// <summary>
-        /// Prefab del widget de un tipo, o null si ese tipo todavía no tiene widget.
+        /// Prefab del widget de un tipo, o null si ese tipo no tiene prefab asignado.
         /// Único punto del panel que distingue tipos; los widgets no se enteran (D-003).
         /// </summary>
         private ParameterWidgetBase PrefabFor(ParameterType type)
@@ -191,8 +196,13 @@ namespace LumiKit.UI
             {
                 case ParameterType.Float:
                     return _floatWidgetPrefab;
+                case ParameterType.Color:
+                    return _colorWidgetPrefab;
+                case ParameterType.Boolean:
+                    return _toggleWidgetPrefab;
+                case ParameterType.Enum:
+                    return _enumWidgetPrefab;
                 default:
-                    // Color, Boolean y Enum → LK-11b.
                     return null;
             }
         }

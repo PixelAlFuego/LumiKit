@@ -44,10 +44,9 @@ namespace LumiKit.UI
         public static readonly Color TextOnAccent = new Color32(0x0D, 0x0F, 0x14, 0xFF);
 
         // ── Tamaños de texto (px) ──────────────────────────────────────────────────────
-        // TEXT_LABEL y TEXT_MONO van por encima de los 13 px del GDD (líneas 451-457).
-        // Motivo: con el CanvasScaler en match = height, una ventana de 1280×720 los deja en
-        // ~8,7 px reales y no se leen. Subidos en la Sesión 05 por decisión del usuario; el
-        // resto de la escala no se toca.
+        // TEXT_LABEL y TEXT_MONO van por encima de los 13 px del GDD (líneas 451-457): a 16 px
+        // se leen y a 13 no. Decisión cerrada del usuario (Sesión 05); el resto de la escala no se
+        // toca. Estos números sólo significan algo con la resolución de diseño de más abajo.
         public const float TEXT_DISPLAY = 42f;
         public const float TEXT_H1 = 28f;
         public const float TEXT_H2 = 20f;
@@ -77,6 +76,32 @@ namespace LumiKit.UI
         public const float WIDGET_ROW_HEIGHT = 52f;
         public const float WIDGET_ROW_SPACING = 12f;
 
+        // ── Muestra de color y su desplegable ──────────────────────────────────────────
+        public const float COLOR_SWATCH_WIDTH = 36f;
+        public const float COLOR_SWATCH_HEIGHT = 24f;
+        public const float COLOR_ROW_HEIGHT = 32f;
+        // 24 y no 20: con la etiqueta a 16 px, una fila de 20 le recorta el trazo inferior.
+        public const float COLOR_CHANNEL_HEIGHT = 24f;
+        // Columna de la letra del canal (R, G, B).
+        public const float COLOR_CHANNEL_LABEL_WIDTH = 16f;
+        public const float COLOR_PALETTE_HEIGHT = 24f;
+        // Tres canales más la fila de muestras, con SPACING entre filas y otro por encima del
+        // bloque. Derivado y no literal: si cambia el alto de un canal, el total se ajusta solo.
+        public const float COLOR_EXPAND_HEIGHT =
+            3f * COLOR_CHANNEL_HEIGHT + COLOR_PALETTE_HEIGHT + 4f * SPACING;
+        public const float COLOR_ROW_HEIGHT_EXPANDED = COLOR_ROW_HEIGHT + COLOR_EXPAND_HEIGHT;
+
+        // ── Interruptor ────────────────────────────────────────────────────────────────
+        public const float TOGGLE_TRACK_WIDTH = 36f;
+        public const float TOGGLE_TRACK_HEIGHT = 20f;
+        // Derivado: el GDD no fija el tamaño de la manija. 16 deja 2 px de aire por lado.
+        public const float TOGGLE_HANDLE_SIZE = 16f;
+        public const float TOGGLE_ROW_HEIGHT = 32f;
+
+        // ── Botones segmentados del enum ───────────────────────────────────────────────
+        public const float ENUM_OPTION_HEIGHT = 28f;
+        public const float ENUM_ROW_HEIGHT = WIDGET_LABEL_HEIGHT + SPACING + ENUM_OPTION_HEIGHT;
+
         // ── Generales ──────────────────────────────────────────────────────────────────
         public const float SPACING = 8f;
         public const float RADIUS = 6f;
@@ -84,7 +109,11 @@ namespace LumiKit.UI
         public const float TRANSITION_SECONDS = 0.15f;
         public const float PRESS_SCALE = 0.98f;
 
-        /// <summary>Resolución de referencia del CanvasScaler. GDD línea 329.</summary>
+        /// <summary>
+        /// Resolución de diseño, fijada en 1920×1080 por el usuario en la Sesión 05 (D-007): el
+        /// CanvasScaler usa esta referencia con match = height y el Game view se prueba igual.
+        /// Cambiarla reescala el HUD y reabre la discusión del tamaño de texto. GDD línea 329.
+        /// </summary>
         public const float REFERENCE_WIDTH = 1920f;
         public const float REFERENCE_HEIGHT = 1080f;
     }
