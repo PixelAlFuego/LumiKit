@@ -68,7 +68,7 @@ Una tarea por sesión. No adelantar fases. 3D y VFX están fuera de alcance.
 | LK-46 | Exportar configuraciones como `.json` | Futura v2.0 | — | ⬜ |
 | LK-47 | Optimización para móviles | Futura v2.1 | — | ⬜ |
 | LK-48 | Documentación en video | Futura v1.1 | — | ⬜ |
-| LK-49 | Validar `propertyName` contra el shader del material | Sistema | 3 | 🟡 |
+| LK-49 | Validar `propertyName` contra el shader del material | Sistema | 3 | ✅ |
 
 Estimaciones y prioridades originales: GDD §3.2 (líneas 655-686).
 LK-49 no viene del GDD: sale de la verificación de LK-11b (Sesión 05).

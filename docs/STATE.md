@@ -1,31 +1,22 @@
 # Estado del proyecto
-Actualizado: 2026-09-18 · Sesión 06
+Actualizado: 2026-09-18 · Sesión 06 (cerrada)
 
 ## Ahora
-- Fase: 3 (Interfaz) en curso. LK-11a ✅ y LK-11b ✅ verificados en TestBench.
-- Tarea activa: LK-49 🟡 implementado, sin abrir Unity. Spec: `docs/specs/LK-49_ShaderPropertyValidation.md`.
-- Siguiente: tras LK-49, LK-22 (identidad visual, fuentes y pie del panel) cierra la Fase 3.
+- Fase: 3 (Interfaz). LK-11a ✅, LK-11b ✅ y LK-49 ✅ verificados en TestBench.
+- Tarea activa: ninguna.
+- Siguiente: LK-22 — identidad visual, fuentes y pie del panel. Cierra la Fase 3.
 
 ## Últimas 3 sesiones
 | Sesión | Fecha | Tarea | Resultado | Commit |
 |---|---|---|---|---|
-| 03 | 2026-09-16 | LK-10 ObjectSelector | ✅ | 6d4da8d |
 | 04 | 2026-09-17 | LK-11a ParameterPanelUI + widget Float | ✅ | 2284703 |
 | 05 | 2026-09-18 | LK-11b widgets Color, Toggle y Enum | ✅ | 871edb6 |
+| 06 | 2026-09-18 | LK-49 validación de `propertyName` | ✅ | dd7140a |
 
-Sesiones 00 a 02 archivadas en `docs/archive/sesiones_2026-Q3.md`.
+Sesiones 00 a 03 archivadas en `docs/archive/sesiones_2026-Q3.md`.
 
 ## Pendiente de verificación en Unity
-LK-49. Nada que montar: el banco quedó listo en la Sesión 05. Criterios completos en la spec.
-- [ ] Compila sin errores ni warnings nuevos.
-- [ ] Play: un aviso por objeto con `EffectController`, no uno por parámetro ni por frame.
-- [ ] `Marker_Center` lista `_BaseColor`, `_Glow`, `_OutlineWidth`, `_Pulse` y `_OutlineMode`; `_Color` no sale.
-- [ ] El cubo lista las mismas menos `_BaseColor`, y en su lugar `_Color`.
-- [ ] El aviso nombra objeto, efecto, material y shader, y al pulsarlo selecciona el objeto.
-- [ ] Un minuto moviendo sliders y cambiando de selección: la consola no crece.
-- [ ] Objeto sin `Renderer`: avisa de que no hay material, sin excepción.
-- [ ] Con dos materiales en el `Renderer`, el aviso termina en "Validado 1 de 2 materiales".
-- [ ] Salir de Play: `git status` sin cambios en `MAT_Debug.mat` ni en los materiales de los sprites (D-001).
+- [ ] (nada)
 
 ## Entorno confirmado
 - Unity 6000.0.83f1 · URP 17.0.4 · Input System 1.19.0 · uGUI 2.0.0 · 2D Sprite 1.0.0.
@@ -62,11 +53,18 @@ LK-49. Nada que montar: el banco quedó listo en la Sesión 05. Criterios comple
   451-457), con la resolución de diseño fijada en 1920×1080. Cerrado por el usuario en la Sesión 05
   y anotado en `LumiTheme` y en D-007. `ui-style.md` sigue con los 13 px y está en 60/60 líneas: la
   corrección espera a que toque condensarlo, en LK-22.
-- **`EFF_Debug.asset` tiene seis parámetros** y dos de ellos son deliberadamente distintos:
-  `_Color` existe en el shader de los sprites y `_BaseColor` **no**. El usuario deja `_BaseColor`
-  como control negativo permanente de LK-49. Los marcadores usan
-  `Universal Render Pipeline/2D/Sprite-Unlit-Default` (declara `_MainTex` y `_Color`) y el cubo de
-  LK-09 usa `Universal Render Pipeline/Unlit` (declara `_BaseColor`).
+- **`EFF_Debug.asset` tiene seis parámetros** y dos son deliberadamente distintos: `_Color` existe
+  en el shader de los sprites y `_BaseColor` **no**. `_BaseColor` se queda como control negativo
+  permanente de LK-49. Los marcadores usan `Sprite-Unlit-Default` (`_MainTex` y `_Color`) y el cubo,
+  un shader URP que declara `_BaseColor` **y también `_Color`**, en su bloque `ObsoleteProperties`
+  (`Unlit.shader` línea 28): por eso el cubo reporta cuatro ausentes y no cinco.
+- **`MAT_Debug.mat` pasa a `Universal Render Pipeline/Unlit`** (usuario, Sesión 06): sin
+  iluminación, que es lo acordado en LK-09 para poder cerrar el criterio de espacio Linear.
+  **Todavía no está en disco**: el `.mat` conserva el GUID de `Lit.shader` (`933532a4…`); el de
+  `Unlit.shader` es `650dd952…`. Falta guardar el proyecto en Unity y commitear el asset.
+- **Materiales de los sprites, para la Fase 5:** los marcadores comparten el material por defecto
+  de Unity `Sprite-Unlit-Default`. Cada efecto necesitará el suyo (`MAT_` en
+  `Assets/LumiKit/Materials/2D/`) o tocar un parámetro en uno los cambiará todos. Entra con LK-01.
 - **Los topes no se suben** (usuario, Sesión 05): al llegar al tope se condensa. Regla 8 de
   `docs-style.md` actualizada; D-004 condensada para hacer sitio a D-007.
 - `Assets/_Development/SPR_Crystal.png` y `SPR_RuneCoin.png`: borradores del usuario, no del
@@ -86,12 +84,11 @@ LK-49. Nada que montar: el banco quedó listo en la Sesión 05. Criterios comple
 - Rama única `main`. `develop` y `feature/LK-XX-*` del GDD §4.9 aún no creadas.
 
 ## Handoff
-Empezar por: verificar LK-49 con la checklist de arriba. Es la primera vez que se toca `Core/`
-desde LK-09: si algo chirría, el cambio es puramente aditivo (118 líneas, ninguna existente
-modificada) y se revierte sin arrastrar nada.
-Después, LK-22 cierra la Fase 3: fuentes del GDD como `TMP_FontAsset` en `Assets/LumiKit/Fonts/`,
-`ui-style.md` al día con los tamaños reales (está en 60/60 líneas, toca condensar, no subir el tope)
-y el pie del panel con Reset, que ya tiene `RefreshFromController()` esperando.
-No tocar: `Scripts/UI/` ni sus prefabs salvo lo que pida LK-22 (LK-11a y LK-11b verificados),
-`Demo/` (LK-10 y LK-12), `EffectDebugTester.cs` hasta cerrar la Fase 3, `Assets/LumiKit/Scenes/`,
-`ProjectSettings/`, `Packages/manifest.json`, nada de 3D ni VFX.
+Empezar por: LK-22, que cierra la Fase 3. Tres frentes: las fuentes del GDD como `TMP_FontAsset` en
+`Assets/LumiKit/Fonts/` (hoy todo el HUD va con LiberationSans, la de TMP), `ui-style.md` al día con
+los tamaños reales —está en 60/60 líneas, toca condensar, no subir el tope— y el pie del panel con
+Reset, que ya tiene `RefreshFromController()` esperando desde LK-11a.
+Antes de empezar: guardar en Unity el cambio de shader de `MAT_Debug` y commitear el `.mat`.
+No tocar: `Core/` y `Utils/` (verificados en LK-09 y LK-49), `Demo/` (LK-10 y LK-12),
+`EffectDebugTester.cs` hasta cerrar la Fase 3, `Assets/LumiKit/Scenes/`, `ProjectSettings/`,
+`Packages/manifest.json`, nada de 3D ni VFX.

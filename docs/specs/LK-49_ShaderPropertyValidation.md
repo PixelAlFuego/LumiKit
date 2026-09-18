@@ -1,5 +1,5 @@
 # LK-49 — Validar `propertyName` contra el shader del material
-Estado: 🟡 implementado, sin abrir Unity · Depende de: LK-09 (`EffectController`, `MaterialPropertyHelper`) · Origen: verificación de LK-11b (Sesión 05); no viene del GDD · Decisiones: D-001 (MPB), D-005 (`_EffectEnabled`)
+Estado: ✅ verificado por el usuario 2026-09-18 · Depende de: LK-09 (`EffectController`, `MaterialPropertyHelper`) · Origen: verificación de LK-11b (Sesión 05); no viene del GDD · Decisiones: D-001 (MPB), D-005 (`_EffectEnabled`)
 
 ## Objetivo
 Al inicializarse, un `EffectController` comprueba qué `propertyName` de su `EffectDefinition` no
@@ -50,17 +50,17 @@ el `propertyName` del asset, y allí costará mucho más verlo.
 | Objeto | Shader del material | Debe avisar de | No debe avisar de |
 |---|---|---|---|
 | `Marker_Center` · `Marker_NE` · `NW` · `SE` · `SPR_Crystal` · `SPR_RuneCoin` | `Universal Render Pipeline/2D/Sprite-Unlit-Default` (declara `_MainTex` y `_Color`) | `_BaseColor`, `_Glow`, `_OutlineWidth`, `_Pulse`, `_OutlineMode` | `_Color` |
-| Cubo de LK-09 (`MAT_Debug.mat`) | `Universal Render Pipeline/Unlit` (declara `_BaseColor`) | `_Color`, `_Glow`, `_OutlineWidth`, `_Pulse`, `_OutlineMode` | `_BaseColor` |
+| Cubo de LK-09 (`MAT_Debug.mat`) | URP `Lit`/`Unlit`: declaran `_BaseColor` y además `_Color`, en su bloque `ObsoleteProperties` | `_Glow`, `_OutlineWidth`, `_Pulse`, `_OutlineMode` | `_BaseColor` y `_Color` |
 | `Marker_SW` | capa `Default`, sin `EffectController` | nada: no hay componente que valide | — |
 
 `_BaseColor` se queda en `EFF_Debug` como control negativo permanente (decisión del usuario): es lo
 que demuestra que la validación detecta el caso real que se escapó en LK-11b.
 
 ## Criterios de aceptación (verificables en el editor)
-- [ ] Compila sin errores ni warnings nuevos.
-- [ ] Al entrar en Play: **un** aviso por objeto con `EffectController`, no uno por parámetro.
-- [ ] `Marker_Center` lista exactamente `_BaseColor`, `_Glow`, `_OutlineWidth`, `_Pulse` y `_OutlineMode`; `_Color` no aparece.
-- [ ] El cubo de LK-09 lista las mismas menos `_BaseColor`, y en su lugar `_Color`.
+- [x] Compila sin errores ni warnings nuevos.
+- [x] Al entrar en Play: **un** aviso por objeto con `EffectController`, no uno por parámetro. Siete avisos, uno por controller.
+- [x] `Marker_Center` y los sprites listan exactamente `_BaseColor`, `_Glow`, `_OutlineWidth`, `_Pulse` y `_OutlineMode`; `_Color` no aparece. `Marker_SW`, sin controller, no avisa.
+- [x] El cubo de LK-09 lista cuatro: las mismas menos `_BaseColor` y `_Color` (verificado; la previsión de esta spec decía cinco, sin contar con las propiedades obsoletas de URP).
 - [ ] Cada aviso nombra objeto, efecto, material y shader, y al pulsarlo selecciona el objeto.
 - [ ] Mover sliders y cambiar de selección durante un minuto: la consola no crece.
 - [ ] Seleccionar un marcador: el widget de `_Color` sigue pintando el sprite y el de `_BaseColor` sigue sin pintar, ahora con el aviso que lo explica.
