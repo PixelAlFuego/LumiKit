@@ -16,7 +16,12 @@ Actualizado: 2026-09-18 · Sesión 06 (cerrada)
 Sesiones 00 a 03 archivadas en `docs/archive/sesiones_2026-Q3.md`.
 
 ## Pendiente de verificación en Unity
-- [ ] (nada)
+LK-49 está ✅, pero cinco de sus criterios no se recorrieron. El usuario los pasa antes de LK-22.
+- [ ] Cada aviso nombra objeto, efecto, material y shader, y al pulsarlo selecciona el objeto.
+- [ ] Un minuto moviendo sliders y cambiando de selección: la consola no crece.
+- [ ] Objeto con `EffectController` y sin `Renderer`: avisa de que no hay material, sin excepción.
+- [ ] Con dos materiales en el `Renderer`, el aviso termina en "Validado 1 de 2 materiales".
+- [ ] Salir de Play: `git status` sin cambios en `MAT_Debug.mat` ni en los materiales de los sprites (D-001).
 
 ## Entorno confirmado
 - Unity 6000.0.83f1 · URP 17.0.4 · Input System 1.19.0 · uGUI 2.0.0 · 2D Sprite 1.0.0.
@@ -58,10 +63,8 @@ Sesiones 00 a 03 archivadas en `docs/archive/sesiones_2026-Q3.md`.
   permanente de LK-49. Los marcadores usan `Sprite-Unlit-Default` (`_MainTex` y `_Color`) y el cubo,
   un shader URP que declara `_BaseColor` **y también `_Color`**, en su bloque `ObsoleteProperties`
   (`Unlit.shader` línea 28): por eso el cubo reporta cuatro ausentes y no cinco.
-- **`MAT_Debug.mat` pasa a `Universal Render Pipeline/Unlit`** (usuario, Sesión 06): sin
-  iluminación, que es lo acordado en LK-09 para poder cerrar el criterio de espacio Linear.
-  **Todavía no está en disco**: el `.mat` conserva el GUID de `Lit.shader` (`933532a4…`); el de
-  `Unlit.shader` es `650dd952…`. Falta guardar el proyecto en Unity y commitear el asset.
+- **`MAT_Debug.mat` usa `Universal Render Pipeline/Unlit`** (usuario, Sesión 06; en disco, GUID
+  `650dd952…`): sin iluminación, lo acordado en LK-09 para poder cerrar el criterio de Linear.
 - **Materiales de los sprites, para la Fase 5:** los marcadores comparten el material por defecto
   de Unity `Sprite-Unlit-Default`. Cada efecto necesitará el suyo (`MAT_` en
   `Assets/LumiKit/Materials/2D/`) o tocar un parámetro en uno los cambiará todos. Entra con LK-01.
@@ -84,11 +87,12 @@ Sesiones 00 a 03 archivadas en `docs/archive/sesiones_2026-Q3.md`.
 - Rama única `main`. `develop` y `feature/LK-XX-*` del GDD §4.9 aún no creadas.
 
 ## Handoff
-Empezar por: LK-22, que cierra la Fase 3. Tres frentes: las fuentes del GDD como `TMP_FontAsset` en
+Empezar por: los cinco criterios de LK-49 que quedaron sin recorrer, arriba. El usuario avisa
+cuando los pase; la tarea ya está ✅ y no se reabre salvo que alguno falle.
+Después, LK-22 cierra la Fase 3. Tres frentes: las fuentes del GDD como `TMP_FontAsset` en
 `Assets/LumiKit/Fonts/` (hoy todo el HUD va con LiberationSans, la de TMP), `ui-style.md` al día con
 los tamaños reales —está en 60/60 líneas, toca condensar, no subir el tope— y el pie del panel con
 Reset, que ya tiene `RefreshFromController()` esperando desde LK-11a.
-Antes de empezar: guardar en Unity el cambio de shader de `MAT_Debug` y commitear el `.mat`.
 No tocar: `Core/` y `Utils/` (verificados en LK-09 y LK-49), `Demo/` (LK-10 y LK-12),
 `EffectDebugTester.cs` hasta cerrar la Fase 3, `Assets/LumiKit/Scenes/`, `ProjectSettings/`,
 `Packages/manifest.json`, nada de 3D ni VFX.
