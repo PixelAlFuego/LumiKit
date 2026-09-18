@@ -1,34 +1,22 @@
 # Estado del proyecto
-Actualizado: 2026-09-18 · Sesión 05
+Actualizado: 2026-09-18 · Sesión 06
 
 ## Ahora
-- Fase: 3 (Interfaz) en curso. LK-11a ✅ verificado en TestBench por el usuario.
-- Tarea activa: LK-11b 🟡 implementado, sin abrir Unity. Spec: `docs/specs/LK-11b_ParameterWidgets.md`.
-- Siguiente: tras LK-11b, LK-22 (identidad visual, fuentes y pie del panel) cierra la Fase 3.
+- Fase: 3 (Interfaz) en curso. LK-11a ✅ y LK-11b ✅ verificados en TestBench.
+- Tarea activa: LK-49 🟠 — validar `propertyName` contra el shader. Sale de verificar LK-11b.
+- Siguiente: tras LK-49, LK-22 (identidad visual, fuentes y pie del panel) cierra la Fase 3.
 
 ## Últimas 3 sesiones
 | Sesión | Fecha | Tarea | Resultado | Commit |
 |---|---|---|---|---|
-| 02 | 2026-09-15 | LK-12 DemoCameraController | ✅ | 434636d |
 | 03 | 2026-09-16 | LK-10 ObjectSelector | ✅ | 6d4da8d |
 | 04 | 2026-09-17 | LK-11a ParameterPanelUI + widget Float | ✅ | 2284703 |
+| 05 | 2026-09-18 | LK-11b widgets Color, Toggle y Enum | ✅ | 871edb6 |
 
-Sesiones 00 y 01 archivadas en `docs/archive/sesiones_2026-Q3.md`.
+Sesiones 00 a 02 archivadas en `docs/archive/sesiones_2026-Q3.md`.
 
 ## Pendiente de verificación en Unity
-LK-11b. Antes: cambiar el Type de `_OutlineMode` a `Enum` en `EFF_Debug.asset`, borrar los prefabs
-`PRF_*` de `Prefabs/UI/` y volver a ejecutar los dos menús `LumiKit/UI/…`. Criterios en la spec.
-- [ ] Compila sin errores ni warnings nuevos.
-- [ ] Los cinco parámetros salen con su widget y ya no hay aviso de tipos omitidos.
-- [ ] La muestra de color abre y cierra el desplegable; las filas de debajo se recolocan.
-- [ ] R, G y B cambian el color del sprite en el acto y repintan la muestra.
-- [ ] Una muestra de la paleta tiñe el sprite y mueve los tres sliders.
-- [ ] El toggle cambia de color y la manija cambia de lado.
-- [ ] En el enum sólo queda activo el botón pulsado.
-- [ ] Deseleccionar y reseleccionar: los tres vuelven con lo elegido, no con el defecto.
-- [ ] `ResetToDefaults()` en el tester + `Refresh from controller`: los cinco widgets al defecto.
-- [ ] A → B → A: sin widgets ni botones de enum duplicados.
-- [ ] Arrastrar un slider RGB no panea ni cambia la selección; `MAT_Debug.mat` sin cambios (D-001).
+- [ ] (se rellena al programar LK-49)
 
 ## Entorno confirmado
 - Unity 6000.0.83f1 · URP 17.0.4 · Input System 1.19.0 · uGUI 2.0.0 · 2D Sprite 1.0.0.
@@ -65,9 +53,11 @@ LK-11b. Antes: cambiar el Type de `_OutlineMode` a `Enum` en `EFF_Debug.asset`, 
   451-457), con la resolución de diseño fijada en 1920×1080. Cerrado por el usuario en la Sesión 05
   y anotado en `LumiTheme` y en D-007. `ui-style.md` sigue con los 13 px y está en 60/60 líneas: la
   corrección espera a que toque condensarlo, en LK-22.
-- **`_OutlineMode` de `EFF_Debug.asset` está como `Float` (`_type: 0`), no `Enum` (`_type: 3`)**,
-  aunque ya tiene las tres opciones. Hasta que se cambie el desplegable Type en el Inspector saldrá
-  como slider y el criterio del widget de Enum no se puede verificar.
+- **`EFF_Debug.asset` tiene seis parámetros** y dos de ellos son deliberadamente distintos:
+  `_Color` existe en el shader de los sprites y `_BaseColor` **no**. El usuario deja `_BaseColor`
+  como control negativo permanente de LK-49. Los marcadores usan
+  `Universal Render Pipeline/2D/Sprite-Unlit-Default` (declara `_MainTex` y `_Color`) y el cubo de
+  LK-09 usa `Universal Render Pipeline/Unlit` (declara `_BaseColor`).
 - **Los topes no se suben** (usuario, Sesión 05): al llegar al tope se condensa. Regla 8 de
   `docs-style.md` actualizada; D-004 condensada para hacer sitio a D-007.
 - `Assets/_Development/SPR_Crystal.png` y `SPR_RuneCoin.png`: borradores del usuario, no del
