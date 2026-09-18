@@ -33,10 +33,6 @@ namespace LumiKit.Editor
         private const string EVENT_SYSTEM_NAME = "EventSystem";
         private const string LOG = "[LumiKit] ";
 
-        /// <summary>Etiqueta (20) + separación (8) + slider (16). ui-style.md.</summary>
-        private const float WIDGET_HEIGHT = 44f;
-        private const float WIDGET_LABEL_HEIGHT = 20f;
-
         private const string SPRITE_UI = "UI/Skin/UISprite.psd";
         private const string SPRITE_KNOB = "UI/Skin/Knob.psd";
 
@@ -138,18 +134,18 @@ namespace LumiKit.Editor
             rootRect.anchorMin = new Vector2(0f, 1f);
             rootRect.anchorMax = new Vector2(1f, 1f);
             rootRect.pivot = new Vector2(0.5f, 1f);
-            rootRect.sizeDelta = new Vector2(0f, WIDGET_HEIGHT);
+            rootRect.sizeDelta = new Vector2(0f, LumiTheme.WIDGET_ROW_HEIGHT);
 
             LayoutElement layout = root.AddComponent<LayoutElement>();
-            layout.minHeight = WIDGET_HEIGHT;
-            layout.preferredHeight = WIDGET_HEIGHT;
+            layout.minHeight = LumiTheme.WIDGET_ROW_HEIGHT;
+            layout.preferredHeight = LumiTheme.WIDGET_ROW_HEIGHT;
 
             TextMeshProUGUI label = CreateText(
                 "Label", root.transform, LumiTheme.TEXT_LABEL, LumiTheme.TextSecondary, TextAlignmentOptions.MidlineLeft);
             RectTransform labelRect = label.rectTransform;
             labelRect.anchorMin = new Vector2(0f, 1f);
             labelRect.anchorMax = new Vector2(1f, 1f);
-            labelRect.offsetMin = new Vector2(0f, -WIDGET_LABEL_HEIGHT);
+            labelRect.offsetMin = new Vector2(0f, -LumiTheme.WIDGET_LABEL_HEIGHT);
             labelRect.offsetMax = new Vector2(-(LumiTheme.SLIDER_VALUE_WIDTH + LumiTheme.SPACING), 0f);
             label.text = "Parámetro";
 
@@ -160,7 +156,7 @@ namespace LumiKit.Editor
             valueRect.anchorMax = new Vector2(1f, 1f);
             valueRect.pivot = new Vector2(1f, 1f);
             valueRect.anchoredPosition = Vector2.zero;
-            valueRect.sizeDelta = new Vector2(LumiTheme.SLIDER_VALUE_WIDTH, WIDGET_LABEL_HEIGHT);
+            valueRect.sizeDelta = new Vector2(LumiTheme.SLIDER_VALUE_WIDTH, LumiTheme.WIDGET_LABEL_HEIGHT);
             value.text = "0.00";
 
             // Slider, anclado abajo y a todo el ancho.
@@ -301,7 +297,7 @@ namespace LumiKit.Editor
             int padding = (int)LumiTheme.PANEL_PADDING;
             VerticalLayoutGroup group = content.AddComponent<VerticalLayoutGroup>();
             group.padding = new RectOffset(padding, padding, padding, padding);
-            group.spacing = LumiTheme.SPACING;
+            group.spacing = LumiTheme.WIDGET_ROW_SPACING;
             group.childAlignment = TextAnchor.UpperLeft;
             group.childControlWidth = true;
             group.childControlHeight = true;

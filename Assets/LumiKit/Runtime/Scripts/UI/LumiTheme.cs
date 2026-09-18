@@ -8,7 +8,8 @@ namespace LumiKit.UI
     /// </summary>
     /// <remarks>
     /// Los valores salen de .claude/rules/ui-style.md (GDD Parte 2, líneas 393-621). No se
-    /// inventa ninguno ni se aproxima.
+    /// inventa ninguno ni se aproxima. Las dos excepciones —tamaño de etiqueta y de valor, y
+    /// el ancho del campo numérico— están comentadas donde ocurren, con su motivo.
     ///
     /// Un Color no puede ser const, así que los colores van como static readonly en
     /// PascalCase con el nombre del token (CONVENTIONS.md). Color32 mantiene legible el
@@ -43,14 +44,18 @@ namespace LumiKit.UI
         public static readonly Color TextOnAccent = new Color32(0x0D, 0x0F, 0x14, 0xFF);
 
         // ── Tamaños de texto (px) ──────────────────────────────────────────────────────
+        // TEXT_LABEL y TEXT_MONO van por encima de los 13 px del GDD (líneas 451-457).
+        // Motivo: con el CanvasScaler en match = height, una ventana de 1280×720 los deja en
+        // ~8,7 px reales y no se leen. Subidos en la Sesión 05 por decisión del usuario; el
+        // resto de la escala no se toca.
         public const float TEXT_DISPLAY = 42f;
         public const float TEXT_H1 = 28f;
         public const float TEXT_H2 = 20f;
         public const float TEXT_H3 = 16f;
         public const float TEXT_BODY = 14f;
-        public const float TEXT_LABEL = 13f;
+        public const float TEXT_LABEL = 16f;
         public const float TEXT_CAPTION = 12f;
-        public const float TEXT_MONO = 13f;
+        public const float TEXT_MONO = 16f;
 
         // ── Panel de parámetros ────────────────────────────────────────────────────────
         public const float PANEL_WIDTH = 280f;
@@ -62,7 +67,15 @@ namespace LumiKit.UI
         public const float SLIDER_TRACK_HEIGHT = 4f;
         public const float SLIDER_HANDLE_SIZE = 16f;
         public const float SLIDER_HANDLE_BORDER = 2f;
-        public const float SLIDER_VALUE_WIDTH = 48f;
+        // 56 y no los 48 del GDD: con Mono a 16 px, "10.00" no cabe en 48 y el valor se corta.
+        public const float SLIDER_VALUE_WIDTH = 56f;
+
+        // ── Fila de un widget de parámetro ─────────────────────────────────────────────
+        // Etiqueta (24) + separación (12) + slider (16). Alto y espaciado se mueven juntos:
+        // subir el texto sin subir la fila deja las etiquetas pegadas al slider de arriba.
+        public const float WIDGET_LABEL_HEIGHT = 24f;
+        public const float WIDGET_ROW_HEIGHT = 52f;
+        public const float WIDGET_ROW_SPACING = 12f;
 
         // ── Generales ──────────────────────────────────────────────────────────────────
         public const float SPACING = 8f;
