@@ -1,34 +1,23 @@
 # Estado del proyecto
-Actualizado: 2026-09-17 · Sesión 04
+Actualizado: 2026-09-17 · Sesión 05
 
 ## Ahora
-- Fase: 3 (Interfaz) abierta. LK-11 partida en BACKLOG: LK-11a (hoy) y LK-11b (Color, Toggle, Enum).
-- Tarea activa: LK-11a 🟡 implementado, sin abrir Unity. Spec: `docs/specs/LK-11a_ParameterPanelUI.md`.
-- Siguiente: verificar LK-11a en el editor; después LK-11b, que reusa `ParameterWidgetBase`.
+- Fase: 3 (Interfaz) en curso. LK-11a ✅ verificado en TestBench por el usuario.
+- Tarea activa: LK-11b — widgets `Color`, `Toggle` y `Enum`. Spec en redacción.
+- Siguiente: tras LK-11b, LK-22 cierra la Fase 3.
 
 ## Últimas 3 sesiones
 | Sesión | Fecha | Tarea | Resultado | Commit |
 |---|---|---|---|---|
-| 01 | 2026-09-11 | LK-09 EffectDefinition | ✅ | b2cd34c |
 | 02 | 2026-09-15 | LK-12 DemoCameraController | ✅ | 434636d |
 | 03 | 2026-09-16 | LK-10 ObjectSelector | ✅ | 6d4da8d |
+| 04 | 2026-09-17 | LK-11a ParameterPanelUI + widget Float | ✅ | 2284703 |
 
-Sesión 00 archivada en `docs/archive/sesiones_2026-Q3.md`.
+Sesiones 00 y 01 archivadas en `docs/archive/sesiones_2026-Q3.md`.
 
 ## Pendiente de verificación en Unity
-LK-11a. Antes: importar TMP Essential Resources, añadir 2 parámetros `Float` a `EFF_Debug.asset`
-y ejecutar los dos menús `LumiKit/UI/…`. Criterios completos en la spec.
-- [ ] Compila sin errores ni warnings nuevos, `LumiKit.Editor` sin referencias en rojo y los textos se leen.
-- [ ] Ejecutar el menú de generación por segunda vez: error y ningún `.prefab` tocado.
-- [ ] Sin selección: el panel no se ve. Clic en `SPR_Crystal`: cabecera + un slider por `Float`, en su valor por defecto.
-- [ ] Arrastrar un slider: el valor numérico sigue al arrastre y la consola queda muda.
-- [ ] **Arrastrar un slider no panea la cámara ni cambia la selección** (cierra el issue de la Sesión 02).
-- [ ] Clic sobre el fondo del panel: la selección no cambia.
-- [ ] Mover un slider, deseleccionar y reseleccionar: vuelve con el valor movido.
-- [ ] Clic en vacío: el panel se vacía y se oculta. A → B → A: sin widgets duplicados.
-- [ ] El `Color` de `EFF_Debug` no genera widget y avisa una vez por reconstrucción.
-- [ ] El `EffectDebugTester` sigue funcionando y `MAT_Debug.mat` no cambia tras salir de Play (D-001).
-- [ ] (opcional) `Refresh from controller` en el menú contextual del panel tras un `ResetToDefaults()` del tester.
+- [ ] Prefabs regenerados tras subir el tamaño de texto (Sesión 05): etiqueta y valor legibles,
+  filas que no se solapan y ancho del valor estable al arrastrar.
 
 ## Entorno confirmado
 - Unity 6000.0.83f1 · URP 17.0.4 · Input System 1.19.0 · uGUI 2.0.0 · 2D Sprite 1.0.0.
@@ -58,12 +47,15 @@ y ejecutar los dos menús `LumiKit/UI/…`. Criterios completos en la spec.
   `IsPointerOverUI` de LK-10 y LK-12 por fin se puede probar; es criterio de LK-11a. Lo que sigue
   abierto es el `OnGUI` del `EffectDebugTester`, que no pasa por `EventSystem` y no bloquea el
   ratón: se cierra al retirar el tester, al cerrar la Fase 3.
-- **`Assets/TextMesh Pro/` (4 MB) apareció durante la Sesión 04**, importado por el usuario: el
-  panel lo necesita. Queda **sin commitear y sin `.gitignore`**: decisión del usuario si entra al
-  repo. Fuera de `Assets/LumiKit/`, no se exporta, pero sí es dependencia del proyecto del
-  comprador: documentar en LK-26 junto a la de Input System.
-- **Prefabs de UI aún no existen en disco:** los crea el usuario con el menú de LK-11a, por eso no
-  están en CODEMAP. Se añaden al verificar.
+- **`Assets/TextMesh Pro/` (4 MB) entra al repositorio** (usuario, Sesión 05): los prefabs de UI
+  referencian esas fuentes por GUID. No se ignora ni se exporta, pero es dependencia del proyecto
+  del comprador: documentar en LK-26 junto a la de Input System.
+- **Tamaño de texto por encima del GDD:** ui-style.md y el GDD (líneas 451-457) fijan Label y Mono
+  en 13 px; a 1280×720 con el `CanvasScaler` en match=height eso se renderiza a ~8,7 px reales y no
+  se lee. Subido en `LumiTheme` en la Sesión 05 por decisión del usuario. Sin entrada en
+  DECISIONS: el archivo está en su tope de 150 líneas y subirlo necesita tu aprobación.
+- `docs/DECISIONS.md` está en 150/150 líneas y `.claude/rules/ui-style.md` en 60/60: la próxima
+  decisión estructural o regla de estilo obliga a condensar o a subir el tope.
 - `Assets/_Development/SPR_Crystal.png` y `SPR_RuneCoin.png`: borradores del usuario, no del
   pack. No van a CODEMAP ni se mueven a `Assets/LumiKit/`. Se usan como marcadores en TestBench.
 - **Nombres y posiciones de TestBench:** la spec de LK-12 escribió `Marker_Crystal` en (-3,0,0) y

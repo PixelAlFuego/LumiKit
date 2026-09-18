@@ -14,17 +14,28 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _displayNameEs: Color de Prueba
   _displayNameEn: 
-  _descriptionEs: 
-  _descriptionEn: 
+  _descriptionEs: Hola
+  _descriptionEn: Hi
   _shader: {fileID: 0}
   _parameters:
-  - _displayNameEs: 
+  - _displayNameEs: Outline Width
     _displayNameEn: 
-    _propertyName: _BaseColor
-    _type: 1
+    _propertyName: _OutlineWidth
+    _type: 0
     _minValue: 0
-    _maxValue: 0
-    _defaultFloat: 0
+    _maxValue: 10
+    _defaultFloat: 2
+    _defaultColor: {r: 1, g: 0.29682127, b: 0, a: 0}
+    _defaultBool: 0
+    _defaultEnumIndex: 0
+    _enumOptions: []
+  - _displayNameEs: Glow
+    _displayNameEn: 
+    _propertyName: _Glow
+    _type: 0
+    _minValue: 0
+    _maxValue: 1
+    _defaultFloat: 0.25
     _defaultColor: {r: 0.4010805, g: 1, b: 0, a: 0}
     _defaultBool: 0
     _defaultEnumIndex: 0

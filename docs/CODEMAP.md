@@ -71,4 +71,5 @@ Se pueblan con generadores de editor (D-002). No se crean escenas nuevas.
 
 | Prefab | Generado por | Componentes | LK | Estado |
 |---|---|---|---|---|
-| _(vacío)_ | | | | |
+| `Prefabs/UI/PRF_ParameterPanel.prefab` | `ParameterPanelBuilder` | ParameterPanelUI + Surface (Image) + Header + Content (VerticalLayoutGroup, ContentSizeFitter) | LK-11a | ✅ |
+| `Prefabs/UI/PRF_Widget_Slider.prefab` | `ParameterPanelBuilder` | SliderParameterWidget + Label + Value + Slider (riel, relleno, manija) | LK-11a | ✅ |

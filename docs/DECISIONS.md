@@ -131,3 +131,20 @@ desde la `EffectDefinition` (D-003). El pack va a tener sliders que no editan pa
 **Alcance.** LK-11a y LK-11b. Los prefabs mantienen el nombre del GDD: `PRF_Widget_Slider.prefab`.
 El árbol del GDD (líneas 768-773) queda desactualizado en ese punto y no se reescribe: la fuente de
 verdad de los nombres de clase es CODEMAP.md, y el GDD se referencia, no se duplica.
+
+---
+
+## D-007 — La UI del pack es uGUI + TextMeshPro, con la paleta y las medidas en LumiTheme
+Fecha: 2026-09-17 · Sesión 04, verificada en la 05 · Irreversible: **no**
+
+**Decisión.** Toda la interfaz se construye con uGUI (`Canvas`, `Image`, `Slider`, `TextMeshProUGUI`),
+no con UI Toolkit. Colores, tamaños y medidas salen de `LumiKit.UI.LumiTheme`; ni un literal suelto.
+
+**Motivo.** D-006 obliga a `InputSystemUIInputModule`, módulo de `EventSystem` y por tanto de uGUI:
+es lo que hace que `IsPointerOverGameObject` bloquee cámara y selección (LK-10, LK-12). UI Toolkit
+en runtime no pasa por `EventSystem`. Y un único sitio para la paleta evita que LK-22 sea una caza
+de hexadecimales por todo el pack.
+
+**Alcance.** LK-11a/b, LK-13, LK-18, LK-22, LK-25, LK-30 a LK-34 y todo prefab de `Assets/LumiKit/Prefabs/UI/` (D-002).
+
+**Consecuencia.** Depende de `com.unity.ugui` y de los TMP Essential Resources (`Assets/TextMesh Pro/`, en el repo desde la Sesión 05): los prefabs referencian esas fuentes por GUID. Se documenta en LK-26.
