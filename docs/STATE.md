@@ -3,7 +3,7 @@ Actualizado: 2026-09-18 · Sesión 06
 
 ## Ahora
 - Fase: 3 (Interfaz) en curso. LK-11a ✅ y LK-11b ✅ verificados en TestBench.
-- Tarea activa: LK-49 🟠 — validar `propertyName` contra el shader. Sale de verificar LK-11b.
+- Tarea activa: LK-49 🟡 implementado, sin abrir Unity. Spec: `docs/specs/LK-49_ShaderPropertyValidation.md`.
 - Siguiente: tras LK-49, LK-22 (identidad visual, fuentes y pie del panel) cierra la Fase 3.
 
 ## Últimas 3 sesiones
@@ -16,7 +16,16 @@ Actualizado: 2026-09-18 · Sesión 06
 Sesiones 00 a 02 archivadas en `docs/archive/sesiones_2026-Q3.md`.
 
 ## Pendiente de verificación en Unity
-- [ ] (se rellena al programar LK-49)
+LK-49. Nada que montar: el banco quedó listo en la Sesión 05. Criterios completos en la spec.
+- [ ] Compila sin errores ni warnings nuevos.
+- [ ] Play: un aviso por objeto con `EffectController`, no uno por parámetro ni por frame.
+- [ ] `Marker_Center` lista `_BaseColor`, `_Glow`, `_OutlineWidth`, `_Pulse` y `_OutlineMode`; `_Color` no sale.
+- [ ] El cubo lista las mismas menos `_BaseColor`, y en su lugar `_Color`.
+- [ ] El aviso nombra objeto, efecto, material y shader, y al pulsarlo selecciona el objeto.
+- [ ] Un minuto moviendo sliders y cambiando de selección: la consola no crece.
+- [ ] Objeto sin `Renderer`: avisa de que no hay material, sin excepción.
+- [ ] Con dos materiales en el `Renderer`, el aviso termina en "Validado 1 de 2 materiales".
+- [ ] Salir de Play: `git status` sin cambios en `MAT_Debug.mat` ni en los materiales de los sprites (D-001).
 
 ## Entorno confirmado
 - Unity 6000.0.83f1 · URP 17.0.4 · Input System 1.19.0 · uGUI 2.0.0 · 2D Sprite 1.0.0.
@@ -69,15 +78,20 @@ Sesiones 00 a 02 archivadas en `docs/archive/sesiones_2026-Q3.md`.
 - `ProjectSettings/TagManager.asset` entró en el cierre de LK-10 con la capa `Selectable` (índice
   6) que creó el usuario. Unity aprovechó para migrarlo a `serializedVersion: 3` y borrar las
   entradas de capa vacías del final. Migración del editor, no revisada línea a línea.
+- **Enmienda pendiente a D-001:** autorizar la lectura de `sharedMaterials` (en plural) para
+  validar todos los materiales de un `Renderer`, no sólo el primero. No instancia copias, que es
+  lo que D-001 prohíbe, pero no está en su lista de permitidos. Hoy LK-49 valida el primero y
+  cuenta el resto con `GetSharedMaterials`. Se decide cuando un objeto del pack lleve más de un
+  material; hasta entonces no se toca D-001.
 - Rama única `main`. `develop` y `feature/LK-XX-*` del GDD §4.9 aún no creadas.
 
 ## Handoff
-Empezar por: verificar LK-11a con la checklist de arriba. Si pasa, LK-11b (Color, Toggle, Enum y el
-pie con Reset y Copiar); su spec está por redactar.
-Para LK-11b: heredar de `ParameterWidgetBase` y devolver su `SupportedType`; el panel sólo necesita
-un campo de prefab nuevo y un `case` en `PrefabFor`. El botón Reset llama a
-`EffectController.ResetToDefaults()` y luego a `ParameterPanelUI.RefreshFromController()`, que ya
-existe. Nombres de clase: D-008.
-No tocar: `Scripts/Core/` y `Scripts/Utils/` (verificados en LK-09), `Demo/` (LK-10 y LK-12
-verificados), `EffectDebugTester.cs` hasta cerrar la Fase 3, `Assets/LumiKit/Scenes/`,
+Empezar por: verificar LK-49 con la checklist de arriba. Es la primera vez que se toca `Core/`
+desde LK-09: si algo chirría, el cambio es puramente aditivo (118 líneas, ninguna existente
+modificada) y se revierte sin arrastrar nada.
+Después, LK-22 cierra la Fase 3: fuentes del GDD como `TMP_FontAsset` en `Assets/LumiKit/Fonts/`,
+`ui-style.md` al día con los tamaños reales (está en 60/60 líneas, toca condensar, no subir el tope)
+y el pie del panel con Reset, que ya tiene `RefreshFromController()` esperando.
+No tocar: `Scripts/UI/` ni sus prefabs salvo lo que pida LK-22 (LK-11a y LK-11b verificados),
+`Demo/` (LK-10 y LK-12), `EffectDebugTester.cs` hasta cerrar la Fase 3, `Assets/LumiKit/Scenes/`,
 `ProjectSettings/`, `Packages/manifest.json`, nada de 3D ni VFX.

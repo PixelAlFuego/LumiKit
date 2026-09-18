@@ -1,5 +1,5 @@
 # LK-49 — Validar `propertyName` contra el shader del material
-Estado: 🟠 en curso · Depende de: LK-09 (`EffectController`, `MaterialPropertyHelper`) · Origen: verificación de LK-11b (Sesión 05); no viene del GDD · Decisiones: D-001 (MPB), D-005 (`_EffectEnabled`)
+Estado: 🟡 implementado, sin abrir Unity · Depende de: LK-09 (`EffectController`, `MaterialPropertyHelper`) · Origen: verificación de LK-11b (Sesión 05); no viene del GDD · Decisiones: D-001 (MPB), D-005 (`_EffectEnabled`)
 
 ## Objetivo
 Al inicializarse, un `EffectController` comprueba qué `propertyName` de su `EffectDefinition` no
@@ -28,7 +28,9 @@ el `propertyName` del asset, y allí costará mucho más verlo.
 2. Material: `_targetRenderer.sharedMaterial`, **sólo lectura**, que es lo que D-001 permite
    expresamente. No se usa `sharedMaterials`: D-001 prohíbe `renderer.materials` y la variante en
    plural no está autorizada por escrito. Consecuencia asumida: en un `Renderer` con varios
-   materiales sólo se valida el primero.
+   materiales sólo se valida el primero, **y el aviso lo dice**: "Validado 1 de N materiales".
+   El recuento sale de `GetSharedMaterials(List<Material>)` sobre una lista reutilizada, que no
+   instancia nada y sólo se usa para contar.
 3. Sin `Renderer` o sin material asignado: un warning distinto —no hay material contra el que
    validar— y no se evalúa ninguna propiedad. Sin `EffectDefinition` no hace nada: de eso ya avisa
    `EnsureInitialized`.
@@ -63,6 +65,7 @@ que demuestra que la validación detecta el caso real que se escapó en LK-11b.
 - [ ] Mover sliders y cambiar de selección durante un minuto: la consola no crece.
 - [ ] Seleccionar un marcador: el widget de `_Color` sigue pintando el sprite y el de `_BaseColor` sigue sin pintar, ahora con el aviso que lo explica.
 - [ ] Un `EffectController` en un objeto sin `Renderer`: avisa de que no hay material, sin excepción.
+- [ ] Un objeto con dos materiales en el `Renderer`: el aviso termina en "Validado 1 de 2 materiales"; con uno solo, esa frase no aparece.
 - [ ] Salir de Play: `git status` no muestra cambios en `MAT_Debug.mat` ni en los materiales de los sprites (D-001).
 
 ## Fuera de alcance

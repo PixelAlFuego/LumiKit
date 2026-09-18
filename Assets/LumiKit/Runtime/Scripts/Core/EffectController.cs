@@ -26,6 +26,9 @@ namespace LumiKit.Core
         private bool _initialized;
         private bool _effectEnabled = true;
 
+        /// <summary>Lista reutilizada para contar materiales sin asignar basura (LK-49).</summary>
+        private static readonly List<Material> _sharedMaterialBuffer = new List<Material>();
+
         /// <summary>Valor vivo de un parámetro. Privado: la API pública son los getters tipados.</summary>
         private struct ParameterValue
         {
@@ -80,6 +83,7 @@ namespace LumiKit.Core
             }
 
             SeedValuesFromDefaults();
+            ValidateProperties();
         }
 
         private void SeedValuesFromDefaults()
@@ -108,6 +112,101 @@ namespace LumiKit.Core
                     EnumIndex = parameter.DefaultEnumIndex
                 };
             }
+        }
+
+        /// <summary>
+        /// Avisa una sola vez de los propertyName que el material no declara. Un
+        /// MaterialPropertyBlock que escribe una propiedad inexistente no falla: la descarta
+        /// en silencio, y el parámetro parece roto sin motivo visible (LK-49).
+        /// </summary>
+        /// <remarks>
+        /// Se llama desde EnsureInitialized, que está protegido por _initialized: una vez por
+        /// componente, ni por frame ni por escritura.
+        ///
+        /// Lee sharedMaterial, el único acceso al material que D-001 autoriza. De ahí que sólo
+        /// se valide el primer hueco del Renderer; cuando hay más, el aviso lo dice.
+        ///
+        /// _EffectEnabled (D-005) queda fuera a propósito: todavía no existe en ningún shader
+        /// del pack y saltaría en todos los objetos, tapando lo que sí importa. Su comprobación
+        /// es criterio de aceptación de cada shader.
+        /// </remarks>
+        private void ValidateProperties()
+        {
+            if (_definition == null)
+            {
+                return;
+            }
+
+            Material material = _targetRenderer != null ? _targetRenderer.sharedMaterial : null;
+            if (material == null)
+            {
+                Debug.LogWarning(
+                    $"[LumiKit] '{name}' con {_definition.name}: no hay material que validar, " +
+                    $"así que ninguna escritura llega a un shader.{DescribeMaterialCount()}",
+                    this);
+                return;
+            }
+
+            List<string> missing = null;
+            IReadOnlyList<EffectParameter> parameters = _definition.Parameters;
+
+            for (int i = 0; i < parameters.Count; i++)
+            {
+                EffectParameter parameter = parameters[i];
+                if (parameter == null || string.IsNullOrEmpty(parameter.PropertyName))
+                {
+                    continue;
+                }
+
+                if (MaterialPropertyHelper.HasProperty(material, parameter.PropertyName))
+                {
+                    continue;
+                }
+
+                if (missing == null)
+                {
+                    missing = new List<string>();
+                }
+
+                missing.Add(parameter.PropertyName);
+            }
+
+            if (missing == null)
+            {
+                return;
+            }
+
+            string shaderName = material.shader != null ? material.shader.name : "sin shader";
+
+            Debug.LogWarning(
+                $"[LumiKit] '{name}' con {_definition.name}: el material '{material.name}' " +
+                $"(shader '{shaderName}') no declara {string.Join(", ", missing)}. " +
+                $"Esas escrituras se descartan en silencio.{DescribeMaterialCount()}",
+                this);
+        }
+
+        /// <summary>
+        /// Añade al aviso cuántos materiales tiene el Renderer cuando hay más de uno, para que
+        /// no quede un hueco mudo: sólo se ha validado el primero.
+        /// </summary>
+        /// <remarks>
+        /// GetSharedMaterials sirve aquí sólo para contar, sobre una lista reutilizada, y no
+        /// instancia ningún material. Validar contra todos exigiría leer sharedMaterials, que
+        /// D-001 no autoriza todavía: es una enmienda pendiente, anotada en STATE.
+        /// </remarks>
+        private string DescribeMaterialCount()
+        {
+            if (_targetRenderer == null)
+            {
+                return string.Empty;
+            }
+
+            _sharedMaterialBuffer.Clear();
+            _targetRenderer.GetSharedMaterials(_sharedMaterialBuffer);
+            int count = _sharedMaterialBuffer.Count;
+            _sharedMaterialBuffer.Clear();
+
+            return count > 1 ? $" Validado 1 de {count} materiales." : string.Empty;
         }
 
         /// <summary>

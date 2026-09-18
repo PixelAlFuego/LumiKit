@@ -75,6 +75,25 @@ namespace LumiKit.Utils
         }
 
         /// <summary>
+        /// True si el material declara la propiedad. Envuelve Material.HasProperty para que la
+        /// comprobación viva en el mismo sitio que las escrituras (LK-49).
+        /// </summary>
+        /// <remarks>
+        /// Sólo mira el nombre, no el tipo: un parámetro Float apuntando a una propiedad de
+        /// color pasa la comprobación. Null-safe porque se llama durante la inicialización,
+        /// cuando el material puede faltar todavía.
+        /// </remarks>
+        public static bool HasProperty(Material material, string propertyName)
+        {
+            if (material == null || string.IsNullOrEmpty(propertyName))
+            {
+                return false;
+            }
+
+            return material.HasProperty(propertyName);
+        }
+
+        /// <summary>
         /// Punto único de conversión de color. Las propiedades Color de los grafos van
         /// en Mode = HDR.
         /// </summary>
