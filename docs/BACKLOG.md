@@ -9,7 +9,7 @@ Una tarea por sesión. No adelantar fases. 3D y VFX están fuera de alcance.
 | 0 | Andamiaje | Docs + carpetas + asmdefs + git |
 | 1 | LK-09 | EffectParameter, ParameterType, EffectDefinition, EffectRegistry, EffectController, MaterialPropertyHelper, Singleton |
 | 2 | LK-12, LK-10 | DemoCameraController ortográfico, ObjectSelector (raycast) |
-| 3 | LK-11a, LK-11b, LK-49, LK-22a, LK-50, LK-22b | ParameterWidgetBase + Slider/Color/Toggle/Enum, ParameterPanelUI, LumiTheme.cs con la paleta, prefabs de UI generados por script, pie con Reset y fuentes del pack. LK-22b puede adelantarse en cuanto el usuario tenga los `TMP_FontAsset` |
+| 3 | LK-11a, LK-11b, LK-49, LK-22a, LK-50, LK-51, LK-22b | ParameterWidgetBase + Slider/Color/Toggle/Enum, ParameterPanelUI, LumiTheme.cs con la paleta, prefabs de UI generados por script, pie con Reset y fuentes del pack. LK-22b puede adelantarse en cuanto el usuario tenga los `TMP_FontAsset` |
 | 4 | LK-23 | UIAudioManager + AMX_LumiKit + enganche hover/click/select |
 | 5 | LK-01, LK-24, LK-03, LK-02 | Outline 2D, ComparisonToggle (TAB, necesita `_EffectEnabled` de LK-01), Glow 2D, Dissolve 2D + generador procedural de texturas de ruido y rampas |
 | 6 | LK-20 | Sprites Lumi, Cristal, Runa (entrega SVG para exportar a PNG 512) |
@@ -41,7 +41,7 @@ Una tarea por sesión. No adelantar fases. 3D y VFX están fuera de alcance.
 | LK-19 | Localización ES / EN | Sistema | — | ⬜ |
 | LK-20 | Objetos demo 2D (Lumi, cristal, runa) | Arte | 6 | ⬜ |
 | LK-21 | Objetos demo 3D low-poly en Blender | Arte | — | ⬜ fuera de alcance |
-| LK-22a | Pie del panel con Reset y `ui-style.md` al día | UI | 3 | 🟡 |
+| LK-22a | Pie del panel con Reset y `ui-style.md` al día | UI | 3 | ✅ |
 | LK-22b | Fuentes TMP del pack y sus licencias | Arte | 3 | ⬜ |
 | LK-23 | Efectos de sonido de interfaz | Audio | 4 | ⬜ |
 | LK-24 | Comparación antes / después (TAB) | Sistema | 5 | ⬜ |
@@ -71,7 +71,9 @@ Una tarea por sesión. No adelantar fases. 3D y VFX están fuera de alcance.
 | LK-48 | Documentación en video | Futura v1.1 | — | ⬜ |
 | LK-49 | Validar `propertyName` contra el shader del material | Sistema | 3 | ✅ |
 | LK-50 | Componente de botón con la jerarquía del GDD §2.7 | UI | 3 | ⬜ |
+| LK-51 | Arte de interfaz: sprites propios del pack | Arte | 3 | ⬜ |
 
 Estimaciones y prioridades originales: GDD §3.2 (líneas 655-686).
 LK-49 y LK-50 no vienen del GDD: LK-49 sale de verificar LK-11b (Sesión 05) y LK-50 del corte de
-LK-22 (Sesión 07). LK-22 se partió en LK-22a y LK-22b; no queda ninguna tarea llamada LK-22 a secas.
+LK-22 (Sesión 07), y LK-51 del rediseño de UI que pidió el usuario (Sesión 08).
+LK-22 se partió en LK-22a y LK-22b; no queda ninguna tarea llamada LK-22 a secas.

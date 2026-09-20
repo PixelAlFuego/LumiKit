@@ -1,35 +1,25 @@
 # Estado del proyecto
-Actualizado: 2026-09-20 · Sesión 07 (cerrada)
+Actualizado: 2026-09-20 · Sesión 08 (cerrada)
 
 ## Ahora
-- Fase: 3 (Interfaz). LK-49 ✅ con sus cinco criterios recorridos (usuario, Sesión 07).
-- LK-22 se partió en LK-22a y LK-22b. **LK-22a 🟡**: pie del panel con Reset y `ui-style.md` al día.
-- Tarea activa: ninguna. El usuario va a rediseñar la UI con arte propio: sprites, ajustes de importación y cambios de código en `docs/reference/UI_ART_BRIEF.md` (Sesión 07).
-  **Sin tarea asignada todavía**: se decide si amplía LK-50 o si es nueva. Siguen abiertos LK-50 (componente de botón, no necesita sprites) y LK-22b (fuentes).
+- Fase: 3 (Interfaz). **LK-22a ✅** verificada por el usuario en la Sesión 08: el Reset reinicia los
+  seis widgets y se refleja en pantalla al instante.
+- Tarea activa: ninguna. Dos specs escritas y **pendientes de aprobación**: LK-50 (componente de
+  botón) y LK-51 (arte de interfaz, tarea nueva por decisión del usuario, no una ampliación de LK-50).
+- Siguiente: el usuario aprueba el plan y se programa el soporte de sprites de LK-51 y luego LK-50.
+  Los siete PNG los dibuja él. LK-22b (fuentes) sigue abierta y sin bloquear a nadie.
 
 ## Últimas 3 sesiones
 | Sesión | Fecha | Tarea | Resultado | Commit |
 |---|---|---|---|---|
-| 05 | 2026-09-18 | LK-11b widgets Color, Toggle y Enum | ✅ | 871edb6 |
 | 06 | 2026-09-18 | LK-49 validación de `propertyName` | ✅ | dd7140a |
-| 07 | 2026-09-20 | LK-22a pie del panel con Reset | 🟡 | 6161b99 |
+| 07 | 2026-09-20 | LK-22a pie del panel con Reset | ✅ | 6161b99 |
+| 08 | 2026-09-20 | Cierre de LK-22a + specs de LK-50 y LK-51 | ✅ | este commit |
 
-Sesiones 00 a 04 archivadas en `docs/archive/sesiones_2026-Q3.md`.
+Sesiones 00 a 05 archivadas en `docs/archive/sesiones_2026-Q3.md`.
 
 ## Pendiente de verificación en Unity
-LK-22a. Antes de nada: borrar los seis `PRF_*` de `Prefabs/UI/` **y el objeto `ParameterPanel` de
-la escena**, y ejecutar los dos menús `LumiKit/UI/…`. El generador es todo o nada.
-- [ ] Compila sin errores ni warnings nuevos.
-- [ ] Play + clic en `SPR_Crystal`: el pie aparece pegado al fondo del panel, con el separador de 1 px por encima y el botón Reset ocupando el ancho útil.
-- [ ] Pasar el ratón por encima del botón lo ilumina y quitarlo lo devuelve, con transición, no de golpe.
-- [ ] Mover dos o tres sliders, cambiar el color y el toggle, y pulsar Reset: los seis widgets vuelven al defecto en el acto, sin deseleccionar ni reseleccionar.
-- [ ] Tras el Reset, el color del sprite vuelve al que tenía al seleccionar: el valor llegó al material y no sólo a la UI.
-- [ ] Deseleccionar y volver a seleccionar tras un Reset: los valores siguen siendo los de defecto.
-- [ ] Clic en el pie o en el botón: la selección no cambia y la cámara no se panea.
-- [ ] A → B → A con un Reset por medio: actúa sobre el objeto mostrado, nunca sobre el anterior. Consola muda todo el recorrido.
-- [ ] Tras salir de Play, `git status` sin cambios en `MAT_Debug.mat` ni en los materiales de los sprites (D-001).
-- [ ] Grep en `Scripts/UI/`: ni un `new Color(` ni un hexadecimal fuera de `LumiTheme.cs`.
-- [ ] `ui-style.md` en 60 líneas o menos (queda en 58), con Label y Mono a 16 y sin perder ningún token.
+Nada. LK-22a se cerró en la Sesión 08 y no hay ninguna tarea 🟡.
 
 ## Entorno confirmado
 - Unity 6000.0.83f1 · URP 17.0.4 · Input System 1.19.0 · uGUI 2.0.0 · 2D Sprite 1.0.0.
@@ -42,16 +32,20 @@ la escena**, y ejecutar los dos menús `LumiKit/UI/…`. El generador es todo o 
   en `git status` y el Mesh Renderer sin "(Instance)".
 
 ## Dudas abiertas y bloqueos
-- **Audio, para LK-23** (usuario, Sesión 07). Ya en disco y **sin commitear**: `Audio/SFX/` con `SFX_UI_Click`,
-  `SFX_UI_Hover`, `SFX_UI_Select`, `SFX_UI_Error` y `SFX_UI_Transition`, y `Audio/Music/MUS_Ambient_Loop.wav`. Los dejé fuera del
-  commit de LK-22a por estar fuera de su alcance. **`SFX_UI_Error` y `SFX_UI_Transition` no entran en LK-23**: el primero
-  espera a que haya avisos en pantalla y el segundo al cambio de escena de LK-17. LK-23 engancha sólo los otros tres.
+- **Audio, para LK-23.** Ya en el repositorio desde la Sesión 08: `Audio/SFX/` con `SFX_UI_Click`, `SFX_UI_Hover`,
+  `SFX_UI_Select`, `SFX_UI_Error` y `SFX_UI_Transition`, y `Audio/Music/MUS_Ambient_Loop.wav`. **`SFX_UI_Error` y
+  `SFX_UI_Transition` no entran en LK-23**: el primero espera a que haya avisos en pantalla y el segundo al cambio de
+  escena de LK-17. LK-23 engancha sólo los otros tres. Los ajustes de importación de los `.wav` están sin revisar.
 - **`MUS_` no existe como prefijo** en la tabla de CONVENTIONS.md ni en CLAUDE.md, aunque el archivo ya use ese nombre.
   Se decide en LK-23: o se añade el prefijo a la tabla, o la música se nombra de otra forma. No lo toco sin que me lo pidas.
 - **Diferidos a LK-01, no cumplidos:** verificación visual de `SetEffectEnabled` y del color en
   espacio Linear. Los criterios viven en `docs/specs/LK-01_Outline2D.md`.
-- **Botón del pie, deuda consciente:** el estado Normal del botón secundario del GDD es "Transparente" (línea 566), pero el relleno
-  va en `Surface` porque por detrás está la Image del borde y transparente de verdad se vería entera. Se ve igual; lo cierra LK-50.
+- **Botón del pie, deuda consciente:** el estado Normal del botón secundario del GDD es "Transparente" (línea 566), pero el relleno va en
+  `Surface` porque por detrás está la Image del borde y transparente de verdad se vería entera. **La cierra LK-51**, con el sprite de
+  contorno; LK-50 no puede. Se ve igual, así que no corre prisa.
+- **El pack no tiene dónde poner un script de editor propio.** `Assets/Editor/` no se exporta (CONVENTIONS) y ningún script bajo
+  `Assets/LumiKit/` puede hacer `using UnityEditor`. Sale a la luz con LK-50: su `LumiButtonEditor` funcionará aquí pero el comprador
+  no verá los campos del componente en el Inspector. Haría falta un tercer asmdef sólo-editor dentro del pack. Se decide en LK-27.
 - **Borrar al cerrar la Fase 5:** de `Assets/_Development/`, sólo `EffectDebugTester.cs`, `EFF_Debug.asset` y `MAT_Debug.mat`.
   Desechables, fuera del pack, deliberadamente ausentes de CODEMAP y BACKLOG. Los reemplaza LK-11.
 - **`Assets/_Development/TestBench.unity` no se borra:** banco de pruebas permanente, crece con
@@ -91,10 +85,15 @@ la escena**, y ejecutar los dos menús `LumiKit/UI/…`. El generador es todo o 
 - Rama única `main`. `develop` y `feature/LK-XX-*` del GDD §4.9 aún no creadas.
 
 ## Handoff
-Empezar por verificar LK-22a en Unity con la checklist de arriba, regenerando antes los seis prefabs.
-Tres frentes independientes después, y ninguno bloquea a los otros: el **arte de UI** que el usuario
-va a dibujar (`docs/reference/UI_ART_BRIEF.md`, tarea sin asignar); **LK-50**, el componente de botón,
-que no necesita ni un sprite; y **LK-22b**, las fuentes, bloqueada hasta que existan los cuatro
-`TMP_FontAsset` en `Assets/LumiKit/Fonts/` (pasos y ajustes en su spec).
-No tocar: `Core/` y `Utils/` (verificados en LK-09 y LK-49), `Demo/` (LK-10 y LK-12), los cuatro widgets,
-`EffectDebugTester.cs` hasta cerrar la Fase 3, `Assets/LumiKit/Scenes/`, `ProjectSettings/`, `Packages/manifest.json`, nada de 3D ni VFX.
+Todo lo de LK-22a está cerrado y commiteado: los seis `PRF_*`, `TestBench.unity` y los seis audios.
+Sobre la mesa, **dos specs sin aprobar** y ningún código escrito:
+- `docs/specs/LK-51_UISpriteArt.md` — arte de interfaz. Se hace en dos tiempos: primero el soporte en
+  el generador (`RequireSprites()`, rutas, `RADIUS_SMALL`), que sin sprites aborta nombrando lo que
+  falta; después los siete PNG que dibuja el usuario. El detalle de dibujo está en
+  `docs/reference/UI_ART_BRIEF.md` y la spec no lo duplica.
+- `docs/specs/LK-50_LumiButton.md` — comportamiento del botón. No necesita ni un sprite y se verifica
+  con el pie que ya existe. Independiente de LK-51: ninguna espera a la otra.
+LK-22b (fuentes) sigue abierta, bloqueada sólo por los cuatro `TMP_FontAsset`.
+No tocar: `Core/` y `Utils/` (LK-09, LK-49), `Demo/` (LK-10, LK-12), los cuatro widgets,
+`EffectDebugTester.cs` hasta cerrar la Fase 3, `Assets/LumiKit/Scenes/`, `ProjectSettings/`,
+`Packages/manifest.json`, nada de 3D ni VFX.

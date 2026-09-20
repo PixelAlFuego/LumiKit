@@ -1,5 +1,5 @@
 # LK-22a — Pie del panel con Reset y `ui-style.md` al día
-Estado: 🟡 implementado sin verificar (Sesión 07) · Corte y alcance aprobados por el usuario · Depende de: LK-09 (`ResetToDefaults`), LK-11a (`ParameterPanelUI`, `RefreshFromController`), LK-11b (los cuatro widgets) · Continúa en LK-22b (fuentes TMP) · Diseño: GDD §1.3 Mecánica 5 (líneas 65-67), §2.7 (líneas 547-588), §2.8 (línea 609) · Estilo: `.claude/rules/ui-style.md` · uGUI: D-007
+Estado: ✅ verificado en Unity 6000.0.83f1 (usuario, Sesión 08) · Corte y alcance aprobados por el usuario · Depende de: LK-09 (`ResetToDefaults`), LK-11a (`ParameterPanelUI`, `RefreshFromController`), LK-11b (los cuatro widgets) · Continúa en LK-22b (fuentes TMP) · Diseño: GDD §1.3 Mecánica 5 (líneas 65-67), §2.7 (líneas 547-588), §2.8 (línea 609) · Estilo: `.claude/rules/ui-style.md` · uGUI: D-007
 
 ## Objetivo
 Dar al panel el pie fijo que pide el GDD (línea 609) con el botón Reset de la Mecánica 5: devuelve el
