@@ -12,7 +12,7 @@ Actualizado: 2026-09-20 · Sesión 07 (cerrada)
 |---|---|---|---|---|
 | 05 | 2026-09-18 | LK-11b widgets Color, Toggle y Enum | ✅ | 871edb6 |
 | 06 | 2026-09-18 | LK-49 validación de `propertyName` | ✅ | dd7140a |
-| 07 | 2026-09-20 | LK-22a pie del panel con Reset | 🟡 | este commit |
+| 07 | 2026-09-20 | LK-22a pie del panel con Reset | 🟡 | 6161b99 |
 
 Sesiones 00 a 04 archivadas en `docs/archive/sesiones_2026-Q3.md`.
 
