@@ -4,10 +4,8 @@ Actualizado: 2026-09-20 · Sesión 08 (cerrada)
 ## Ahora
 - Fase: 3 (Interfaz). **LK-22a ✅** verificada por el usuario en la Sesión 08: el Reset reinicia los
   seis widgets y se refleja en pantalla al instante.
-- Tarea activa: ninguna. Dos specs escritas y **pendientes de aprobación**: LK-50 (componente de
-  botón) y LK-51 (arte de interfaz, tarea nueva por decisión del usuario, no una ampliación de LK-50).
-- Siguiente: el usuario aprueba el plan y se programa el soporte de sprites de LK-51 y luego LK-50.
-  Los siete PNG los dibuja él. LK-22b (fuentes) sigue abierta y sin bloquear a nadie.
+- Tarea activa: ninguna. Dos specs escritas y **pendientes de aprobación**: LK-50 (componente de botón) y LK-51 (arte de interfaz, tarea nueva por decisión del usuario).
+- Siguiente: aprobar el plan y programar el soporte de sprites de LK-51 y luego LK-50. Los siete PNG los dibuja el usuario. LK-22b sigue abierta y sin bloquear a nadie.
 
 ## Últimas 3 sesiones
 | Sesión | Fecha | Tarea | Resultado | Commit |
@@ -32,10 +30,13 @@ Nada. LK-22a se cerró en la Sesión 08 y no hay ninguna tarea 🟡.
   en `git status` y el Mesh Renderer sin "(Instance)".
 
 ## Dudas abiertas y bloqueos
-- **Audio, para LK-23.** Ya en el repositorio desde la Sesión 08: `Audio/SFX/` con `SFX_UI_Click`, `SFX_UI_Hover`,
+- **Audio, para LK-23.** En el repositorio desde la Sesión 08 (por LFS): `Audio/SFX/` con `SFX_UI_Click`, `SFX_UI_Hover`,
   `SFX_UI_Select`, `SFX_UI_Error` y `SFX_UI_Transition`, y `Audio/Music/MUS_Ambient_Loop.wav`. **`SFX_UI_Error` y
   `SFX_UI_Transition` no entran en LK-23**: el primero espera a que haya avisos en pantalla y el segundo al cambio de
-  escena de LK-17. LK-23 engancha sólo los otros tres. Los ajustes de importación de los `.wav` están sin revisar.
+  escena de LK-17. LK-23 engancha sólo los otros tres.
+- **`MUS_Ambient_Loop.wav` pesa 64 MB**, frente a los 120-772 KB de los cinco SFX. Va a LFS y no estorba en git, pero
+  entra tal cual en el `.unitypackage` y en el proyecto del comprador. Los ajustes de importación bajan lo que ocupa en
+  memoria, no el asset en disco: eso pide reencodearlo (Vorbis, mono, menos frecuencia) o acortar el bucle. LK-23 y LK-27.
 - **`MUS_` no existe como prefijo** en la tabla de CONVENTIONS.md ni en CLAUDE.md, aunque el archivo ya use ese nombre.
   Se decide en LK-23: o se añade el prefijo a la tabla, o la música se nombra de otra forma. No lo toco sin que me lo pidas.
 - **Diferidos a LK-01, no cumplidos:** verificación visual de `SetEffectEnabled` y del color en
