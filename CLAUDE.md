@@ -24,6 +24,7 @@ bajo `Assets/LumiKit/`. Nada fuera de esa carpeta se exporta.
 | docs/DECISIONS.md | Dudas por qué algo está hecho así |
 | docs/VERIFICATION.md | Vas a cerrar una tarea |
 | docs/reference/GDD_v2.md | Necesitas un dato de diseño puntual (sólo por grep) |
+| docs/reference/UI_ART_BRIEF.md | Vas a tocar sprites de UI o el aspecto del generador |
 
 ## Integridad del código — no negociable
 - Prohibido borrar archivos o bloques de código. Si crees que algo sobra, anótalo en

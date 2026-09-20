@@ -4,8 +4,8 @@ Actualizado: 2026-09-20 · Sesión 07 (cerrada)
 ## Ahora
 - Fase: 3 (Interfaz). LK-49 ✅ con sus cinco criterios recorridos (usuario, Sesión 07).
 - LK-22 se partió en LK-22a y LK-22b. **LK-22a 🟡**: pie del panel con Reset y `ui-style.md` al día.
-- Tarea activa: ninguna. Siguiente: LK-50 (componente de botón, abierta hoy a petición del
-  usuario) o LK-22b, que arranca en cuanto existan los cuatro `TMP_FontAsset`.
+- Tarea activa: ninguna. El usuario va a rediseñar la UI con arte propio: sprites, ajustes de importación y cambios de código en `docs/reference/UI_ART_BRIEF.md` (Sesión 07).
+  **Sin tarea asignada todavía**: se decide si amplía LK-50 o si es nueva. Siguen abiertos LK-50 (componente de botón, no necesita sprites) y LK-22b (fuentes).
 
 ## Últimas 3 sesiones
 | Sesión | Fecha | Tarea | Resultado | Commit |
@@ -92,9 +92,9 @@ la escena**, y ejecutar los dos menús `LumiKit/UI/…`. El generador es todo o 
 
 ## Handoff
 Empezar por verificar LK-22a en Unity con la checklist de arriba, regenerando antes los seis prefabs.
-Después, dos frentes independientes: **LK-50** (componente de botón con la jerarquía del GDD §2.7,
-con el pie de LK-22a como banco de pruebas) y **LK-22b** (fuentes), que está bloqueada hasta que
-existan los cuatro `TMP_FontAsset` en `Assets/LumiKit/Fonts/`. Los pasos y los ajustes exactos del
-Font Asset Creator están en `docs/specs/LK-22b_PackFonts.md`.
+Tres frentes independientes después, y ninguno bloquea a los otros: el **arte de UI** que el usuario
+va a dibujar (`docs/reference/UI_ART_BRIEF.md`, tarea sin asignar); **LK-50**, el componente de botón,
+que no necesita ni un sprite; y **LK-22b**, las fuentes, bloqueada hasta que existan los cuatro
+`TMP_FontAsset` en `Assets/LumiKit/Fonts/` (pasos y ajustes en su spec).
 No tocar: `Core/` y `Utils/` (verificados en LK-09 y LK-49), `Demo/` (LK-10 y LK-12), los cuatro widgets,
 `EffectDebugTester.cs` hasta cerrar la Fase 3, `Assets/LumiKit/Scenes/`, `ProjectSettings/`, `Packages/manifest.json`, nada de 3D ni VFX.
