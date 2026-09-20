@@ -4,6 +4,7 @@ using LumiKit.Demo;
 using LumiKit.UI.Widgets;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace LumiKit.UI
 {
@@ -38,7 +39,14 @@ namespace LumiKit.UI
         [SerializeField] private ToggleParameterWidget _toggleWidgetPrefab;
         [SerializeField] private EnumParameterWidget _enumWidgetPrefab;
 
+        [Header("Pie")]
+        [Tooltip("Botón Reset. Opcional: sin él el panel se comporta igual, sólo que sin pie.")]
+        [SerializeField] private Button _resetButton;
+
         private readonly List<ParameterWidgetBase> _widgets = new List<ParameterWidgetBase>();
+
+        /// <summary>EffectController que el panel está mostrando. Lo único que el pie necesita.</summary>
+        private EffectController _current;
 
         private void OnEnable()
         {
@@ -59,6 +67,11 @@ namespace LumiKit.UI
                 _surface = null;
             }
 
+            if (_resetButton != null)
+            {
+                _resetButton.onClick.AddListener(HandleReset);
+            }
+
             _selector.OnSelectionChanged += HandleSelectionChanged;
 
             // El panel puede activarse con algo ya seleccionado: el evento de LK-10 sólo se
@@ -73,6 +86,11 @@ namespace LumiKit.UI
                 _selector.OnSelectionChanged -= HandleSelectionChanged;
             }
 
+            if (_resetButton != null)
+            {
+                _resetButton.onClick.RemoveListener(HandleReset);
+            }
+
             Clear();
             ShowSurface(false);
         }
@@ -82,10 +100,10 @@ namespace LumiKit.UI
         /// cambio hecho fuera del panel.
         /// </summary>
         /// <remarks>
-        /// Sin llamador todavía: lo necesitan ResetToDefaults desde el botón Reset (LK-22) y
-        /// SetEffectEnabled desde la comparación con TAB (LK-24), que escriben en el controller
-        /// sin pasar por los widgets. Existe desde ya para no tener que tocar este panel después
-        /// de verificarlo. En el editor se puede disparar desde el menú contextual del componente.
+        /// Lo llama HandleReset desde el botón Reset del pie (LK-22a), y lo necesitará
+        /// SetEffectEnabled desde la comparación con TAB (LK-24): ambos escriben en el
+        /// controller sin pasar por los widgets. En el editor se puede disparar además desde
+        /// el menú contextual del componente.
         /// </remarks>
         [ContextMenu("Refresh from controller")]
         public void RefreshFromController()
@@ -105,11 +123,41 @@ namespace LumiKit.UI
         }
 
         /// <summary>
+        /// Botón Reset del pie: devuelve el efecto mostrado a sus valores por defecto y los
+        /// vuelve a leer en los widgets. Mecánica 5 del GDD (líneas 65-67).
+        /// </summary>
+        /// <remarks>
+        /// El orden importa y no es intercambiable: ResetToDefaults escribe en el
+        /// EffectController y en el MaterialPropertyBlock, pero no toca ni un widget;
+        /// RefreshFromController es lo único que los pone al día. Primero el modelo, luego
+        /// la vista. Es el primer consumidor de RefreshFromController, que estaba sin
+        /// llamador desde LK-11a.
+        /// </remarks>
+        private void HandleReset()
+        {
+            if (_current == null)
+            {
+                return;
+            }
+
+            _current.ResetToDefaults();
+            RefreshFromController();
+        }
+
+        /// <summary>
         /// Vacía el panel y lo vuelve a poblar con el objeto recibido. null lo deja oculto.
         /// </summary>
         private void Build(EffectController controller)
         {
             Clear();
+
+            // Antes de cualquier salida temprana: el pie tiene que reflejar la selección
+            // aunque el objeto no llegue a mostrar ni un widget.
+            _current = controller;
+            if (_resetButton != null)
+            {
+                _resetButton.interactable = controller != null;
+            }
 
             if (controller == null)
             {
@@ -214,6 +262,9 @@ namespace LumiKit.UI
         /// </summary>
         private void Clear()
         {
+            // También al desactivar el panel, que llama a Clear sin pasar por Build: si no,
+            // el pie se quedaría apuntando a un controller que ya no se está mostrando.
+            _current = null;
             _widgets.Clear();
 
             if (_content == null)

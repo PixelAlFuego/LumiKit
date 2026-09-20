@@ -16,7 +16,7 @@ namespace LumiKit.UI
     /// hexadecimal del GDD y es el espacio en el que trabaja la UI de uGUI.
     ///
     /// Sin fuentes: los TMP_FontAsset de Space Grotesk, Inter y JetBrains Mono (GDD línea
-    /// 934) no existen en disco todavía. Aquí sólo viven los tamaños. Las fuentes son LK-22.
+    /// 934) no existen en disco todavía. Aquí sólo viven los tamaños. Las fuentes son LK-22b.
     /// </remarks>
     public static class LumiTheme
     {
@@ -61,6 +61,9 @@ namespace LumiKit.UI
         public const float PANEL_HEADER_HEIGHT = 48f;
         public const float PANEL_PADDING = 16f;
         public const float PANEL_BORDER = 1f;
+        // Derivado: el GDD manda pie fijo (línea 609) pero no dice su alto. Un botón estándar
+        // con el padding del panel por arriba y por abajo.
+        public const float PANEL_FOOTER_HEIGHT = BUTTON_HEIGHT + 2f * PANEL_PADDING;
 
         // ── Slider ─────────────────────────────────────────────────────────────────────
         public const float SLIDER_TRACK_HEIGHT = 4f;
@@ -106,6 +109,13 @@ namespace LumiKit.UI
         public const float SPACING = 8f;
         public const float RADIUS = 6f;
         public const float BUTTON_HEIGHT = 36f;
+        // GDD líneas 582-584: la altura compacta es la de los botones dentro de un panel y
+        // es la que ya usan las opciones del enum; el pie lleva la estándar.
+        public const float BUTTON_HEIGHT_COMPACT = 28f;
+        public const float BUTTON_PADDING = 16f;
+        public const float BUTTON_PADDING_COMPACT = 12f;
+        // Borde del botón secundario (GDD línea 566). Sin él, el estado Normal es invisible.
+        public const float BUTTON_BORDER = 1f;
         public const float TRANSITION_SECONDS = 0.15f;
         public const float PRESS_SCALE = 0.98f;
 

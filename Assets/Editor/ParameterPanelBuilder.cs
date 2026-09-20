@@ -636,6 +636,8 @@ namespace LumiKit.Editor
             fitter.horizontalFit = ContentSizeFitter.FitMode.Unconstrained;
             fitter.verticalFit = ContentSizeFitter.FitMode.PreferredSize;
 
+            Button resetButton = BuildFooter(surface.transform);
+
             ParameterPanelUI panel = root.AddComponent<ParameterPanelUI>();
             SerializedObject serialized = new SerializedObject(panel);
             serialized.FindProperty("_surface").objectReferenceValue = surface.gameObject;
@@ -645,12 +647,112 @@ namespace LumiKit.Editor
             serialized.FindProperty("_colorWidgetPrefab").objectReferenceValue = color;
             serialized.FindProperty("_toggleWidgetPrefab").objectReferenceValue = toggle;
             serialized.FindProperty("_enumWidgetPrefab").objectReferenceValue = enumWidget;
+            serialized.FindProperty("_resetButton").objectReferenceValue = resetButton;
             serialized.ApplyModifiedPropertiesWithoutUndo();
 
             // Arranca oculto: el panel se despliega al seleccionar (GDD línea 136).
             surface.gameObject.SetActive(false);
 
             return root;
+        }
+
+        /// <summary>
+        /// Pie fijo al fondo del panel (GDD línea 609) con el botón Reset de la Mecánica 5.
+        /// Devuelve ese botón, que es lo único que el panel necesita cablear.
+        /// </summary>
+        /// <remarks>
+        /// Nace con un solo hijo y childForceExpandWidth: hoy Reset ocupa el ancho útil y el
+        /// Copiar de LK-29 entra como segundo hijo sin tocar este layout.
+        /// </remarks>
+        private static Button BuildFooter(Transform surface)
+        {
+            GameObject footer = CreateUIObject("Footer", surface);
+            RectTransform footerRect = footer.GetComponent<RectTransform>();
+            footerRect.anchorMin = new Vector2(0f, 0f);
+            footerRect.anchorMax = new Vector2(1f, 0f);
+            footerRect.pivot = new Vector2(0.5f, 0f);
+            footerRect.anchoredPosition = Vector2.zero;
+            footerRect.sizeDelta = new Vector2(0f, LumiTheme.PANEL_FOOTER_HEIGHT);
+
+            // Separador de 1 px en el canto de arriba. ignoreLayout porque el pie es un
+            // HorizontalLayoutGroup y si no lo colocaría en fila junto al botón.
+            Image separator = CreateImage("Separator", footer.transform, LumiTheme.Border, null, Image.Type.Simple);
+            RectTransform separatorRect = separator.rectTransform;
+            separatorRect.anchorMin = new Vector2(0f, 1f);
+            separatorRect.anchorMax = new Vector2(1f, 1f);
+            separatorRect.pivot = new Vector2(0.5f, 1f);
+            separatorRect.anchoredPosition = Vector2.zero;
+            separatorRect.sizeDelta = new Vector2(0f, LumiTheme.PANEL_BORDER);
+            separator.raycastTarget = false;
+            separator.gameObject.AddComponent<LayoutElement>().ignoreLayout = true;
+
+            int padding = (int)LumiTheme.PANEL_PADDING;
+            HorizontalLayoutGroup group = footer.AddComponent<HorizontalLayoutGroup>();
+            group.padding = new RectOffset(padding, padding, padding, padding);
+            group.spacing = LumiTheme.SPACING;
+            group.childAlignment = TextAnchor.MiddleCenter;
+            group.childControlWidth = true;
+            group.childControlHeight = true;
+            group.childForceExpandWidth = true;
+            group.childForceExpandHeight = false;
+
+            return CreateButton("Reset", footer.transform, "Reset");
+        }
+
+        /// <summary>
+        /// Botón secundario del GDD (líneas 561-567): borde de 1 px y relleno que cambia con
+        /// el estado. Raíz = borde, hijo insertado 1 px = relleno, y el relleno es el
+        /// targetGraphic del Button.
+        /// </summary>
+        /// <remarks>
+        /// El relleno no puede ser transparente de verdad aunque el GDD llame "Transparente"
+        /// al estado Normal: por detrás está la Image del borde, que es un rectángulo
+        /// relleno, y se vería entero. Va en Surface, el mismo color del panel que hay
+        /// detrás, así que se ve igual que transparente y deja el borde en 1 px.
+        /// El ColorBlock de uGUI sólo tiñe un gráfico: el borde y el texto virando a cian
+        /// (líneas 566-567) y la escala 0.98 al presionar (línea 588) llegan con LK-50, que
+        /// sustituirá este botón de serie por el componente propio.
+        /// </remarks>
+        private static Button CreateButton(string name, Transform parent, string label)
+        {
+            Image border = CreateImage(name, parent, LumiTheme.BorderStrong, SPRITE_UI, Image.Type.Sliced);
+            GameObject root = border.gameObject;
+
+            LayoutElement layout = root.AddComponent<LayoutElement>();
+            layout.minHeight = LumiTheme.BUTTON_HEIGHT;
+            layout.preferredHeight = LumiTheme.BUTTON_HEIGHT;
+            layout.flexibleWidth = 1f;
+
+            Image fill = CreateImage("Fill", root.transform, Color.white, SPRITE_UI, Image.Type.Sliced);
+            RectTransform fillRect = fill.rectTransform;
+            fillRect.anchorMin = Vector2.zero;
+            fillRect.anchorMax = Vector2.one;
+            fillRect.offsetMin = new Vector2(LumiTheme.BUTTON_BORDER, LumiTheme.BUTTON_BORDER);
+            fillRect.offsetMax = new Vector2(-LumiTheme.BUTTON_BORDER, -LumiTheme.BUTTON_BORDER);
+
+            TextMeshProUGUI text = CreateText(
+                "Label", root.transform, LumiTheme.TEXT_LABEL, LumiTheme.TextPrimary, TextAlignmentOptions.Center);
+            RectTransform textRect = text.rectTransform;
+            textRect.anchorMin = Vector2.zero;
+            textRect.anchorMax = Vector2.one;
+            textRect.offsetMin = Vector2.zero;
+            textRect.offsetMax = Vector2.zero;
+            text.text = label;
+
+            Button button = root.AddComponent<Button>();
+            button.targetGraphic = fill;
+            button.colors = new ColorBlock
+            {
+                normalColor = LumiTheme.Surface,
+                highlightedColor = LumiTheme.SurfaceElevated,
+                pressedColor = LumiTheme.Surface,
+                selectedColor = LumiTheme.Surface,
+                disabledColor = LumiTheme.Surface,
+                colorMultiplier = 1f,
+                fadeDuration = LumiTheme.TRANSITION_SECONDS
+            };
+
+            return button;
         }
 
         // ── Escena ─────────────────────────────────────────────────────────────────────
