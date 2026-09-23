@@ -38,8 +38,16 @@ namespace LumiKit.Editor
         private const string EVENT_SYSTEM_NAME = "EventSystem";
         private const string LOG = "[LumiKit] ";
 
-        private const string SPRITE_UI = "UI/Skin/UISprite.psd";
-        private const string SPRITE_KNOB = "UI/Skin/Knob.psd";
+        // Sprites del pack (LK-51), a 3× con PPU 300: docs/reference/UI_ART_BRIEF.md. Blancos con
+        // la forma en el alfa; el color lo pone LumiTheme. Todos obligatorios salvo el riel.
+        private const string SPRITE_FOLDER = "Assets/LumiKit/Sprites/UI";
+        private const string SPRITE_RECT_R6 = SPRITE_FOLDER + "/SPR_UI_Rect_R6.png";
+        private const string SPRITE_RECT_R6_OUTLINE = SPRITE_FOLDER + "/SPR_UI_Rect_R6_Outline.png";
+        private const string SPRITE_RECT_R4 = SPRITE_FOLDER + "/SPR_UI_Rect_R4.png";
+        private const string SPRITE_PILL = SPRITE_FOLDER + "/SPR_UI_Pill.png";
+        private const string SPRITE_CIRCLE = SPRITE_FOLDER + "/SPR_UI_Circle.png";
+        private const string SPRITE_RING = SPRITE_FOLDER + "/SPR_UI_Ring.png";
+        private const string SPRITE_TRACK = SPRITE_FOLDER + "/SPR_UI_Track.png";
 
         // ── Menús ──────────────────────────────────────────────────────────────────────
 
@@ -47,6 +55,11 @@ namespace LumiKit.Editor
         public static void GeneratePrefabs()
         {
             if (!HasDefaultFont())
+            {
+                return;
+            }
+
+            if (!RequireSprites())
             {
                 return;
             }
@@ -210,7 +223,7 @@ namespace LumiKit.Editor
         {
             GameObject sliderGo = CreateUIObject(name, parent);
 
-            Image background = CreateImage("Background", sliderGo.transform, LumiTheme.Border, SPRITE_UI, Image.Type.Sliced);
+            Image background = CreateImage("Background", sliderGo.transform, LumiTheme.Border, SPRITE_TRACK, Image.Type.Sliced);
             RectTransform backgroundRect = background.rectTransform;
             backgroundRect.anchorMin = new Vector2(0f, 0.5f);
             backgroundRect.anchorMax = new Vector2(1f, 0.5f);
@@ -226,7 +239,7 @@ namespace LumiKit.Editor
             fillAreaRect.anchoredPosition = Vector2.zero;
             fillAreaRect.sizeDelta = new Vector2(-LumiTheme.SLIDER_HANDLE_SIZE, LumiTheme.SLIDER_TRACK_HEIGHT);
 
-            Image fill = CreateImage("Fill", fillArea.transform, LumiTheme.LumiCyan, SPRITE_UI, Image.Type.Sliced);
+            Image fill = CreateImage("Fill", fillArea.transform, LumiTheme.LumiCyan, SPRITE_TRACK, Image.Type.Sliced);
             RectTransform fillRect = fill.rectTransform;
             fillRect.anchorMin = Vector2.zero;
             fillRect.anchorMax = Vector2.one;
@@ -240,15 +253,15 @@ namespace LumiKit.Editor
             handleAreaRect.anchoredPosition = Vector2.zero;
             handleAreaRect.sizeDelta = new Vector2(-LumiTheme.SLIDER_HANDLE_SIZE, 0f);
 
-            // Manija: círculo cian con el núcleo claro dentro. El borde de 2 px de ui-style sale
-            // de dos imágenes concéntricas, sin sprites propios (LK-22).
-            Image handle = CreateImage("Handle", handleArea.transform, LumiTheme.LumiCyan, SPRITE_KNOB, Image.Type.Simple);
+            // Manija: aro cian con el núcleo claro dentro. El núcleo va insertado los 2 px de borde
+            // de ui-style, que es justo el trazo que lleva dibujado el aro (LK-51).
+            Image handle = CreateImage("Handle", handleArea.transform, LumiTheme.LumiCyan, SPRITE_RING, Image.Type.Simple);
             RectTransform handleRect = handle.rectTransform;
             handleRect.anchorMin = new Vector2(0f, 0f);
             handleRect.anchorMax = new Vector2(0f, 1f);
             handleRect.sizeDelta = new Vector2(LumiTheme.SLIDER_HANDLE_SIZE, 0f);
 
-            Image handleCore = CreateImage("Handle Core", handle.transform, LumiTheme.TextPrimary, SPRITE_KNOB, Image.Type.Simple);
+            Image handleCore = CreateImage("Handle Core", handle.transform, LumiTheme.TextPrimary, SPRITE_CIRCLE, Image.Type.Simple);
             RectTransform handleCoreRect = handleCore.rectTransform;
             handleCoreRect.anchorMin = Vector2.zero;
             handleCoreRect.anchorMax = Vector2.one;
@@ -321,7 +334,7 @@ namespace LumiKit.Editor
                 root.transform, LumiTheme.COLOR_SWATCH_WIDTH + LumiTheme.SPACING, LumiTheme.COLOR_ROW_HEIGHT);
 
             // La muestra es el botón que despliega: uno aparte gastaría ancho del panel.
-            Image swatch = CreateImage("Swatch", root.transform, Color.white, SPRITE_UI, Image.Type.Sliced);
+            Image swatch = CreateImage("Swatch", root.transform, Color.white, SPRITE_RECT_R4, Image.Type.Sliced);
             RectTransform swatchRect = swatch.rectTransform;
             swatchRect.anchorMin = new Vector2(1f, 1f);
             swatchRect.anchorMax = new Vector2(1f, 1f);
@@ -377,7 +390,7 @@ namespace LumiKit.Editor
             Button[] paletteButtons = new Button[presets.Length];
             for (int i = 0; i < presets.Length; i++)
             {
-                Image preset = CreateImage($"Preset_{i}", palette.transform, presets[i], SPRITE_UI, Image.Type.Sliced);
+                Image preset = CreateImage($"Preset_{i}", palette.transform, presets[i], SPRITE_RECT_R4, Image.Type.Sliced);
                 Button presetButton = preset.gameObject.AddComponent<Button>();
                 presetButton.targetGraphic = preset;
                 paletteButtons[i] = presetButton;
@@ -449,7 +462,7 @@ namespace LumiKit.Editor
             TextMeshProUGUI label = CreateRowLabel(
                 root.transform, LumiTheme.TOGGLE_TRACK_WIDTH + LumiTheme.SPACING, LumiTheme.TOGGLE_ROW_HEIGHT);
 
-            Image track = CreateImage("Track", root.transform, LumiTheme.Border, SPRITE_UI, Image.Type.Sliced);
+            Image track = CreateImage("Track", root.transform, LumiTheme.Border, SPRITE_PILL, Image.Type.Sliced);
             RectTransform trackRect = track.rectTransform;
             trackRect.anchorMin = new Vector2(1f, 0.5f);
             trackRect.anchorMax = new Vector2(1f, 0.5f);
@@ -457,7 +470,7 @@ namespace LumiKit.Editor
             trackRect.anchoredPosition = Vector2.zero;
             trackRect.sizeDelta = new Vector2(LumiTheme.TOGGLE_TRACK_WIDTH, LumiTheme.TOGGLE_TRACK_HEIGHT);
 
-            Image handle = CreateImage("Handle", track.transform, LumiTheme.TextMuted, SPRITE_KNOB, Image.Type.Simple);
+            Image handle = CreateImage("Handle", track.transform, LumiTheme.TextMuted, SPRITE_CIRCLE, Image.Type.Simple);
             RectTransform handleRect = handle.rectTransform;
             handleRect.anchorMin = new Vector2(0f, 0.5f);
             handleRect.anchorMax = new Vector2(0f, 0.5f);
@@ -498,7 +511,7 @@ namespace LumiKit.Editor
 
             Image background = root.AddComponent<Image>();
             background.color = LumiTheme.SurfaceElevated;
-            background.sprite = AssetDatabase.GetBuiltinExtraResource<Sprite>(SPRITE_UI);
+            background.sprite = AssetDatabase.LoadAssetAtPath<Sprite>(SPRITE_RECT_R6);
             background.type = Image.Type.Sliced;
 
             LayoutElement layout = root.AddComponent<LayoutElement>();
@@ -705,17 +718,16 @@ namespace LumiKit.Editor
         /// targetGraphic del Button.
         /// </summary>
         /// <remarks>
-        /// El relleno no puede ser transparente de verdad aunque el GDD llame "Transparente"
-        /// al estado Normal: por detrás está la Image del borde, que es un rectángulo
-        /// relleno, y se vería entero. Va en Surface, el mismo color del panel que hay
-        /// detrás, así que se ve igual que transparente y deja el borde en 1 px.
+        /// El estado Normal es transparente, como pide el GDD (línea 566): el borde es un
+        /// contorno con el centro vacío (SPR_UI_Rect_R6_Outline, LK-51), así que detrás del
+        /// relleno sólo queda el panel. Hasta LK-51 era un rectángulo macizo y obligaba a Surface.
         /// El ColorBlock de uGUI sólo tiñe un gráfico: el borde y el texto virando a cian
         /// (líneas 566-567) y la escala 0.98 al presionar (línea 588) llegan con LK-50, que
         /// sustituirá este botón de serie por el componente propio.
         /// </remarks>
         private static Button CreateButton(string name, Transform parent, string label)
         {
-            Image border = CreateImage(name, parent, LumiTheme.BorderStrong, SPRITE_UI, Image.Type.Sliced);
+            Image border = CreateImage(name, parent, LumiTheme.BorderStrong, SPRITE_RECT_R6_OUTLINE, Image.Type.Sliced);
             GameObject root = border.gameObject;
 
             LayoutElement layout = root.AddComponent<LayoutElement>();
@@ -723,12 +735,17 @@ namespace LumiKit.Editor
             layout.preferredHeight = LumiTheme.BUTTON_HEIGHT;
             layout.flexibleWidth = 1f;
 
-            Image fill = CreateImage("Fill", root.transform, Color.white, SPRITE_UI, Image.Type.Sliced);
+            Image fill = CreateImage("Fill", root.transform, Color.white, SPRITE_RECT_R6, Image.Type.Sliced);
             RectTransform fillRect = fill.rectTransform;
             fillRect.anchorMin = Vector2.zero;
             fillRect.anchorMax = Vector2.one;
             fillRect.offsetMin = new Vector2(LumiTheme.BUTTON_BORDER, LumiTheme.BUTTON_BORDER);
             fillRect.offsetMax = new Vector2(-LumiTheme.BUTTON_BORDER, -LumiTheme.BUTTON_BORDER);
+
+            // Radio 5 y no 6: el relleno va 1 px por dentro del contorno y, con el radio de su
+            // sprite, dejaría una cuña de fondo en cada esquina. uGUI divide el borde del 9-slice
+            // por este multiplicador. Supone que RADIUS es el radio dibujado en SPR_UI_Rect_R6.
+            fill.pixelsPerUnitMultiplier = LumiTheme.RADIUS / (LumiTheme.RADIUS - LumiTheme.BUTTON_BORDER);
 
             TextMeshProUGUI text = CreateText(
                 "Label", root.transform, LumiTheme.TEXT_LABEL, LumiTheme.TextPrimary, TextAlignmentOptions.Center);
@@ -743,11 +760,11 @@ namespace LumiKit.Editor
             button.targetGraphic = fill;
             button.colors = new ColorBlock
             {
-                normalColor = LumiTheme.Surface,
+                normalColor = LumiTheme.Transparent,
                 highlightedColor = LumiTheme.SurfaceElevated,
                 pressedColor = LumiTheme.Surface,
-                selectedColor = LumiTheme.Surface,
-                disabledColor = LumiTheme.Surface,
+                selectedColor = LumiTheme.Transparent,
+                disabledColor = LumiTheme.Transparent,
                 colorMultiplier = 1f,
                 fadeDuration = LumiTheme.TRANSITION_SECONDS
             };
@@ -835,6 +852,53 @@ namespace LumiKit.Editor
             return false;
         }
 
+        /// <summary>
+        /// Sin los sprites del pack la UI saldría sin forma. Aborta si falta alguno de los seis
+        /// obligatorios, nombrándolos uno a uno; el riel es opcional y sólo avisa.
+        /// </summary>
+        /// <remarks>
+        /// Se carga como Sprite y no se mira el archivo: un PNG importado como Default cuenta
+        /// como ausente, que es lo que es para una Image.
+        /// </remarks>
+        private static bool RequireSprites()
+        {
+            string[] required =
+            {
+                SPRITE_RECT_R6, SPRITE_RECT_R6_OUTLINE, SPRITE_RECT_R4,
+                SPRITE_PILL, SPRITE_CIRCLE, SPRITE_RING
+            };
+
+            if (AssetDatabase.LoadAssetAtPath<Sprite>(SPRITE_TRACK) == null)
+            {
+                Debug.Log($"{LOG}Sin '{SPRITE_TRACK}': el riel del slider sale con esquinas rectas. Es opcional.");
+            }
+
+            List<string> missing = new List<string>();
+            for (int i = 0; i < required.Length; i++)
+            {
+                if (AssetDatabase.LoadAssetAtPath<Sprite>(required[i]) == null)
+                {
+                    missing.Add(required[i]);
+                }
+            }
+
+            if (missing.Count == 0)
+            {
+                return true;
+            }
+
+            for (int i = 0; i < missing.Count; i++)
+            {
+                Debug.LogError($"{LOG}Falta '{missing[i]}' o no está importado como Sprite.");
+            }
+
+            EditorUtility.DisplayDialog(
+                "LumiKit",
+                $"Faltan {missing.Count} de los {required.Length} sprites obligatorios y no se ha tocado nada. La consola los lista.\n\nVer docs/specs/LK-51_UISpriteArt.md.",
+                "Vale");
+            return false;
+        }
+
         private static GameObject CreateUIObject(string name, Transform parent)
         {
             GameObject go = new GameObject(name, typeof(RectTransform));
@@ -853,15 +917,19 @@ namespace LumiKit.Editor
             return go;
         }
 
-        private static Image CreateImage(string name, Transform parent, Color color, string builtinSprite, Image.Type type)
+        /// <summary>
+        /// Image con uno de los sprites del pack, o maciza si spritePath es null. Si la ruta no
+        /// carga (sólo puede pasar con el riel opcional) también sale maciza.
+        /// </summary>
+        private static Image CreateImage(string name, Transform parent, Color color, string spritePath, Image.Type type)
         {
             GameObject go = CreateUIObject(name, parent);
             Image image = go.AddComponent<Image>();
             image.color = color;
 
-            if (!string.IsNullOrEmpty(builtinSprite))
+            if (!string.IsNullOrEmpty(spritePath))
             {
-                image.sprite = AssetDatabase.GetBuiltinExtraResource<Sprite>(builtinSprite);
+                image.sprite = AssetDatabase.LoadAssetAtPath<Sprite>(spritePath);
                 image.type = type;
             }
 

@@ -1,23 +1,24 @@
 # Estado del proyecto
-Actualizado: 2026-09-20 · Sesión 08 (cerrada)
+Actualizado: 2026-09-22 · Sesión 09
 
 ## Ahora
-- Fase: 3 (Interfaz). **LK-22a ✅** verificada por el usuario en la Sesión 08: el Reset reinicia los
-  seis widgets y se refleja en pantalla al instante.
-- Tarea activa: ninguna. Dos specs escritas y **pendientes de aprobación**: LK-50 (componente de botón) y LK-51 (arte de interfaz, tarea nueva por decisión del usuario).
-- Siguiente: aprobar el plan y programar el soporte de sprites de LK-51 y luego LK-50. Los siete PNG los dibuja el usuario. LK-22b sigue abierta y sin bloquear a nadie.
+- Fase: 3 (Interfaz). **LK-51 🟡** programada en la Sesión 09, sin verificar: el generador monta los siete sprites del
+  pack y el Reset lleva contorno real con relleno transparente en reposo.
+- Tarea activa: LK-51, a la espera de que el usuario regenere y verifique. LK-50: spec sin aprobar, sin código.
+- Siguiente: verificar LK-51 y, al cerrarla, corregir la spec de LK-50 (ver Handoff). LK-22b sigue abierta y sin bloquear a nadie.
 
 ## Últimas 3 sesiones
 | Sesión | Fecha | Tarea | Resultado | Commit |
 |---|---|---|---|---|
-| 06 | 2026-09-18 | LK-49 validación de `propertyName` | ✅ | dd7140a |
 | 07 | 2026-09-20 | LK-22a pie del panel con Reset | ✅ | 6161b99 |
-| 08 | 2026-09-20 | Cierre de LK-22a + specs de LK-50 y LK-51 | ✅ | este commit |
+| 08 | 2026-09-20 | Cierre de LK-22a + specs de LK-50 y LK-51 | ✅ | 6947ac8 |
+| 09 | 2026-09-22 | Música a MP3 + LK-51 sprites del pack en el generador | 🟡 | 12d21e6 · este commit |
 
-Sesiones 00 a 05 archivadas en `docs/archive/sesiones_2026-Q3.md`.
+Sesiones 00 a 06 archivadas en `docs/archive/sesiones_2026-Q3.md`.
 
 ## Pendiente de verificación en Unity
-Nada. LK-22a se cerró en la Sesión 08 y no hay ninguna tarea 🟡.
+**LK-51 🟡.** Pasos y criterios en `docs/specs/LK-51_UISpriteArt.md` > Banco de pruebas: probar el aborto renombrando
+`SPR_UI_Ring` y `SPR_UI_Track`, borrar los seis `PRF_*` y el `ParameterPanel` de TestBench, regenerar y mirar en Play.
 
 ## Entorno confirmado
 - Unity 6000.0.83f1 · URP 17.0.4 · Input System 1.19.0 · uGUI 2.0.0 · 2D Sprite 1.0.0.
@@ -41,9 +42,8 @@ Nada. LK-22a se cerró en la Sesión 08 y no hay ninguna tarea 🟡.
   Se decide en LK-23: o se añade el prefijo a la tabla, o la música se nombra de otra forma. No lo toco sin que me lo pidas.
 - **Diferidos a LK-01, no cumplidos:** verificación visual de `SetEffectEnabled` y del color en
   espacio Linear. Los criterios viven en `docs/specs/LK-01_Outline2D.md`.
-- **Botón del pie, deuda consciente:** el estado Normal del botón secundario del GDD es "Transparente" (línea 566), pero el relleno va en
-  `Surface` porque por detrás está la Image del borde y transparente de verdad se vería entera. **La cierra LK-51**, con el sprite de
-  contorno; LK-50 no puede. Se ve igual, así que no corre prisa.
+- **Botón del pie, deuda consciente:** relleno en `Surface` en vez de "Transparente" (GDD línea 566). **Resuelta en código por LK-51**
+  (contorno `SPR_UI_Rect_R6_Outline` y `LumiTheme.Transparent`), pendiente de verificar. Se retira de aquí al cerrar LK-51.
 - **El pack no tiene dónde poner un script de editor propio.** `Assets/Editor/` no se exporta (CONVENTIONS) y ningún script bajo
   `Assets/LumiKit/` puede hacer `using UnityEditor`. Sale a la luz con LK-50: su `LumiButtonEditor` funcionará aquí pero el comprador
   no verá los campos del componente en el Inspector. Haría falta un tercer asmdef sólo-editor dentro del pack. Se decide en LK-27.
@@ -79,22 +79,20 @@ Nada. LK-22a se cerró en la Sesión 08 y no hay ninguna tarea 🟡.
   no sólo el primero. No instancia copias, que es lo que D-001 prohíbe, pero no está en su lista de permitidos. Hoy LK-49 valida el
   primero y cuenta el resto con `GetSharedMaterials`. Se decide cuando un objeto del pack lleve más de un material.
 - **Referencias a "LK-22" a secas que el corte deja obsoletas** y no se han tocado, por estar en specs cerradas o fuera del alcance de hoy:
-  `LK-11a` (líneas 18, 59, 78, 79), `LK-11b` (9, 39, 44, 74-76), los widgets Color/Enum/Toggle y `ParameterPanelBuilder` línea 244.
+  `LK-11a` (líneas 18, 59, 78, 79), `LK-11b` (9, 39, 44, 74-76) y los widgets Color/Enum/Toggle. La de `ParameterPanelBuilder` la quitó LK-51.
   Casi todas apuntan a LK-50 o a LK-22b; se corrigen si alguna vez toca abrir ese archivo.
 - **`ENUM_OPTION_HEIGHT` (28) y `BUTTON_HEIGHT_COMPACT` (28) son el mismo número del GDD con dos
   nombres** en `LumiTheme`. No lo unifico sin que me lo pidas; lo natural es hacerlo en LK-50.
 - Rama única `main`. `develop` y `feature/LK-XX-*` del GDD §4.9 aún no creadas.
 
 ## Handoff
-Todo lo de LK-22a está cerrado y commiteado: los seis `PRF_*`, `TestBench.unity` y los seis audios.
-Sobre la mesa, **dos specs sin aprobar** y ningún código escrito:
-- `docs/specs/LK-51_UISpriteArt.md` — arte de interfaz. Se hace en dos tiempos: primero el soporte en
-  el generador (`RequireSprites()`, rutas, `RADIUS_SMALL`), que sin sprites aborta nombrando lo que
-  falta; después los siete PNG que dibuja el usuario. El detalle de dibujo está en
-  `docs/reference/UI_ART_BRIEF.md` y la spec no lo duplica.
-- `docs/specs/LK-50_LumiButton.md` — comportamiento del botón. No necesita ni un sprite y se verifica
-  con el pie que ya existe. Independiente de LK-51: ninguna espera a la otra.
-LK-22b (fuentes) sigue abierta, bloqueada sólo por los cuatro `TMP_FontAsset`.
+LK-51 programada y commiteada, sin verificar: `LumiTheme` (`Transparent`, `RADIUS_SMALL`) y `ParameterPanelBuilder` (siete
+rutas, `RequireSprites()`, `CreateImage` desde el proyecto, relleno del Reset a radio 5 y `ColorBlock` transparente en reposo).
+Los siete PNG y sus `.meta` son del usuario y entran en ese commit. Los `PRF_*` en disco siguen siendo los de LK-22a hasta
+que el usuario los regenere; entonces entran, con `TestBench.unity`, en el commit de cierre.
+**Al cerrar LK-51** (aprobado por el usuario): corregir `docs/specs/LK-50_LumiButton.md` líneas 13 (`Transparent` ya existe),
+32-35 (el secundario ya es transparente en reposo) y 62 (ya no usa `UISprite.psd`), y las filas de prefabs en CODEMAP.
+LK-50 sigue con la spec sin aprobar. LK-22b (fuentes) sigue abierta, bloqueada sólo por los cuatro `TMP_FontAsset`.
 No tocar: `Core/` y `Utils/` (LK-09, LK-49), `Demo/` (LK-10, LK-12), los cuatro widgets,
 `EffectDebugTester.cs` hasta cerrar la Fase 3, `Assets/LumiKit/Scenes/`, `ProjectSettings/`,
 `Packages/manifest.json`, nada de 3D ni VFX.

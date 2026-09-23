@@ -21,7 +21,7 @@ Reglas de esta tabla:
 | `Utils/Singleton.cs` | Utils | clase abstracta | Base genérica de managers. Sin `DontDestroyOnLoad` automático | — | LK-09 | ✅ |
 | `Demo/DemoCameraController.cs` | Demo | MonoBehaviour | Cámara ortográfica 2D: paneo `WASD` y botón derecho, zoom con rueda acotado, límite `_bounds`. Ignora el ratón sobre UI de `EventSystem` | — | LK-12 | ✅ |
 | `Demo/ObjectSelector.cs` | Demo | MonoBehaviour | Selección con botón izquierdo: raycast `Physics2D` acotado por `LayerMask`, un objeto activo a la vez, evento `OnSelectionChanged`. Ignora el ratón sobre UI de `EventSystem` | EffectController | LK-10 | ✅ |
-| `UI/LumiTheme.cs` | UI | estática | Paleta y medidas de `ui-style.md` más las de toggle, muestra de color, filas, pie y botón. Único sitio del pack con colores literales. Resolución de diseño 1920×1080 (D-007). Sin fuentes: LK-22b | — | LK-11a · LK-11b · LK-22a | ✅ |
+| `UI/LumiTheme.cs` | UI | estática | Paleta y medidas de `ui-style.md` más las de toggle, muestra de color, filas, pie y botón, y `Transparent` para el reposo del botón secundario. Único sitio del pack con colores literales. Resolución de diseño 1920×1080 (D-007). Sin fuentes: LK-22b | — | LK-11a · LK-11b · LK-22a · LK-51 | 🟡 |
 | `UI/ParameterPanelUI.cs` | UI | MonoBehaviour | Escucha `OnSelectionChanged`, instancia un widget por parámetro (los cuatro tipos) y vacía y oculta el panel al deseleccionar. `RefreshFromController()` para cambios externos, y el Reset del pie es su primer llamador | EffectController, EffectDefinition, ObjectSelector, los cuatro widgets | LK-11a · LK-11b · LK-22a | ✅ |
 | `UI/Widgets/ParameterWidgetBase.cs` | UI | clase abstracta | Contrato común de los widgets: `Initialize(parámetro, controller)`, `Refresh()`, evento `OnValueChanged` | EffectParameter, EffectController | LK-11a | ✅ |
 | `UI/Widgets/SliderParameterWidget.cs` | UI | MonoBehaviour | Widget del tipo `Float`: slider acotado al rango y valor en Mono. Escribe por `SetFloat` | ParameterWidgetBase | LK-11a | ✅ |
@@ -36,7 +36,7 @@ Sin consumidores todavía: `Singleton` y `EffectRegistry` los usan `Systems` y L
 
 | Archivo | Tipo | Responsabilidad | Depende de | LK | Estado |
 |---|---|---|---|---|---|
-| `Assets/Editor/ParameterPanelBuilder.cs` | estática | Genera los seis prefabs del panel (`PRF_ParameterPanel`, `PRF_Widget_Slider/Color/Toggle/Enum/EnumOption`), con su pie y su botón secundario, y monta `UI_Root`, `EventSystem` y el panel en la escena abierta. Aborta si alguno existe; no guarda la escena | LumiTheme, ParameterPanelUI, los cuatro widgets, ObjectSelector | LK-11a · LK-11b · LK-22a | ✅ |
+| `Assets/Editor/ParameterPanelBuilder.cs` | estática | Genera los seis prefabs del panel (`PRF_ParameterPanel`, `PRF_Widget_Slider/Color/Toggle/Enum/EnumOption`), con su pie y su botón secundario, y monta `UI_Root`, `EventSystem` y el panel en la escena abierta. Usa los siete `SPR_UI_*` de `Sprites/UI/` y aborta si falta un obligatorio. Aborta si algún prefab existe; no guarda la escena | LumiTheme, ParameterPanelUI, los cuatro widgets, ObjectSelector | LK-11a · LK-11b · LK-22a · LK-51 | 🟡 |
 
 ## Shaders y materiales
 

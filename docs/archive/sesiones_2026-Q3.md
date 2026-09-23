@@ -7,3 +7,4 @@ Una línea por sesión. El detalle vive en el commit y en la spec de la tarea.
 - Sesión 03 · 2026-09-16 · LK-10 `ObjectSelector` por raycast `Physics2D` · ✅ · `6d4da8d`
 - Sesión 04 · 2026-09-17 · LK-11a `ParameterPanelUI` y widget `Float` · ✅ · `2284703`
 - Sesión 05 · 2026-09-18 · LK-11b widgets Color, Toggle y Enum · ✅ · `871edb6`
+- Sesión 06 · 2026-09-18 · LK-49 validación de `propertyName` · ✅ · `dd7140a`

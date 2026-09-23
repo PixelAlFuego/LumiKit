@@ -26,6 +26,9 @@ namespace LumiKit.UI
         public static readonly Color SurfaceElevated = new Color32(0x1E, 0x24, 0x30, 0xFF);
         public static readonly Color Border = new Color32(0x2A, 0x32, 0x42, 0xFF);
         public static readonly Color BorderStrong = new Color32(0x3D, 0x47, 0x59, 0xFF);
+        // Relleno en reposo del botón secundario (GDD línea 566). Surface con alfa 0 y no negro:
+        // Selectable funde RGB y alfa a la vez, y así el paso a hover no se oscurece a mitad.
+        public static readonly Color Transparent = new Color32(0x15, 0x19, 0x22, 0x00);
 
         // ── Acentos ────────────────────────────────────────────────────────────────────
         public static readonly Color LumiCyan = new Color32(0x00, 0xE5, 0xD4, 0xFF);
@@ -108,6 +111,9 @@ namespace LumiKit.UI
         // ── Generales ──────────────────────────────────────────────────────────────────
         public const float SPACING = 8f;
         public const float RADIUS = 6f;
+        // Muestra de color y tooltip (GDD líneas 601 y 621). Como RADIUS, es el radio que ya
+        // lleva dibujado su sprite (SPR_UI_Rect_R4): cambiarlo aquí no redondea nada.
+        public const float RADIUS_SMALL = 4f;
         public const float BUTTON_HEIGHT = 36f;
         // GDD líneas 582-584: la altura compacta es la de los botones dentro de un panel y
         // es la que ya usan las opciones del enum; el pie lleva la estándar.
