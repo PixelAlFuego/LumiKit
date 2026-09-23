@@ -1,24 +1,27 @@
 # Estado del proyecto
-Actualizado: 2026-09-22 · Sesión 09
+Actualizado: 2026-09-23 · Sesión 09 (cerrada)
 
 ## Ahora
-- Fase: 3 (Interfaz). **LK-51 🟡** programada en la Sesión 09, sin verificar: el generador monta los siete sprites del
-  pack y el Reset lleva contorno real con relleno transparente en reposo.
-- Tarea activa: LK-51, a la espera de que el usuario regenere y verifique. LK-50: spec sin aprobar, sin código.
-- Siguiente: verificar LK-51 y, al cerrarla, corregir la spec de LK-50 (ver Handoff). LK-22b sigue abierta y sin bloquear a nadie.
+- Fase: 3 (Interfaz). **LK-51 🟡**, verificada en parte por el usuario: falla un criterio, la manija del slider (ver Pendiente).
+  Se arregla en la Sesión 10, antes de cerrarla.
+- Tarea activa: LK-51. LK-50 sigue con la spec sin aprobar y sin código. LK-22b: fuentes del usuario en disco, **sin commitear** (ver Handoff).
+- Siguiente: arreglar la manija, regenerar y cerrar LK-51. Después, decidir qué se hace con el peso de las fuentes.
 
 ## Últimas 3 sesiones
 | Sesión | Fecha | Tarea | Resultado | Commit |
 |---|---|---|---|---|
 | 07 | 2026-09-20 | LK-22a pie del panel con Reset | ✅ | 6161b99 |
 | 08 | 2026-09-20 | Cierre de LK-22a + specs de LK-50 y LK-51 | ✅ | 6947ac8 |
-| 09 | 2026-09-22 | Música a MP3 + LK-51 sprites del pack en el generador | 🟡 | 12d21e6 · este commit |
+| 09 | 2026-09-22 | Música a MP3 + LK-51 sprites del pack, verificación parcial | 🟡 | 12d21e6 · 58f9c9c · este commit |
 
 Sesiones 00 a 06 archivadas en `docs/archive/sesiones_2026-Q3.md`.
 
 ## Pendiente de verificación en Unity
-**LK-51 🟡.** Pasos y criterios en `docs/specs/LK-51_UISpriteArt.md` > Banco de pruebas: probar el aborto renombrando
-`SPR_UI_Ring` y `SPR_UI_Track`, borrar los seis `PRF_*` y el `ParameterPanel` de TestBench, regenerar y mirar en Play.
+**LK-51 🟡, verificación parcial (Sesión 09).** Visto por el usuario: esquinas, cápsula del toggle, Reset con contorno y fondo
+transparente, fundido del hover; el tinte sobre `SPR_Crystal` conserva el dibujo. Visto por Claude: 0 `f000000000000000` en los seis
+`PRF_*` y `MAT_Debug.mat` sin cambios. **Falla:** línea oscura fina entre aro y núcleo de la manija del slider. **Salida:** en `CreateSlider`,
+`Handle` pasa de `SPR_UI_Ring` a `SPR_UI_Circle`, cian macizo debajo: el borde del núcleo se funde con cian y no con el panel. `SPR_UI_Ring`
+queda sin uso: ¿sale de `RequireSprites()`? Sin confirmar: aborto del paso 1, estirar el botón, nitidez y ningún otro color cambiado.
 
 ## Entorno confirmado
 - Unity 6000.0.83f1 · URP 17.0.4 · Input System 1.19.0 · uGUI 2.0.0 · 2D Sprite 1.0.0.
@@ -42,8 +45,7 @@ Sesiones 00 a 06 archivadas en `docs/archive/sesiones_2026-Q3.md`.
   Se decide en LK-23: o se añade el prefijo a la tabla, o la música se nombra de otra forma. No lo toco sin que me lo pidas.
 - **Diferidos a LK-01, no cumplidos:** verificación visual de `SetEffectEnabled` y del color en
   espacio Linear. Los criterios viven en `docs/specs/LK-01_Outline2D.md`.
-- **Botón del pie, deuda consciente:** relleno en `Surface` en vez de "Transparente" (GDD línea 566). **Resuelta en código por LK-51**
-  (contorno `SPR_UI_Rect_R6_Outline` y `LumiTheme.Transparent`), pendiente de verificar. Se retira de aquí al cerrar LK-51.
+- **Botón del pie, deuda de LK-22a:** cerrada por LK-51 (contorno `SPR_UI_Rect_R6_Outline` y `LumiTheme.Transparent`), vista por el usuario.
 - **El pack no tiene dónde poner un script de editor propio.** `Assets/Editor/` no se exporta (CONVENTIONS) y ningún script bajo
   `Assets/LumiKit/` puede hacer `using UnityEditor`. Sale a la luz con LK-50: su `LumiButtonEditor` funcionará aquí pero el comprador
   no verá los campos del componente en el Inspector. Haría falta un tercer asmdef sólo-editor dentro del pack. Se decide en LK-27.
@@ -56,8 +58,7 @@ Sesiones 00 a 06 archivadas en `docs/archive/sesiones_2026-Q3.md`.
 - `Assets/TutorialInfo/` y `Assets/Readme.asset` son plantilla de Unity, fuera del pack. También
   `Assets/InputSystem_Actions.inputactions`, asset de acciones del proyecto: D-006 prohíbe usarlo desde el pack.
 - **Issue de la Sesión 02:** sigue abierto el `OnGUI` del `EffectDebugTester`, que no pasa por `EventSystem` y no bloquea el ratón. Se cierra al retirar el tester, al cerrar la Fase 3.
-- **`Assets/TextMesh Pro/` (4 MB) entra al repositorio** (usuario, Sesión 05): los prefabs de UI
-  referencian esas fuentes por GUID. Dependencia del proyecto del comprador: documentar en LK-26.
+- **`Assets/TextMesh Pro/` (4 MB) entra al repositorio** (usuario, Sesión 05): los prefabs la referencian por GUID. Documentar en LK-26.
 - **Tamaño de texto por encima del GDD:** cerrado. Label y Mono a 16 px (GDD: 13) con la resolución de diseño en 1920×1080; anotado en `LumiTheme`, en D-007 y ya en `ui-style.md` (LK-22a).
 - **`EFF_Debug.asset` tiene seis parámetros** y dos son deliberadamente distintos: `_Color` existe
   en el shader de los sprites y `_BaseColor` **no**. `_BaseColor` se queda como control negativo
@@ -67,8 +68,7 @@ Sesiones 00 a 06 archivadas en `docs/archive/sesiones_2026-Q3.md`.
   `650dd952…`): sin iluminación, lo acordado en LK-09 para poder cerrar el criterio de Linear.
 - **Materiales de los sprites, para la Fase 5:** los marcadores comparten el material por defecto `Sprite-Unlit-Default`.
   Cada efecto necesitará el suyo (`MAT_` en `Assets/LumiKit/Materials/2D/`) o tocar un parámetro en uno los cambiará todos. Entra con LK-01.
-- **Los topes no se suben** (usuario, Sesión 05): al llegar al tope se condensa. En la Sesión 07 se
-  condensaron `ui-style.md` (60→58), D-001, D-002 y D-003 para hacer sitio a D-009.
+- **Los topes no se suben** (usuario, Sesión 05): al llegar al tope se condensa (Sesión 07: `ui-style.md`, D-001 a D-003, por D-009).
 - `Assets/_Development/SPR_Crystal.png` y `SPR_RuneCoin.png`: borradores del usuario, no del pack.
   No van a CODEMAP ni se mueven a `Assets/LumiKit/`. Se usan como marcadores en TestBench.
 - **Nombres y posiciones de TestBench:** la spec de LK-12 escribió `Marker_Crystal` en (-3,0,0) y `Marker_RuneCoin` en (3,0,0). El estado
@@ -86,13 +86,15 @@ Sesiones 00 a 06 archivadas en `docs/archive/sesiones_2026-Q3.md`.
 - Rama única `main`. `develop` y `feature/LK-XX-*` del GDD §4.9 aún no creadas.
 
 ## Handoff
-LK-51 programada y commiteada, sin verificar: `LumiTheme` (`Transparent`, `RADIUS_SMALL`) y `ParameterPanelBuilder` (siete
-rutas, `RequireSprites()`, `CreateImage` desde el proyecto, relleno del Reset a radio 5 y `ColorBlock` transparente en reposo).
-Los siete PNG y sus `.meta` son del usuario y entran en ese commit. Los `PRF_*` en disco siguen siendo los de LK-22a hasta
-que el usuario los regenere; entonces entran, con `TestBench.unity`, en el commit de cierre.
-**Al cerrar LK-51** (aprobado por el usuario): corregir `docs/specs/LK-50_LumiButton.md` líneas 13 (`Transparent` ya existe),
-32-35 (el secundario ya es transparente en reposo) y 62 (ya no usa `UISprite.psd`), y las filas de prefabs en CODEMAP.
-LK-50 sigue con la spec sin aprobar. LK-22b (fuentes) sigue abierta, bloqueada sólo por los cuatro `TMP_FontAsset`.
+LK-51: código en `58f9c9c`; prefabs y `TestBench.unity` regenerados en el commit de cierre de la Sesión 09. Falta la manija (ver Pendiente).
+**Al cerrar LK-51** (aprobado): corregir `docs/specs/LK-50_LumiButton.md` líneas 13, 32-35 y 62, y las filas de prefabs en CODEMAP.
+**LK-22b: fuentes del usuario en disco, sin commitear.** Pidió commit y push; Claude lo paró porque no tiene vuelta atrás sin `rebase`:
+- Los cuatro `.asset` suman 60 MB de YAML fuera de LFS. En Space Grotesk, el 89 % de los pares de kerning usa glifos que no están en el
+  atlas: `FontEngine.GetPairAdjustmentRecords` no los filtra, y regenerar con "Get Font Features" da lo mismo.
+- `m_AtlasPadding` = 4, no 7: el Padding del creador viene en **%** y `(int)(70 × 7 / 100) = 4`. La spec debe decir "7 px".
+- Bien: nombres y carpeta de los `.asset`, `Scale` 1, `Static`, 70 pt, 1024², SDFAA. Ningún OFL declara Reserved Font Name.
+  Distinto de la spec, sin efecto: `OFL_*.txt` (spec: `OFL-*`) e `Inter_18pt-*.ttf`.
+- Opciones: script de editor que quite los pares fuera del atlas (recomendada), `.asset` de fuentes por LFS, o sin kerning. Decide el usuario.
 No tocar: `Core/` y `Utils/` (LK-09, LK-49), `Demo/` (LK-10, LK-12), los cuatro widgets,
 `EffectDebugTester.cs` hasta cerrar la Fase 3, `Assets/LumiKit/Scenes/`, `ProjectSettings/`,
 `Packages/manifest.json`, nada de 3D ni VFX.
