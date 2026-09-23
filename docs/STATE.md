@@ -31,12 +31,12 @@ Nada. LK-22a se cerró en la Sesión 08 y no hay ninguna tarea 🟡.
 
 ## Dudas abiertas y bloqueos
 - **Audio, para LK-23.** En el repositorio desde la Sesión 08 (por LFS): `Audio/SFX/` con `SFX_UI_Click`, `SFX_UI_Hover`,
-  `SFX_UI_Select`, `SFX_UI_Error` y `SFX_UI_Transition`, y `Audio/Music/MUS_Ambient_Loop.wav`. **`SFX_UI_Error` y
+  `SFX_UI_Select`, `SFX_UI_Error` y `SFX_UI_Transition`, y `Audio/Music/MUS_Ambient_Loop.mp3`. **`SFX_UI_Error` y
   `SFX_UI_Transition` no entran en LK-23**: el primero espera a que haya avisos en pantalla y el segundo al cambio de
   escena de LK-17. LK-23 engancha sólo los otros tres.
-- **`MUS_Ambient_Loop.wav` pesa 64 MB**, frente a los 120-772 KB de los cinco SFX. Va a LFS y no estorba en git, pero
-  entra tal cual en el `.unitypackage` y en el proyecto del comprador. Los ajustes de importación bajan lo que ocupa en
-  memoria, no el asset en disco: eso pide reencodearlo (Vorbis, mono, menos frecuencia) o acortar el bucle. LK-23 y LK-27.
+- **Música en MP3, decisión del usuario (Sesión 09).** `MUS_Ambient_Loop` pasa de WAV (64 MB) a MP3 (4 MB), con Load Type
+  Streaming, Vorbis al 70 % y sin preload (leído en el `.meta`). En WAV no bajaba de 5 MB y recortar el bucle lo rompía.
+  Cierra la nota de los 64 MB. `*.mp3` va por LFS (`.gitattributes`). Cambia el GUID, pero nada referenciaba el `.wav`.
 - **`MUS_` no existe como prefijo** en la tabla de CONVENTIONS.md ni en CLAUDE.md, aunque el archivo ya use ese nombre.
   Se decide en LK-23: o se añade el prefijo a la tabla, o la música se nombra de otra forma. No lo toco sin que me lo pidas.
 - **Diferidos a LK-01, no cumplidos:** verificación visual de `SetEffectEnabled` y del color en
