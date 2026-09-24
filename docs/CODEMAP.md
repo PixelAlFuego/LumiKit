@@ -37,6 +37,7 @@ Sin consumidores todavía: `Singleton` y `EffectRegistry` los usan `Systems` y L
 | Archivo | Tipo | Responsabilidad | Depende de | LK | Estado |
 |---|---|---|---|---|---|
 | `Assets/Editor/ParameterPanelBuilder.cs` | estática | Genera los seis prefabs del panel (`PRF_ParameterPanel`, `PRF_Widget_Slider/Color/Toggle/Enum/EnumOption`), con su pie y su botón secundario, y monta `UI_Root`, `EventSystem` y el panel en la escena abierta. Usa los siete `SPR_UI_*` de `Sprites/UI/` y aborta si falta un obligatorio. Aborta si algún prefab existe; no guarda la escena | LumiTheme, ParameterPanelUI, los cuatro widgets, ObjectSelector | LK-11a · LK-11b · LK-22a · LK-51 | 🟡 |
+| `Assets/Editor/FontFeatureCleaner.cs` | estática | Quita de las cinco tablas de features de cada `TMP_FontAsset` Static de `Fonts/` todo registro con algún glifo fuera del atlas. Informa por tabla y del peso en disco. Paso obligatorio tras regenerar una fuente o usar "Import Font Features"; repetible | — | LK-22b | 🟡 |
 
 ## Shaders y materiales
 

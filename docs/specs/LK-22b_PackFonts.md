@@ -11,6 +11,7 @@ Las tres son SIL OFL 1.1, que permite redistribuirlas dentro de un producto come
 - `Assets/LumiKit/Fonts/Licenses/` (existe, vacía) · `OFL-SpaceGrotesk.txt`, `OFL-Inter.txt`, `OFL-JetBrainsMono.txt` (planeados). El GDD dibuja un único `OFL.txt`; son tres porque cada familia trae su línea de copyright y esa línea no se fusiona ni se reescribe.
 - `Assets/LumiKit/Fonts/Source/` (planeada) · los `.ttf` originales, que **sí entran en el pack**: desviación del árbol del GDD decidida por el usuario y anotada en **D-009**. No pesan en el build, sólo en el `.unitypackage`.
 - `Assets/Editor/ParameterPanelBuilder.cs` (existe) · **no aditiva**: `CreateText` gana un parámetro de familia y las ~10 llamadas existentes lo pasan. Único punto que toca líneas ya escritas, y es una línea por llamada.
+- `Assets/Editor/FontFeatureCleaner.cs` (existe) · limpiador de features fuera del atlas. Herramienta de desarrollo, fuera del pack (duda abierta en STATE, LK-27).
 - `.claude/rules/ui-style.md` (existe) · una celda: la tabla de tipografía pasa a apuntar a `Assets/LumiKit/Fonts/`, sin subir de las 60 líneas en que LK-22a la deja. Regenera (D-002): los seis `PRF_*` de `Prefabs/UI/`; cambian todos, porque todos llevan texto.
 - No se tocan: `Core/`, `Utils/`, `Demo/`, los scripts de `UI/`, `Assets/TextMesh Pro/` ni `TMP Settings.asset` — la fuente por defecto del proyecto se queda como está; el pack no la impone.
 
@@ -55,6 +56,8 @@ Ajustes del Font Asset Creator, **los mismos cuatro veces**: un ratio padding/ta
 | Render Mode | **SDFAA** · Get Kerning Pairs ✔ |
 
 Si sale *atlas too small*, subir a 1024 × 2048 antes que bajar el Padding: bajarlo rompe el ratio. Tras guardar, en el Inspector de cada `.asset`: `Scale = 1` (un 0.9 heredado del import descuadra todos los tamaños en px de `LumiTheme`) y `Atlas Population Mode = Static`.
+**Obligatorio tras cada regeneración**, en este orden: generar atlas → clic derecho en el `.asset` > `Import Font Features` → `LumiKit > Fuentes > Limpiar features fuera del atlas (LK-22b)`. El creador se deja pares (Inter-Medium: AV y To); el limpiador salta las fuentes que no son `Static`.
+Más de 5 MB tras limpiar: **aviso de revisión, no fallo**. Se comprueba que el peso sea de pares útiles (Inter-Medium: 5,4 MB con 7.779 pares, aceptado en la Sesión 10).
 
 ## Criterios de aceptación (verificables en el editor)
 - [ ] Compila sin errores ni warnings nuevos.
@@ -63,6 +66,7 @@ Si sale *atlas too small*, subir a 1024 × 2048 antes que bajar el Padding: baja
 - [ ] Play + clic en `SPR_Crystal`: la cabecera se lee en Space Grotesk, las etiquetas en Inter y el valor del slider en JetBrains Mono, las tres distinguibles entre sí.
 - [ ] Arrastrar un slider de 0 a 10: el valor no baila de ancho ni salta de sitio (Mono con ancho fijo 56).
 - [ ] Una etiqueta con acento y con ñ (`DisplayNameEs` de `EFF_Debug`, p. ej. "Difuminado pequeño") se ve entera, sin cuadrados ni huecos, y la consola no avisa de glifos ausentes.
+- [ ] Con un TextMeshPro temporal en TestBench, que no se guarda en la escena, cada una de las cuatro fuentes muestra `Áéíóú Ññ ¿¡ «» — … AV To Wa 0123` sin glifos vacíos y con el kerning visible en AV, To y Wa, salvo JetBrains Mono: es monoespaciada y no tiene kerning.
 - [ ] Ningún texto sale rosa ni invisible. Los cuatro `.asset` con `Scale = 1` y `Atlas Population Mode = Static`, `Fonts/Source/` con los cuatro `.ttf` y `Fonts/Licenses/` con los tres `.txt`.
 - [ ] El nombre de cada `.asset` respeta lo que diga su línea de copyright sobre el Reserved Font Name.
 - [ ] Tras salir de Play, `git status` no muestra cambios en `MAT_Debug.mat` (D-001).
