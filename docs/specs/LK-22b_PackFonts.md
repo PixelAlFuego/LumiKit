@@ -58,6 +58,7 @@ Ajustes del Font Asset Creator, **los mismos cuatro veces**: un ratio padding/ta
 Si sale *atlas too small*, subir a 1024 × 2048 antes que bajar el Padding: bajarlo rompe el ratio. Tras guardar, en el Inspector de cada `.asset`: `Scale = 1` (un 0.9 heredado del import descuadra todos los tamaños en px de `LumiTheme`) y `Atlas Population Mode = Static`.
 **Obligatorio tras cada regeneración**, en este orden: generar atlas → clic derecho en el `.asset` > `Import Font Features` → `LumiKit > Fuentes > Limpiar features fuera del atlas (LK-22b)`. El creador se deja pares (Inter-Medium: AV y To); el limpiador salta las fuentes que no son `Static`.
 Más de 5 MB tras limpiar: **aviso de revisión, no fallo**. Se comprueba que el peso sea de pares útiles (Inter-Medium: 5,4 MB con 7.779 pares, aceptado en la Sesión 10).
+Pesos de referencia: los de `ls`. El "Disco antes" del informe mide el archivo en disco, e `Import Font Features` no guarda al importar: Inter-Regular salió 4,40 → 4,40 MB habiendo quitado 479.403 registros.
 
 ## Criterios de aceptación (verificables en el editor)
 - [ ] Compila sin errores ni warnings nuevos.
