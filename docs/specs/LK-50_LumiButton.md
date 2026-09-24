@@ -10,7 +10,7 @@ cambia el relleno. **No necesita ni un sprite**: los 16 pares de color y la esca
 
 ## Archivos
 - `Assets/LumiKit/Runtime/Scripts/UI/LumiButton.cs` (planeado) · `LumiKit.UI`.
-- `UI/LumiTheme.cs` (existe) · aditiva, ~6 líneas: `LumiCyanHover` (`#33EBDD`) y `LumiCyanPressed` (`#00C4B6`), que son del GDD (líneas 555-556) y todavía no están, más `Transparent`.
+- `UI/LumiTheme.cs` (existe) · aditiva, ~4 líneas: `LumiCyanHover` (`#33EBDD`) y `LumiCyanPressed` (`#00C4B6`), que son del GDD (líneas 555-556) y todavía no están. `Transparent` ya existe: lo añadió LK-51.
 - `Assets/Editor/LumiButtonEditor.cs` (planeado) · `LumiKit.Editor`, ~15 líneas: `[CustomEditor(typeof(LumiButton))]` que llama a `base.OnInspectorGUI()` y dibuja debajo los cuatro campos nuevos. Sin él no se ven; ver Fuera de alcance.
 - `Assets/Editor/ParameterPanelBuilder.cs` (existe) · aditiva, ~15 líneas en `CreateButton`: monta `LumiButton` en vez de `Button`, le cablea borde, relleno y etiqueta, y le pasa el nivel. El resto del generador no se toca.
 - `UI/ParameterPanelUI.cs` (existe) · **no se toca**. `LumiButton` hereda de `Button`, así que el campo `_resetButton` sigue siendo válido y `onClick` sigue funcionando igual.
@@ -29,10 +29,10 @@ sin borde deja `_border` a null y el componente no se entera.
 5. Escala: `transform.localScale` a `PRESS_SCALE` en `Pressed` y a 1 en el resto, **sin interpolar**. Suavizarla pide un `Update` o una corrutina y no compensa para una pulsación. Escalar la raíz no descoloca el `HorizontalLayoutGroup` del pie: el layout mide el rect, no la escala.
 6. Los 16 pares de color no se copian aquí: viven en `ui-style.md` > Medidas > Jerarquía, que a su vez los referencia del GDD §2.7 (docs-style, regla 4). Al implementar se leen de ahí y se escriben una sola vez en una tabla estática dentro de `LumiButton`, con los tokens de `LumiTheme`, nunca con hexadecimales.
 
-**El nivel secundario conserva el relleno `Surface` en Normal**, no transparente, exactamente por lo
-que LK-22a dejó anotado: por detrás hay una `Image` de borde que es un rectángulo macizo y se vería
-entera. Lo que esta tarea sí arregla es que el **borde** y el **texto** viren. El transparente de
-verdad llega con el sprite de contorno de LK-51, y entonces será cambiar un token, no el componente.
+**El nivel secundario ya es transparente en Normal** desde LK-51: el borde es `SPR_UI_Rect_R6_Outline`,
+un contorno con el centro vacío, y el relleno usa `LumiTheme.Transparent` (`Surface` con alfa 0) con
+`pixelsPerUnitMultiplier` 1.2. La tabla de esta tarea hereda esos tokens. Lo que añade es que el
+**borde** y el **texto** viren.
 
 ## Banco de pruebas
 `Assets/_Development/TestBench.unity`, con el HUD y el pie ya verificados en LK-22a.
@@ -47,7 +47,7 @@ sitio propio en la UI: llegan con LK-13, LK-18, LK-25 y LK-32. Se verifican a ma
 
 ## Criterios de aceptación (verificables en el editor)
 - [ ] Compila sin errores ni warnings nuevos.
-- [ ] Play + selección: el pie se ve igual que en LK-22a en reposo. Nada ha empeorado.
+- [ ] Play + selección: el pie se ve igual que en LK-51 en reposo. Nada ha empeorado.
 - [ ] Pasar el ratón por el botón: **fondo, borde y texto cambian a la vez**, con desvanecido, no de golpe.
 - [ ] Mantener pulsado: el texto y el borde se ponen cian y el botón se encoge un pelo. Al soltar, vuelve.
 - [ ] El Reset sigue reiniciando los seis widgets: el `onClick` heredado no se ha roto.
@@ -59,7 +59,7 @@ sitio propio en la UI: llegan con LK-13, LK-18, LK-25 y LK-32. Se verifican a ma
 - [ ] Tras salir de Play, `git status` sin cambios en `MAT_Debug.mat` ni en `TestBench.unity`.
 
 ## Fuera de alcance
-- Esquinas redondeadas de verdad, contorno con centro transparente e iconos → **LK-51**. Esta tarea sigue usando `UISprite.psd` de Unity.
+- Esquinas redondeadas y contorno con centro transparente: ya los pone **LK-51** (✅, Sesión 10). Esta tarea no toca sprites. Iconos: otra tarea (GDD línea 473).
 - Suavizar la escala a lo largo de los 150 ms: pediría un `Update` por botón.
 - Sonido de hover y de click → LK-23, que ya tiene los `.wav` en `Assets/LumiKit/Audio/SFX/`.
 - Aplicar el componente fuera del pie: barra superior, menú, pausa y créditos → LK-13, LK-18, LK-25, LK-32.

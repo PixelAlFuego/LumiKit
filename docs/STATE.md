@@ -2,26 +2,21 @@
 Actualizado: 2026-09-24 · Sesión 10 (en curso) · se cortó por un apagón y se reanudó con auditoría, sin pérdidas
 
 ## Ahora
-- Fase: 3 (Interfaz). **LK-51 🟡**, verificada en parte por el usuario: falla un criterio, la manija del slider (ver Pendiente).
-  Se arregla en la Sesión 10, antes de cerrarla.
-- Tarea activa: LK-51. LK-50 sigue con la spec sin aprobar y sin código. LK-22b: fuentes limpias y commiteadas; falta el generador (ver Handoff).
-- Siguiente: arreglar la manija, regenerar y cerrar LK-51. Después, LK-22b paso 3.
+- Fase: 3 (Interfaz). **LK-51 ✅** (Sesión 10). Para cerrar la fase quedan LK-22b y LK-50.
+- Tarea activa: **LK-22b 🟠**: fuentes y limpiador commiteados; falta conectarlas al generador (ver Handoff). LK-50 sigue con la spec sin aprobar y sin código.
+- Siguiente: plan del resto de LK-22b, pendiente del OK del usuario.
 
 ## Últimas 3 sesiones
 | Sesión | Fecha | Tarea | Resultado | Commit |
 |---|---|---|---|---|
-| 07 | 2026-09-20 | LK-22a pie del panel con Reset | ✅ | 6161b99 |
 | 08 | 2026-09-20 | Cierre de LK-22a + specs de LK-50 y LK-51 | ✅ | 6947ac8 |
-| 09 | 2026-09-22 | Música a MP3 + LK-51 sprites del pack, verificación parcial | 🟡 | 12d21e6 · 58f9c9c · este commit |
+| 09 | 2026-09-22 | Música a MP3 + LK-51 sprites del pack, verificación parcial | 🟡 | 12d21e6 · 58f9c9c · bb94a11 |
+| 10 | 2026-09-24 | Apagón y auditoría · LK-22b limpiador y fuentes · manija y cierre de LK-51 | ✅ LK-51 · 🟠 LK-22b | 658d8fa · deef7b1 · f4b5b11 · 9b4832a · este commit |
 
-Sesiones 00 a 06 archivadas en `docs/archive/sesiones_2026-Q3.md`.
+Sesiones 00 a 07 archivadas en `docs/archive/sesiones_2026-Q3.md`.
 
 ## Pendiente de verificación en Unity
-**LK-51 🟡, verificación parcial (Sesión 09).** Visto por el usuario: esquinas, cápsula del toggle, Reset con contorno y fondo
-transparente, fundido del hover; el tinte sobre `SPR_Crystal` conserva el dibujo. Visto por Claude: 0 `f000000000000000` en los seis
-`PRF_*` y `MAT_Debug.mat` sin cambios. **Falla:** línea oscura fina entre aro y núcleo de la manija del slider. **Salida:** en `CreateSlider`,
-`Handle` pasa de `SPR_UI_Ring` a `SPR_UI_Circle`, cian macizo debajo: el borde del núcleo se funde con cian y no con el panel. `SPR_UI_Ring`
-queda sin uso: ¿sale de `RequireSprites()`? Sin confirmar: aborto del paso 1, estirar el botón, nitidez y ningún otro color cambiado.
+Nada. LK-51 cerrada (Sesión 10). Los criterios de LK-22b se copian aquí cuando se programe el generador.
 
 ## Entorno confirmado
 - Unity 6000.0.83f1 · URP 17.0.4 · Input System 1.19.0 · uGUI 2.0.0 · 2D Sprite 1.0.0.
@@ -59,6 +54,8 @@ queda sin uso: ¿sale de `RequireSprites()`? Sin confirmar: aborto del paso 1, e
   `Assets/InputSystem_Actions.inputactions`, asset de acciones del proyecto: D-006 prohíbe usarlo desde el pack.
 - **Issue de la Sesión 02:** sigue abierto el `OnGUI` del `EffectDebugTester`, que no pasa por `EventSystem` y no bloquea el ratón. Se cierra al retirar el tester, al cerrar la Fase 3.
 - **`Assets/TextMesh Pro/` (4 MB) entra al repositorio** (usuario, Sesión 05): los prefabs la referencian por GUID. Documentar en LK-26.
+- **`LiberationSans SDF - Fallback.asset` se reescribe solo:** es dinámico y guarda los glifos que le piden. Con la prueba visual de las fuentes
+  (Sesión 10) ganó 25 caracteres. No se commitea; lo revierte el usuario. Con el HUD en las fuentes del pack (LK-22b) nadie del pack debería pedírselos.
 - **Tamaño de texto por encima del GDD:** cerrado. Label y Mono a 16 px (GDD: 13) con la resolución de diseño en 1920×1080; anotado en `LumiTheme`, en D-007 y ya en `ui-style.md` (LK-22a).
 - **`EFF_Debug.asset` tiene seis parámetros** y dos son deliberadamente distintos: `_Color` existe
   en el shader de los sprites y `_BaseColor` **no**. `_BaseColor` se queda como control negativo
@@ -86,8 +83,6 @@ queda sin uso: ¿sale de `RequireSprites()`? Sin confirmar: aborto del paso 1, e
 - Rama única `main`. `develop` y `feature/LK-XX-*` del GDD §4.9 aún no creadas.
 
 ## Handoff
-LK-51: código en `58f9c9c`; prefabs y `TestBench.unity` regenerados en el commit de cierre de la Sesión 09. Falta la manija (ver Pendiente).
-**Al cerrar LK-51** (aprobado): corregir `docs/specs/LK-50_LumiButton.md` líneas 13, 32-35 y 62, y las filas de prefabs en CODEMAP.
 **LK-22b: fuentes commiteadas (Sesión 10).** Regeneradas con Padding 7 px, `Import Font Features` y `FontFeatureCleaner`: 15,7 MB de
   YAML en total, 0 registros fuera del atlas. Inter-Medium, 5,4 MB con 7.779 pares: aviso de revisión aceptado por el usuario.
 - Bien: nombres y carpeta de los `.asset`, `Scale` 1, `Static`, 70 pt, 1024², SDFAA. Ningún OFL declara Reserved Font Name.

@@ -42,7 +42,7 @@ Una tarea por sesión. No adelantar fases. 3D y VFX están fuera de alcance.
 | LK-20 | Objetos demo 2D (Lumi, cristal, runa) | Arte | 6 | ⬜ |
 | LK-21 | Objetos demo 3D low-poly en Blender | Arte | — | ⬜ fuera de alcance |
 | LK-22a | Pie del panel con Reset y `ui-style.md` al día | UI | 3 | ✅ |
-| LK-22b | Fuentes TMP del pack y sus licencias | Arte | 3 | ⬜ |
+| LK-22b | Fuentes TMP del pack y sus licencias | Arte | 3 | 🟠 |
 | LK-23 | Efectos de sonido de interfaz | Audio | 4 | ⬜ |
 | LK-24 | Comparación antes / después (TAB) | Sistema | 5 | ⬜ |
 | LK-25 | Pantalla de créditos e info del pack | UI | — | ⬜ |
@@ -71,7 +71,7 @@ Una tarea por sesión. No adelantar fases. 3D y VFX están fuera de alcance.
 | LK-48 | Documentación en video | Futura v1.1 | — | ⬜ |
 | LK-49 | Validar `propertyName` contra el shader del material | Sistema | 3 | ✅ |
 | LK-50 | Componente de botón con la jerarquía del GDD §2.7 | UI | 3 | ⬜ |
-| LK-51 | Arte de interfaz: sprites propios del pack | Arte | 3 | 🟡 |
+| LK-51 | Arte de interfaz: sprites propios del pack | Arte | 3 | ✅ |
 
 Estimaciones y prioridades originales: GDD §3.2 (líneas 655-686).
 LK-49 y LK-50 no vienen del GDD: LK-49 sale de verificar LK-11b (Sesión 05) y LK-50 del corte de

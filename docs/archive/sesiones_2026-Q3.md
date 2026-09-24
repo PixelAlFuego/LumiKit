@@ -8,3 +8,4 @@ Una línea por sesión. El detalle vive en el commit y en la spec de la tarea.
 - Sesión 04 · 2026-09-17 · LK-11a `ParameterPanelUI` y widget `Float` · ✅ · `2284703`
 - Sesión 05 · 2026-09-18 · LK-11b widgets Color, Toggle y Enum · ✅ · `871edb6`
 - Sesión 06 · 2026-09-18 · LK-49 validación de `propertyName` · ✅ · `dd7140a`
+- Sesión 07 · 2026-09-20 · LK-22a pie del panel con Reset · ✅ · `6161b99`

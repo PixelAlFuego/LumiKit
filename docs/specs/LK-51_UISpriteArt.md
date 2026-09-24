@@ -1,5 +1,5 @@
 # LK-51 — Arte de interfaz: sprites propios del pack
-Estado: 🟡 implementado sin verificar (Sesión 09; plan aprobado por el usuario) · Tarea nueva, no una ampliación de LK-50 (decisión del usuario, Sesión 08) · Depende de: LK-22a · Independiente de LK-50: aquello es comportamiento, esto es arte · Diseño: GDD §2.6 (líneas 510-545), §2.7 (líneas 580-588), §2.8 (líneas 593-621) · Detalle de dibujo: `docs/reference/UI_ART_BRIEF.md`
+Estado: ✅ verificado en Unity 6000.0.83f1 (usuario, Sesión 10; plan aprobado por el usuario) · Tarea nueva, no una ampliación de LK-50 (decisión del usuario, Sesión 08) · Depende de: LK-22a · Independiente de LK-50: aquello es comportamiento, esto es arte · Diseño: GDD §2.6 (líneas 510-545), §2.7 (líneas 580-588), §2.8 (líneas 593-621) · Detalle de dibujo: `docs/reference/UI_ART_BRIEF.md`
 
 ## Objetivo
 Quitar de la UI los dos sprites de Unity —`UI/Skin/UISprite.psd` y `UI/Skin/Knob.psd`, que el generador pone en once `Image` (diez por
