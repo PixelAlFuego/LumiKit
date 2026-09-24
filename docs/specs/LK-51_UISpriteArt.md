@@ -19,7 +19,7 @@ Los siete PNG ya están en disco (usuario, Sesión 09): los dos tiempos de la Se
 es estática y no serializa un `Sprite`, así que las rutas van en el generador, como las fuentes de LK-22b. En runtime, ni una búsqueda (D-002).
 
 **`RequireSprites()`** — al principio de `GeneratePrefabs`, tras `HasDefaultFont()` y antes de mirar los prefabs existentes. Carga cada
-ruta como `Sprite`, así que un PNG importado como `Default` cuenta como ausente. Si falta alguno de los seis obligatorios: un error en
+ruta como `Sprite`, así que un PNG importado como `Default` cuenta como ausente. Si falta alguno de los cinco obligatorios: un error en
 consola **por cada ruta**, diálogo remitiendo a esta spec y **aborta sin escribir ni un prefab**. `SPR_UI_Track` es opcional: si no está,
 el riel se queda macizo y sólo se avisa con un `Debug.Log`.
 
@@ -31,8 +31,8 @@ el riel se queda macizo y sólo se avisa con un `Debug.Log`.
 | `SPR_UI_Rect_R6_Outline` | borde del botón del pie | `UISprite` |
 | `SPR_UI_Rect_R4` | muestra de color y las seis muestras de paleta | `UISprite` |
 | `SPR_UI_Pill` | pista del toggle | `UISprite` |
-| `SPR_UI_Circle` | manija del toggle y núcleo de la manija del slider | `Knob` |
-| `SPR_UI_Ring` | aro cian de la manija del slider | `Knob` |
+| `SPR_UI_Circle` | manija del toggle; manija del slider: círculo cian debajo y núcleo claro encima | `Knob` |
+| `SPR_UI_Ring` | sin uso en el generador desde la Sesión 10 (hilo oscuro entre aro y núcleo). Pieza suelta del kit, sigue en el pack | — |
 | `SPR_UI_Track` (opcional) | riel y relleno del slider | `UISprite` |
 
 Los sprites son blancos con la forma en el alfa; el color lo sigue poniendo `Image.color` desde `LumiTheme` (D-007). Aparte del
@@ -50,7 +50,7 @@ No espera a LK-50: cuando llegue, su tabla hereda estos tokens.
 
 | Paso | Qué | Quién |
 |---|---|---|
-| 1 | Renombrar en el Project `SPR_UI_Ring` y `SPR_UI_Track` (p. ej. `_x` al final), ejecutar `LumiKit/UI/Generar prefabs del panel` y devolverles el nombre. Desde el Project, no desde el explorador: el `.meta` viaja con el PNG | usuario |
+| 1 | Renombrar en el Project `SPR_UI_Circle` y `SPR_UI_Track` (p. ej. `_x` al final), ejecutar `LumiKit/UI/Generar prefabs del panel` y devolverles el nombre. Desde el Project, no desde el explorador: el `.meta` viaja con el PNG | usuario |
 | 2 | Borrar los seis `PRF_*` y el objeto `ParameterPanel` de la escena, y ejecutar los dos menús `LumiKit/UI/…` | usuario |
 | 3 | Play, clic en `SPR_Crystal` y repasar los criterios con el Game view a 1920×1080 | usuario |
 
@@ -58,11 +58,11 @@ No se prueba generando sin `SPR_UI_Track`: el paso 1 sólo ve el aviso. Sprite n
 
 ## Criterios de aceptación (verificables en el editor)
 - [ ] Compila sin errores ni warnings nuevos.
-- [ ] Paso 1: aborta, error nombrando `SPR_UI_Ring`, sólo un aviso por `SPR_UI_Track`, y `git status` limpio en `Prefabs/UI/`.
+- [ ] Paso 1: aborta, error nombrando `SPR_UI_Circle`, diálogo "Faltan 1 de los 5", sólo un aviso por `SPR_UI_Track`, y `git status` limpio en `Prefabs/UI/`.
 - [ ] Paso 2: ningún `.prefab` apunta ya a los sprites de Unity: `grep -c f000000000000000` da 0 en los seis (hoy suma 28). El YAML no guarda el nombre `UISprite`: guarda el fileID, 10905 (`UISprite`) y 10913 (`Knob`).
 - [ ] Play + clic en `SPR_Crystal`: opciones de enum y muestras con esquinas redondeadas, pista del toggle en cápsula, manijas redondas.
 - [ ] Reset en reposo: sólo el contorno de 1 px, esquinas redondas, centro transparente. En hover el relleno llega al contorno sin hueco en las esquinas.
-- [ ] Manija del slider: sin hilo oscuro entre el aro cian y el núcleo claro. Si se ve, se anota; la salida es volver al círculo cian macizo por debajo.
+- [ ] Manija del slider: círculo cian macizo con el núcleo claro encima, 2 px de cian alrededor y sin hilo oscuro entre los dos (con el aro de la Sesión 09, el hilo se veía).
 - [ ] **Ningún otro color ha cambiado** respecto a LK-22a.
 - [ ] Estirar el botón del pie a lo ancho en el Inspector: las esquinas **no se deforman**.
 - [ ] La cápsula del toggle no se deforma con sus 36×20, y sus extremos siguen siendo semicírculos.

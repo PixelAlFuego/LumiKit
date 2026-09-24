@@ -27,7 +27,7 @@ Todo a **3×** (3 px de textura = 1 px de interfaz a 1920×1080). Seis archivos,
 | `SPR_UI_Rect_R4.png` | 28×28 | 12, 12, 12, 12 | rect. macizo, radio 4 | `UISprite` en muestra de color y muestras de paleta |
 | `SPR_UI_Pill.png` | 62×60 | 30, 0, 30, 0 | cápsula de 20 px de alto, radio completo | `UISprite` en la pista del toggle |
 | `SPR_UI_Circle.png` | 48×48 | **sin 9-slice** | círculo ⌀16 | `Knob` en manija de slider y de toggle |
-| `SPR_UI_Ring.png` | 48×48 | **sin 9-slice** | aro ⌀16, trazo de 6 px de textura (= 2 px) | el truco de dos `Knob` concéntricos del slider |
+| `SPR_UI_Ring.png` | 48×48 | **sin 9-slice** | aro ⌀16, trazo de 6 px de textura (= 2 px) | **pieza suelta del kit**: sigue en el pack, pero el generador no la usa desde la Sesión 10 (hilo oscuro entre aro y núcleo; la manija del slider es `SPR_UI_Circle` cian con el núcleo encima) |
 | `SPR_UI_Track.png` (opcional) | 14×12 | 6, 0, 6, 0 | riel de 4 px con las puntas redondeadas | `UISprite` en el riel del slider |
 
 El riel es opcional porque a 4 px de alto un radio de 2 casi no se ve. Si no lo dibujas, se queda

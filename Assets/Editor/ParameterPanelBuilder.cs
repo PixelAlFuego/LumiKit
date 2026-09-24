@@ -39,13 +39,14 @@ namespace LumiKit.Editor
         private const string LOG = "[LumiKit] ";
 
         // Sprites del pack (LK-51), a 3× con PPU 300: docs/reference/UI_ART_BRIEF.md. Blancos con
-        // la forma en el alfa; el color lo pone LumiTheme. Todos obligatorios salvo el riel.
+        // la forma en el alfa; el color lo pone LumiTheme. Todos obligatorios salvo el riel y el aro.
         private const string SPRITE_FOLDER = "Assets/LumiKit/Sprites/UI";
         private const string SPRITE_RECT_R6 = SPRITE_FOLDER + "/SPR_UI_Rect_R6.png";
         private const string SPRITE_RECT_R6_OUTLINE = SPRITE_FOLDER + "/SPR_UI_Rect_R6_Outline.png";
         private const string SPRITE_RECT_R4 = SPRITE_FOLDER + "/SPR_UI_Rect_R4.png";
         private const string SPRITE_PILL = SPRITE_FOLDER + "/SPR_UI_Pill.png";
         private const string SPRITE_CIRCLE = SPRITE_FOLDER + "/SPR_UI_Circle.png";
+        // El generador ya no la usa (Sesión 10): apunta a una pieza suelta del kit, que sigue en el pack.
         private const string SPRITE_RING = SPRITE_FOLDER + "/SPR_UI_Ring.png";
         private const string SPRITE_TRACK = SPRITE_FOLDER + "/SPR_UI_Track.png";
 
@@ -253,9 +254,10 @@ namespace LumiKit.Editor
             handleAreaRect.anchoredPosition = Vector2.zero;
             handleAreaRect.sizeDelta = new Vector2(-LumiTheme.SLIDER_HANDLE_SIZE, 0f);
 
-            // Manija: aro cian con el núcleo claro dentro. El núcleo va insertado los 2 px de borde
-            // de ui-style, que es justo el trazo que lleva dibujado el aro (LK-51).
-            Image handle = CreateImage("Handle", handleArea.transform, LumiTheme.LumiCyan, SPRITE_RING, Image.Type.Simple);
+            // Manija: círculo cian macizo con el núcleo claro encima, insertado los 2 px de borde de
+            // ui-style. Con un aro debajo, los bordes suavizados de los dos dejaban ver el panel entre
+            // ellos: un hilo oscuro. Sobre cian macizo, el borde del núcleo se funde con cian (LK-51).
+            Image handle = CreateImage("Handle", handleArea.transform, LumiTheme.LumiCyan, SPRITE_CIRCLE, Image.Type.Simple);
             RectTransform handleRect = handle.rectTransform;
             handleRect.anchorMin = new Vector2(0f, 0f);
             handleRect.anchorMax = new Vector2(0f, 1f);
@@ -853,7 +855,7 @@ namespace LumiKit.Editor
         }
 
         /// <summary>
-        /// Sin los sprites del pack la UI saldría sin forma. Aborta si falta alguno de los seis
+        /// Sin los sprites del pack la UI saldría sin forma. Aborta si falta alguno de los cinco
         /// obligatorios, nombrándolos uno a uno; el riel es opcional y sólo avisa.
         /// </summary>
         /// <remarks>
@@ -865,7 +867,7 @@ namespace LumiKit.Editor
             string[] required =
             {
                 SPRITE_RECT_R6, SPRITE_RECT_R6_OUTLINE, SPRITE_RECT_R4,
-                SPRITE_PILL, SPRITE_CIRCLE, SPRITE_RING
+                SPRITE_PILL, SPRITE_CIRCLE
             };
 
             if (AssetDatabase.LoadAssetAtPath<Sprite>(SPRITE_TRACK) == null)
