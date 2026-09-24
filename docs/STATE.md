@@ -1,11 +1,11 @@
 # Estado del proyecto
-Actualizado: 2026-09-23 · Sesión 09 (cerrada)
+Actualizado: 2026-09-24 · Sesión 10 (en curso) · se cortó por un apagón y se reanudó con auditoría, sin pérdidas
 
 ## Ahora
 - Fase: 3 (Interfaz). **LK-51 🟡**, verificada en parte por el usuario: falla un criterio, la manija del slider (ver Pendiente).
   Se arregla en la Sesión 10, antes de cerrarla.
-- Tarea activa: LK-51. LK-50 sigue con la spec sin aprobar y sin código. LK-22b: fuentes del usuario en disco, **sin commitear** (ver Handoff).
-- Siguiente: arreglar la manija, regenerar y cerrar LK-51. Después, decidir qué se hace con el peso de las fuentes.
+- Tarea activa: LK-51. LK-50 sigue con la spec sin aprobar y sin código. LK-22b: fuentes limpias y commiteadas; falta el generador (ver Handoff).
+- Siguiente: arreglar la manija, regenerar y cerrar LK-51. Después, LK-22b paso 3.
 
 ## Últimas 3 sesiones
 | Sesión | Fecha | Tarea | Resultado | Commit |
@@ -48,7 +48,7 @@ queda sin uso: ¿sale de `RequireSprites()`? Sin confirmar: aborto del paso 1, e
 - **Botón del pie, deuda de LK-22a:** cerrada por LK-51 (contorno `SPR_UI_Rect_R6_Outline` y `LumiTheme.Transparent`), vista por el usuario.
 - **El pack no tiene dónde poner un script de editor propio.** `Assets/Editor/` no se exporta (CONVENTIONS) y ningún script bajo
   `Assets/LumiKit/` puede hacer `using UnityEditor`. Sale a la luz con LK-50: su `LumiButtonEditor` funcionará aquí pero el comprador
-  no verá los campos del componente en el Inspector. Haría falta un tercer asmdef sólo-editor dentro del pack. Se decide en LK-27.
+  no verá los campos del componente en el Inspector. Segunda herramienta, `FontFeatureCleaner` (LK-22b): D-009 da los `.ttf` al comprador, pero si regenera sin él sus fuentes vuelven a pesar 20 MB o más. Haría falta un tercer asmdef sólo-editor dentro del pack. Se decide en LK-27.
 - **Borrar al cerrar la Fase 5:** de `Assets/_Development/`, sólo `EffectDebugTester.cs`, `EFF_Debug.asset` y `MAT_Debug.mat`.
   Desechables, fuera del pack, deliberadamente ausentes de CODEMAP y BACKLOG. Los reemplaza LK-11.
 - **`Assets/_Development/TestBench.unity` no se borra:** banco de pruebas permanente, crece con
@@ -88,13 +88,11 @@ queda sin uso: ¿sale de `RequireSprites()`? Sin confirmar: aborto del paso 1, e
 ## Handoff
 LK-51: código en `58f9c9c`; prefabs y `TestBench.unity` regenerados en el commit de cierre de la Sesión 09. Falta la manija (ver Pendiente).
 **Al cerrar LK-51** (aprobado): corregir `docs/specs/LK-50_LumiButton.md` líneas 13, 32-35 y 62, y las filas de prefabs en CODEMAP.
-**LK-22b: fuentes del usuario en disco, sin commitear.** Pidió commit y push; Claude lo paró porque no tiene vuelta atrás sin `rebase`:
-- Los cuatro `.asset` suman 60 MB de YAML fuera de LFS. En Space Grotesk, el 89 % de los pares de kerning usa glifos que no están en el
-  atlas: `FontEngine.GetPairAdjustmentRecords` no los filtra, y regenerar con "Get Font Features" da lo mismo.
-- `m_AtlasPadding` = 4, no 7: el Padding del creador viene en **%** y `(int)(70 × 7 / 100) = 4`. La spec debe decir "7 px".
+**LK-22b: fuentes commiteadas (Sesión 10).** Regeneradas con Padding 7 px, `Import Font Features` y `FontFeatureCleaner`: 15,7 MB de
+  YAML en total, 0 registros fuera del atlas. Inter-Medium, 5,4 MB con 7.779 pares: aviso de revisión aceptado por el usuario.
 - Bien: nombres y carpeta de los `.asset`, `Scale` 1, `Static`, 70 pt, 1024², SDFAA. Ningún OFL declara Reserved Font Name.
-  Distinto de la spec, sin efecto: `OFL_*.txt` (spec: `OFL-*`) e `Inter_18pt-*.ttf`.
-- Opciones: script de editor que quite los pares fuera del atlas (recomendada), `.asset` de fuentes por LFS, o sin kerning. Decide el usuario.
+- **Paso 3, en la spec:** `OFL_*.txt` (spec: `OFL-*`) e `Inter_18pt-*.ttf`; Padding "7 px", porque en **%** el creador da `(int)(70 × 7 / 100) = 4`.
+  Después, el generador: `RequireFonts()` y `CreateText` con familia.
 No tocar: `Core/` y `Utils/` (LK-09, LK-49), `Demo/` (LK-10, LK-12), los cuatro widgets,
 `EffectDebugTester.cs` hasta cerrar la Fase 3, `Assets/LumiKit/Scenes/`, `ProjectSettings/`,
 `Packages/manifest.json`, nada de 3D ni VFX.
