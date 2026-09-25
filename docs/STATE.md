@@ -4,7 +4,7 @@ Actualizado: 2026-09-24 · Sesión 10 (en curso) · se cortó por un apagón y s
 ## Ahora
 - Fase: 3 (Interfaz). **LK-51 ✅ y LK-22b ✅** (Sesión 10). Para cerrar la fase queda LK-50.
 - Tarea activa: **LK-50**, spec de la Sesión 08 sin aprobar y sin código; plan presentado al usuario en la Sesión 10.
-- Siguiente: LK-50 y después **LK-52** (valor editable en el slider, hallazgo de la verificación de LK-22b).
+- Siguiente: LK-50 y después **LK-52** (valor editable en el slider, hallazgo de la verificación de LK-22b): spec escrita, sin aprobar.
 
 ## Últimas 3 sesiones
 | Sesión | Fecha | Tarea | Resultado | Commit |
