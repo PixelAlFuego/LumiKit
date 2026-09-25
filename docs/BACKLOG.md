@@ -9,7 +9,7 @@ Una tarea por sesión. No adelantar fases. 3D y VFX están fuera de alcance.
 | 0 | Andamiaje | Docs + carpetas + asmdefs + git |
 | 1 | LK-09 | EffectParameter, ParameterType, EffectDefinition, EffectRegistry, EffectController, MaterialPropertyHelper, Singleton |
 | 2 | LK-12, LK-10 | DemoCameraController ortográfico, ObjectSelector (raycast) |
-| 3 | LK-11a, LK-11b, LK-49, LK-22a, LK-50, LK-51, LK-22b | ParameterWidgetBase + Slider/Color/Toggle/Enum, ParameterPanelUI, LumiTheme.cs con la paleta, prefabs de UI generados por script, pie con Reset y fuentes del pack. LK-22b puede adelantarse en cuanto el usuario tenga los `TMP_FontAsset` |
+| 3 | LK-11a, LK-11b, LK-49, LK-22a, LK-50, LK-51, LK-22b | ParameterWidgetBase + Slider/Color/Toggle/Enum, ParameterPanelUI, LumiTheme.cs con la paleta, prefabs de UI generados por script, pie con Reset, fuentes del pack y `LumiButton`. **✅ Cerrada (Sesión 10)** |
 | 4 | LK-52, LK-23 | Valor del slider editable con clic y `TextInputFocus` para los atajos; UIAudioManager + AMX_LumiKit + enganche hover/click/select |
 | 5 | LK-01, LK-24, LK-03, LK-02 | Outline 2D, ComparisonToggle (TAB, necesita `_EffectEnabled` de LK-01), Glow 2D, Dissolve 2D + generador procedural de texturas de ruido y rampas |
 | 6 | LK-20 | Sprites Lumi, Cristal, Runa (entrega SVG para exportar a PNG 512) |
@@ -70,7 +70,7 @@ Una tarea por sesión. No adelantar fases. 3D y VFX están fuera de alcance.
 | LK-47 | Optimización para móviles | Futura v2.1 | — | ⬜ |
 | LK-48 | Documentación en video | Futura v1.1 | — | ⬜ |
 | LK-49 | Validar `propertyName` contra el shader del material | Sistema | 3 | ✅ |
-| LK-50 | Componente de botón con la jerarquía del GDD §2.7 | UI | 3 | 🟡 |
+| LK-50 | Componente de botón con la jerarquía del GDD §2.7 | UI | 3 | ✅ |
 | LK-51 | Arte de interfaz: sprites propios del pack | Arte | 3 | ✅ |
 | LK-52 | Valor editable en el slider y foco de texto para los atajos | UI | 4 | ⬜ |
 

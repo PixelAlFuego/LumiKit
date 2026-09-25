@@ -11,7 +11,7 @@ Nuevos bajo `Assets/LumiKit/Runtime/Scripts/UI/` (planeados): `LumiTheme.cs` (es
 - `Assets/Editor/ParameterPanelBuilder.cs` (planeado) · `LumiKit.Editor`. Genera los prefabs y monta el HUD en la escena abierta.
 - `Assets/Editor/LumiKit.Editor.asmdef` (existe) · edición aditiva: añade `Unity.InputSystem` a `references`. `InputSystemUIInputModule` vive en ese ensamblado, namespace `UnityEngine.InputSystem.UI` (comprobado en el paquete 1.19.0).
 - Genera (D-002): `Assets/LumiKit/Prefabs/UI/PRF_Widget_Slider.prefab` y `PRF_ParameterPanel.prefab`.
-- No se tocan: `Core/`, `Utils/`, `Demo/`, `LumiKit.Runtime.asmdef` (ya referencia `UnityEngine.UI` y `Unity.TextMeshPro`) ni `EffectDebugTester.cs`, red de seguridad hasta el cierre de la Fase 3.
+- No se tocan: `Core/`, `Utils/`, `Demo/`, `LumiKit.Runtime.asmdef` (ya referencia `UnityEngine.UI` y `Unity.TextMeshPro`) ni `EffectDebugTester.cs`, red de seguridad hasta el cierre de la Fase 5: es el único disparador de `SetEffectEnabled` (corrección del usuario, Sesión 10).
 
 ## Contrato
 `LumiTheme` — estática. Colores `public static readonly Color` en PascalCase con el nombre del token (`LumiTheme.LumiCyan`), vía `Color32(0xRR,0xGG,0xBB,0xFF)`; medidas y tamaños de texto `const UPPER_SNAKE_CASE` (`PANEL_WIDTH = 280f`). Regla en CONVENTIONS.md.

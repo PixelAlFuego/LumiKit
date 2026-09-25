@@ -1,5 +1,5 @@
 # LK-50 — Componente de botón con la jerarquía del GDD §2.7
-Estado: 🟡 implementado sin verificar (Sesión 10; spec de la Sesión 08, plan aprobado por el usuario) · Depende de: LK-22a (su pie es el banco de pruebas) · Independiente de LK-51: esto es comportamiento, no arte · Diseño: GDD §2.7 (líneas 547-588) · Estilo: `.claude/rules/ui-style.md` > Medidas > Jerarquía · uGUI: D-007
+Estado: ✅ verificado en Unity 6000.0.83f1 (usuario, Sesión 10; spec de la Sesión 08, plan aprobado por el usuario). Cierra la Fase 3 · Depende de: LK-22a (su pie es el banco de pruebas) · Independiente de LK-51: esto es comportamiento, no arte · Diseño: GDD §2.7 (líneas 547-588) · Estilo: `.claude/rules/ui-style.md` > Medidas > Jerarquía · uGUI: D-007
 
 ## Objetivo
 Un `LumiButton` con los cuatro niveles del GDD —primario, secundario, terciario y destructivo— en los

@@ -2,26 +2,21 @@
 Actualizado: 2026-09-24 · Sesión 10 (en curso) · se cortó por un apagón y se reanudó con auditoría, sin pérdidas
 
 ## Ahora
-- Fase: 3 (Interfaz). **LK-51 ✅ y LK-22b ✅** (Sesión 10). Para cerrar la fase queda LK-50.
-- Tarea activa: **LK-50 🟡** (Sesión 10): programado con el plan aprobado, pendiente de verificar (ver Pendiente).
-- Siguiente: LK-50 y después **LK-52** (valor editable en el slider, hallazgo de la verificación de LK-22b): spec escrita, sin aprobar.
+- **Fase 3 (Interfaz) cerrada** (Sesión 10): LK-51, LK-22b y LK-50 ✅. Empieza la Fase 4.
+- Tarea activa: ninguna.
+- Siguiente: **LK-52** (valor editable en el slider, hallazgo de la verificación de LK-22b): spec escrita, sin aprobar. Después, LK-23.
 
 ## Últimas 3 sesiones
 | Sesión | Fecha | Tarea | Resultado | Commit |
 |---|---|---|---|---|
 | 08 | 2026-09-20 | Cierre de LK-22a + specs de LK-50 y LK-51 | ✅ | 6947ac8 |
 | 09 | 2026-09-22 | Música a MP3 + LK-51 sprites del pack, verificación parcial | 🟡 | 12d21e6 · 58f9c9c · bb94a11 |
-| 10 | 2026-09-24 | Apagón y auditoría · LK-22b limpiador y fuentes · manija y cierre de LK-51 | ✅ LK-51 · ✅ LK-22b · 🟡 LK-50 | 658d8fa · deef7b1 · f4b5b11 · 9b4832a · 81920ba · 37596da · 3c865e5 · cb27f92 · este commit |
+| 10 | 2026-09-24 | Apagón y auditoría · LK-22b limpiador y fuentes · manija y cierre de LK-51 · LK-50 · spec de LK-52 | ✅ LK-51 · ✅ LK-22b · ✅ LK-50 · Fase 3 cerrada | 658d8fa · deef7b1 · f4b5b11 · 9b4832a · 81920ba · 37596da · 3c865e5 · cb27f92 · 6f85bb2 · este commit |
 
 Sesiones 00 a 07 archivadas en `docs/archive/sesiones_2026-Q3.md`.
 
 ## Pendiente de verificación en Unity
-**LK-50 🟡 (Sesión 10).** Criterios completos en `docs/specs/LK-50_LumiButton.md`. Antes, regenerar: seis `PRF_*` y `ParameterPanel`.
-- [ ] Compila limpio. Fuera de Play, el Reset se ve con sus colores de reposo, no en blanco.
-- [ ] Play: reposo igual que en LK-51; en hover, fondo, borde y texto cambian a la vez, con fundido.
-- [ ] Pulsado: texto y borde cian, encoge hacia el centro, y al soltar vuelve. Pulsado y arrastrado fuera sin soltar: reposo.
-- [ ] Reset sigue reiniciando y al deseleccionar se apaga. `_style` en Primary, Tertiary y Destructive, a mano en el Inspector.
-- [ ] Sin excepciones con `_border` o `_label` a null. Tras Play, sin cambios en `MAT_Debug.mat` ni en `TestBench.unity`.
+Nada. LK-50 cerrada (Sesión 10) y, con ella, la Fase 3.
 
 ## Entorno confirmado
 - Unity 6000.0.83f1 · URP 17.0.4 · Input System 1.19.0 · uGUI 2.0.0 · 2D Sprite 1.0.0.
@@ -52,14 +47,15 @@ Sesiones 00 a 07 archivadas en `docs/archive/sesiones_2026-Q3.md`.
   `Assets/LumiKit/` puede hacer `using UnityEditor`. Sale a la luz con LK-50: su `LumiButtonEditor` funcionará aquí pero el comprador
   no verá los campos del componente en el Inspector. Segunda herramienta, `FontFeatureCleaner` (LK-22b): D-009 da los `.ttf` al comprador, pero si regenera sin él sus fuentes vuelven a pesar 20 MB o más. Haría falta un tercer asmdef sólo-editor dentro del pack. Se decide en LK-27.
 - **Borrar al cerrar la Fase 5:** de `Assets/_Development/`, sólo `EffectDebugTester.cs`, `EFF_Debug.asset` y `MAT_Debug.mat`.
-  Desechables, fuera del pack, deliberadamente ausentes de CODEMAP y BACKLOG. Los reemplaza LK-11.
+  Desechables, fuera del pack, deliberadamente ausentes de CODEMAP y BACKLOG. El panel (LK-11) sustituyó al tester como UI de parámetros,
+  pero no se retira: es el único disparador de `SetEffectEnabled`, que hará falta en la Fase 5 (corrección del usuario, Sesión 10).
 - **`Assets/_Development/TestBench.unity` no se borra:** banco de pruebas permanente, crece con
   cada tarea (sección "Banco de pruebas" de cada spec). No se exporta.
 - `Assets/Settings/DefaultVolumeProfile.asset` cambió solo (migración de Unity al importar) y entró en el commit `2cc98ff` sin revisión. Fuera del alcance de LK-09.
 - `EffectController.cs` salió de 316 líneas, más de las ~140 estimadas en el plan.
 - `Assets/TutorialInfo/` y `Assets/Readme.asset` son plantilla de Unity, fuera del pack. También
   `Assets/InputSystem_Actions.inputactions`, asset de acciones del proyecto: D-006 prohíbe usarlo desde el pack.
-- **Issue de la Sesión 02:** sigue abierto el `OnGUI` del `EffectDebugTester`, que no pasa por `EventSystem` y no bloquea el ratón. Se cierra al retirar el tester, al cerrar la Fase 3.
+- **Issue de la Sesión 02:** sigue abierto el `OnGUI` del `EffectDebugTester`, que no pasa por `EventSystem` y no bloquea el ratón. Se cierra al retirar el tester, al cerrar la Fase 5.
 - **`Assets/TextMesh Pro/` (4 MB) entra al repositorio** (usuario, Sesión 05): los prefabs la referencian por GUID. Documentar en LK-26.
 - **`LiberationSans SDF - Fallback.asset` se reescribe solo:** es dinámico y guarda los glifos que le piden. Con la prueba visual de las fuentes
   (Sesión 10) ganó 25 caracteres. No se commitea; lo revierte el usuario. Con LK-22b el HUD ya no se lo pide: no cambió tras Play (usuario, Sesión 10).
@@ -86,12 +82,12 @@ Sesiones 00 a 07 archivadas en `docs/archive/sesiones_2026-Q3.md`.
   `LK-11a` (líneas 18, 59, 78, 79), `LK-11b` (9, 39, 44, 74-76) y los widgets Color/Enum/Toggle. La de `ParameterPanelBuilder` la quitó LK-51.
   Casi todas apuntan a LK-50 o a LK-22b; se corrigen si alguna vez toca abrir ese archivo.
 - **`ENUM_OPTION_HEIGHT` (28) y `BUTTON_HEIGHT_COMPACT` (28) son el mismo número del GDD con dos
-  nombres** en `LumiTheme`. No lo unifico sin que me lo pidas; lo natural es hacerlo en LK-50.
+  nombres** en `LumiTheme`. No lo unifico sin que me lo pidas. LK-50 no lo hizo: las opciones de enum no son `LumiButton`.
 - Rama única `main`. `develop` y `feature/LK-XX-*` del GDD §4.9 aún no creadas.
 
 ## Handoff
-**LK-22b cerrada (Sesión 10).** Fuentes limpias (15,7 MB de YAML, 0 registros fuera del atlas) y horneadas por el generador.
-  Regenerar una fuente exige el procedimiento de la spec: atlas → `Import Font Features` → `FontFeatureCleaner`.
+**Fase 3 cerrada (Sesión 10).** LK-52 tiene spec escrita y sin aprobar: toca `Utils/` (archivo nuevo), `DemoCameraController` y el
+  widget de Float, con permiso de su spec. Regenerar una fuente: atlas → `Import Font Features` → `FontFeatureCleaner` (spec de LK-22b).
 No tocar: `Core/` y `Utils/` (LK-09, LK-49), `Demo/` (LK-10, LK-12), los cuatro widgets,
-`EffectDebugTester.cs` hasta cerrar la Fase 3, `Assets/LumiKit/Scenes/`, `ProjectSettings/`,
+`EffectDebugTester.cs` hasta la Fase 5, `Assets/LumiKit/Scenes/`, `ProjectSettings/`,
 `Packages/manifest.json`, nada de 3D ni VFX.
