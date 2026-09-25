@@ -1,5 +1,5 @@
 # LK-22b — Fuentes TMP del pack y sus licencias
-Estado: 🟠 en curso (Sesión 10): fuentes y limpiador en `658d8fa` y `deef7b1`, generador 🟡; plan aprobado por el usuario · Depende de: LK-22a (pie y botón ya construidos), LK-11a/LK-11b (los seis prefabs) · Diseño: GDD §2.4 (líneas 435-458), árbol de carpetas (líneas 931-938) · Estilo: `.claude/rules/ui-style.md` · uGUI: D-007
+Estado: ✅ verificado en Unity 6000.0.83f1 (usuario, Sesión 10) · Fuentes y limpiador en `658d8fa` y `deef7b1`, generador en `37596da` · Depende de: LK-22a (pie y botón ya construidos), LK-11a/LK-11b (los seis prefabs) · Diseño: GDD §2.4 (líneas 435-458), árbol de carpetas (líneas 931-938) · Estilo: `.claude/rules/ui-style.md` · uGUI: D-007
 
 ## Objetivo
 Sustituir LiberationSans —la fuente de los TMP Essential Resources, que hoy pinta todo el HUD— por las tres familias del GDD, horneadas en los prefabs del pack. Cierra la Fase 3.
