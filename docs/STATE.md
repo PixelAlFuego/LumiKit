@@ -1,22 +1,25 @@
 # Estado del proyecto
-Actualizado: 2026-09-24 · Sesión 10 (en curso) · se cortó por un apagón y se reanudó con auditoría, sin pérdidas
+Actualizado: 2026-09-25 · Sesión 11 (en curso)
 
 ## Ahora
-- **Fase 3 (Interfaz) cerrada** (Sesión 10): LK-51, LK-22b y LK-50 ✅. Empieza la Fase 4.
-- Tarea activa: ninguna.
-- Siguiente: **LK-52** (valor editable en el slider, hallazgo de la verificación de LK-22b): spec escrita, sin aprobar. Después, LK-23.
+- **Fase 3 (Interfaz) cerrada** (Sesión 10). Fase 4 en curso.
+- Tarea activa: **LK-52 🟡** (Sesión 11): programado con el plan aprobado y ocho ajustes del usuario, pendiente de verificar (ver Pendiente).
+- Siguiente: verificar LK-52. Después, LK-23.
 
 ## Últimas 3 sesiones
 | Sesión | Fecha | Tarea | Resultado | Commit |
 |---|---|---|---|---|
-| 08 | 2026-09-20 | Cierre de LK-22a + specs de LK-50 y LK-51 | ✅ | 6947ac8 |
 | 09 | 2026-09-22 | Música a MP3 + LK-51 sprites del pack, verificación parcial | 🟡 | 12d21e6 · 58f9c9c · bb94a11 |
-| 10 | 2026-09-24 | Apagón y auditoría · LK-22b limpiador y fuentes · manija y cierre de LK-51 · LK-50 · spec de LK-52 | ✅ LK-51 · ✅ LK-22b · ✅ LK-50 · Fase 3 cerrada | 658d8fa · deef7b1 · f4b5b11 · 9b4832a · 81920ba · 37596da · 3c865e5 · cb27f92 · 6f85bb2 · este commit |
+| 10 | 2026-09-24 | Apagón y auditoría · LK-22b limpiador y fuentes · manija y cierre de LK-51 · LK-50 · spec de LK-52 | ✅ LK-51 · ✅ LK-22b · ✅ LK-50 · Fase 3 cerrada | 658d8fa · deef7b1 · f4b5b11 · 9b4832a · 81920ba · 37596da · 3c865e5 · cb27f92 · 6f85bb2 · f6a41dd |
+| 11 | 2026-09-25 | LK-52 valor editable del slider y `TextInputFocus` | 🟡 LK-52 | este commit |
 
-Sesiones 00 a 07 archivadas en `docs/archive/sesiones_2026-Q3.md`.
+Sesiones 00 a 08 archivadas en `docs/archive/sesiones_2026-Q3.md`.
 
 ## Pendiente de verificación en Unity
-Nada. LK-50 cerrada (Sesión 10) y, con ella, la Fase 3.
+**LK-52 🟡 (Sesión 11).** Criterios completos en `docs/specs/LK-52_SliderValueInput.md`. Antes, regenerar: seis `PRF_*` y `ParameterPanel`.
+- [ ] Compila limpio. Reposo como en LK-22b, 4 px a la izquierda; edición con fondo, contorno, caret cian y todo seleccionado.
+- [ ] `2,5` y `2.5` + Enter aplican; clic fuera confirma; Escape no aplica; tras Enter o Escape, reposo. WASD calla al escribir.
+- [ ] Editar el cristal y, sin confirmar, clic en la moneda: el valor va al cristal y la consola no da errores.
 
 ## Entorno confirmado
 - Unity 6000.0.83f1 · URP 17.0.4 · Input System 1.19.0 · uGUI 2.0.0 · 2D Sprite 1.0.0.
@@ -42,7 +45,9 @@ Nada. LK-50 cerrada (Sesión 10) y, con ella, la Fase 3.
   espacio Linear. Los criterios viven en `docs/specs/LK-01_Outline2D.md`.
 - **Botón del pie, deuda de LK-22a:** cerrada por LK-51 (contorno `SPR_UI_Rect_R6_Outline` y `LumiTheme.Transparent`), vista por el usuario.
 - **`LumiButton` pinta `Selected` como reposo** (usuario, Sesión 10; con el cursor encima, como hover): así un usuario de teclado o mando
-  no ve qué botón tiene el foco. El GDD no define ese estado. Se decide antes de publicar.
+  no ve qué botón tiene el foco. Mismo coste en el campo del slider (LK-52), que suelta la selección al terminar de editar. El GDD no define ese estado. Se decide antes de publicar.
+- **Aviso de rango ancho, para la Fase 5:** el campo del valor (LK-52) muestra 6 caracteres (`-10.00`); con 7 o más, la máscara corta.
+  Que el validador (LK-49) avise cuando el rango de un `Float` los necesite, al llegar los `EFF_` reales.
 - **El pack no tiene dónde poner un script de editor propio.** `Assets/Editor/` no se exporta (CONVENTIONS) y ningún script bajo
   `Assets/LumiKit/` puede hacer `using UnityEditor`. Sale a la luz con LK-50: su `LumiButtonEditor` funcionará aquí pero el comprador
   no verá los campos del componente en el Inspector. Segunda herramienta, `FontFeatureCleaner` (LK-22b): D-009 da los `.ttf` al comprador, pero si regenera sin él sus fuentes vuelven a pesar 20 MB o más. Haría falta un tercer asmdef sólo-editor dentro del pack. Se decide en LK-27.
@@ -86,8 +91,8 @@ Nada. LK-50 cerrada (Sesión 10) y, con ella, la Fase 3.
 - Rama única `main`. `develop` y `feature/LK-XX-*` del GDD §4.9 aún no creadas.
 
 ## Handoff
-**Fase 3 cerrada (Sesión 10).** LK-52 tiene spec escrita y sin aprobar: toca `Utils/` (archivo nuevo), `DemoCameraController` y el
-  widget de Float, con permiso de su spec. Regenerar una fuente: atlas → `Import Font Features` → `FontFeatureCleaner` (spec de LK-22b).
+**LK-52 🟡 (Sesión 11).** Tocó, con permiso de su spec: `Utils/TextInputFocus.cs` (nuevo), `DemoCameraController`, el widget de Float,
+  `LumiTheme` (ancho del valor a 68) y el generador. Regenerar una fuente: atlas → `Import Font Features` → `FontFeatureCleaner` (spec de LK-22b).
 No tocar: `Core/` y `Utils/` (LK-09, LK-49), `Demo/` (LK-10, LK-12), los cuatro widgets,
 `EffectDebugTester.cs` hasta la Fase 5, `Assets/LumiKit/Scenes/`, `ProjectSettings/`,
 `Packages/manifest.json`, nada de 3D ni VFX.

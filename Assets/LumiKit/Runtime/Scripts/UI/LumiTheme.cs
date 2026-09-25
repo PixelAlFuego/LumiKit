@@ -77,8 +77,11 @@ namespace LumiKit.UI
         public const float SLIDER_TRACK_HEIGHT = 4f;
         public const float SLIDER_HANDLE_SIZE = 16f;
         public const float SLIDER_HANDLE_BORDER = 2f;
-        // 56 y no los 48 del GDD: con Mono a 16 px, "10.00" no cabe en 48 y el valor se corta.
-        public const float SLIDER_VALUE_WIDTH = 56f;
+        // 68 y no los 48 del GDD (LK-52): el valor es un campo editable con máscara y tiene que
+        // caber "-10.00". Seis caracteres de Mono a 16 px (9.6 cada uno: 57.6) + 1 del caret +
+        // el relleno a cada lado, redondeado a múltiplo de 4. Con 7 o más, la máscara corta.
+        public const float SLIDER_VALUE_WIDTH = 68f;
+        public const float SLIDER_VALUE_PADDING = 4f;
 
         // ── Fila de un widget de parámetro ─────────────────────────────────────────────
         // Etiqueta (24) + separación (12) + slider (16). Alto y espaciado se mueven juntos:

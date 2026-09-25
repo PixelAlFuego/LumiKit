@@ -43,7 +43,7 @@ secundario: fondo transparente, texto `#F2F5FA`, borde 1 px `#3D4759`; en hover 
 y borde cian; al presionar fondo `#151922` y texto cian · terciario: como el secundario sin borde ·
 destructivo: el secundario con borde y texto en `#FF5A5A`, sólo para reset global e irreversibles.
 Slider: riel 4 px `#2A3242`, relleno `#00E5D4`, manija ⌀16 `#F2F5FA` con borde 2 px cian,
-valor a la derecha en Mono, ancho fijo 56 px (el GDD dice 48: con Mono a 16, "10.00" no cabe).
+valor a la derecha en Mono, editable con clic (LK-52), ancho fijo 68 px con relleno 4: caben 6 caracteres, "-10.00" (el GDD dice 48).
 Color: botón 36×24, radio 4, borde 1 px `#3D4759`.
 Toggle: pista 36×20 radio completo · off `#2A3242`+`#5C6678` · on `#00E5D4`+`#F2F5FA`.
 Panel de parámetros: ancho 280, fondo `#151922`, borde izq. 1 px `#2A3242`, cabecera 48 px,

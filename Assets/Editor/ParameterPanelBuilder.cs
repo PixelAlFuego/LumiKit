@@ -38,6 +38,10 @@ namespace LumiKit.Editor
         private const string EVENT_SYSTEM_NAME = "EventSystem";
         private const string LOG = "[LumiKit] ";
 
+        // Caracteres que admite el campo del valor del slider (LK-52). A la vista caben 6; con
+        // más, el texto se desplaza mientras se escribe y al confirmar vuelve al formato 0.00.
+        private const int VALUE_INPUT_CHARACTER_LIMIT = 8;
+
         // Sprites del pack (LK-51), a 3× con PPU 300: docs/reference/UI_ART_BRIEF.md. Blancos con
         // la forma en el alfa; el color lo pone LumiTheme. Todos obligatorios salvo el riel y el aro.
         private const string SPRITE_FOLDER = "Assets/LumiKit/Sprites/UI";
@@ -213,15 +217,8 @@ namespace LumiKit.Editor
             TextMeshProUGUI label = CreateRowLabel(
                 root.transform, LumiTheme.SLIDER_VALUE_WIDTH + LumiTheme.SPACING, LumiTheme.WIDGET_LABEL_HEIGHT);
 
-            TextMeshProUGUI value = CreateText(
-                "Value", root.transform, FontFamily.Mono, LumiTheme.TEXT_MONO, LumiTheme.TextPrimary, TextAlignmentOptions.MidlineRight);
-            RectTransform valueRect = value.rectTransform;
-            valueRect.anchorMin = new Vector2(1f, 1f);
-            valueRect.anchorMax = new Vector2(1f, 1f);
-            valueRect.pivot = new Vector2(1f, 1f);
-            valueRect.anchoredPosition = Vector2.zero;
-            valueRect.sizeDelta = new Vector2(LumiTheme.SLIDER_VALUE_WIDTH, LumiTheme.WIDGET_LABEL_HEIGHT);
-            value.text = "0.00";
+            // El valor es un campo editable (LK-52), en el mismo sitio: arriba a la derecha.
+            TMP_InputField valueInput = CreateValueInput(root.transform, out TextMeshProUGUI value, out Image valueOutline);
 
             // Slider, anclado abajo y a todo el ancho de la fila.
             Slider slider = CreateSlider("Slider", root.transform);
@@ -236,9 +233,89 @@ namespace LumiKit.Editor
             serialized.FindProperty("_label").objectReferenceValue = label;
             serialized.FindProperty("_slider").objectReferenceValue = slider;
             serialized.FindProperty("_valueLabel").objectReferenceValue = value;
+            serialized.FindProperty("_valueInput").objectReferenceValue = valueInput;
+            serialized.FindProperty("_editOutline").objectReferenceValue = valueOutline;
             serialized.ApplyModifiedPropertiesWithoutUndo();
 
             return root;
+        }
+
+        /// <summary>
+        /// Valor del slider como campo editable con un clic (LK-52). Raíz = fondo y campo; dentro,
+        /// el contorno de edición y el área de texto con máscara, con el número en Mono.
+        /// </summary>
+        /// <remarks>
+        /// El fondo va en blanco: el ColorBlock lo tiñe por estado y en reposo lo deja transparente,
+        /// como el número de LK-22b. El contorno nace apagado; lo enciende SliderParameterWidget.
+        /// Lo que decide el comportamiento se fija aquí y no se deja al valor por defecto de TMP:
+        /// Escape devuelve el texto y desactivar el campo lanza onEndEdit (spec de LK-52).
+        /// </remarks>
+        private static TMP_InputField CreateValueInput(Transform parent, out TextMeshProUGUI text, out Image outline)
+        {
+            Image background = CreateImage("Value", parent, Color.white, SPRITE_RECT_R6, Image.Type.Sliced);
+            RectTransform rect = background.rectTransform;
+            rect.anchorMin = new Vector2(1f, 1f);
+            rect.anchorMax = new Vector2(1f, 1f);
+            rect.pivot = new Vector2(1f, 1f);
+            rect.anchoredPosition = Vector2.zero;
+            rect.sizeDelta = new Vector2(LumiTheme.SLIDER_VALUE_WIDTH, LumiTheme.WIDGET_LABEL_HEIGHT);
+
+            outline = CreateImage("Outline", background.transform, LumiTheme.BorderStrong, SPRITE_RECT_R6_OUTLINE, Image.Type.Sliced);
+            RectTransform outlineRect = outline.rectTransform;
+            outlineRect.anchorMin = Vector2.zero;
+            outlineRect.anchorMax = Vector2.one;
+            outlineRect.offsetMin = Vector2.zero;
+            outlineRect.offsetMax = Vector2.zero;
+            outline.raycastTarget = false;
+            outline.enabled = false;
+
+            GameObject textArea = CreateUIObject("Text Area", background.transform);
+            RectTransform textAreaRect = textArea.GetComponent<RectTransform>();
+            textAreaRect.anchorMin = Vector2.zero;
+            textAreaRect.anchorMax = Vector2.one;
+            textAreaRect.offsetMin = new Vector2(LumiTheme.SLIDER_VALUE_PADDING, 0f);
+            textAreaRect.offsetMax = new Vector2(-LumiTheme.SLIDER_VALUE_PADDING, 0f);
+            textArea.AddComponent<RectMask2D>();
+
+            text = CreateText(
+                "Text", textArea.transform, FontFamily.Mono, LumiTheme.TEXT_MONO, LumiTheme.TextPrimary, TextAlignmentOptions.MidlineRight);
+            RectTransform textRect = text.rectTransform;
+            textRect.anchorMin = Vector2.zero;
+            textRect.anchorMax = Vector2.one;
+            textRect.offsetMin = Vector2.zero;
+            textRect.offsetMax = Vector2.zero;
+            text.text = "0.00";
+
+            TMP_InputField input = background.gameObject.AddComponent<TMP_InputField>();
+            input.textViewport = textAreaRect;
+            input.textComponent = text;
+            input.targetGraphic = background;
+            input.transition = Selectable.Transition.ColorTint;
+            input.colors = new ColorBlock
+            {
+                normalColor = LumiTheme.Transparent,
+                highlightedColor = LumiTheme.SurfaceElevated,
+                pressedColor = LumiTheme.SurfaceElevated,
+                selectedColor = LumiTheme.SurfaceElevated,
+                disabledColor = LumiTheme.Transparent,
+                colorMultiplier = 1f,
+                fadeDuration = LumiTheme.TRANSITION_SECONDS
+            };
+
+            input.lineType = TMP_InputField.LineType.SingleLine;
+            input.characterValidation = TMP_InputField.CharacterValidation.None;
+            input.characterLimit = VALUE_INPUT_CHARACTER_LIMIT;
+            input.richText = false;
+            input.customCaretColor = true;
+            input.caretColor = LumiTheme.LumiCyan;
+            // El GDD no define el color de la selección: BorderStrong, para no inventar un token.
+            input.selectionColor = LumiTheme.BorderStrong;
+            input.onFocusSelectAll = true;
+            input.restoreOriginalTextOnEscape = true;
+            input.resetOnDeActivation = true;
+            input.SetTextWithoutNotify("0.00");
+
+            return input;
         }
 
         /// <summary>

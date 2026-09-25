@@ -1,3 +1,4 @@
+using LumiKit.Utils;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
@@ -100,7 +101,8 @@ namespace LumiKit.Demo
         private void UpdateKeyboardPan(Keyboard keyboard, bool pointerOverUI)
         {
             // GDD §1.4 regla 5: WASD no mueve la cámara con el cursor sobre la UI.
-            if (keyboard == null || pointerOverUI)
+            // Ni mientras se escribe en un campo de texto (LK-52).
+            if (keyboard == null || pointerOverUI || TextInputFocus.IsTyping)
             {
                 return;
             }
