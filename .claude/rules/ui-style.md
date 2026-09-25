@@ -31,7 +31,7 @@ JetBrains Mono — Mono **16** Regular.
 
 Label y Mono van a 16 y no a los 13 del GDD (líneas 456-458): a 13 no se leen con la resolución
 de diseño de 1920×1080. Cerrado por el usuario en la Sesión 05 (D-007). El resto de la escala no
-se toca. Las familias todavía no existen en disco: todo el HUD va con LiberationSans hasta LK-22b.
+se toca. Las familias viven en `Assets/LumiKit/Fonts/` y el generador las hornea en cada texto (LK-22b).
 Interlineado 1.5 (1.2 en títulos) · sentence case, nunca ALL CAPS salvo ES/EN/2D/3D ·
 mínimo absoluto 12 px · +0.02em de tracking en ≤12 px.
 

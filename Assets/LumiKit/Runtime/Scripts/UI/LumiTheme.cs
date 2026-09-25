@@ -15,8 +15,10 @@ namespace LumiKit.UI
     /// PascalCase con el nombre del token (CONVENTIONS.md). Color32 mantiene legible el
     /// hexadecimal del GDD y es el espacio en el que trabaja la UI de uGUI.
     ///
-    /// Sin fuentes: los TMP_FontAsset de Space Grotesk, Inter y JetBrains Mono (GDD línea
-    /// 934) no existen en disco todavía. Aquí sólo viven los tamaños. Las fuentes son LK-22b.
+    /// Sin fuentes: una clase estática no guarda un TMP_FontAsset. Aquí sólo viven los tamaños;
+    /// Space Grotesk, Inter y JetBrains Mono (Assets/LumiKit/Fonts/) las hornea en cada texto
+    /// ParameterPanelBuilder (LK-22b). Si algún día hay que crear texto desde código sin prefab,
+    /// la salida es un ScriptableObject de estilo (LumiSkin, anotado en UI_ART_BRIEF.md).
     /// </remarks>
     public static class LumiTheme
     {

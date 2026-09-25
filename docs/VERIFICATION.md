@@ -29,6 +29,7 @@ Formulación correcta: "implementado, pendiente de verificar en el editor".
 3. Recorrer los criterios de aceptación de `docs/specs/LK-XX_*.md`.
 4. Entrar en Play Mode y repetir los criterios que lo requieran.
 5. Comprobar que ningún `.mat` quedó modificado en disco tras salir de Play Mode (D-001).
+6. Para inspeccionar la vista Game con Scale alto, pausar primero con ⏸: con el juego corriendo, `DemoCameraController` captura el clic derecho y la rueda.
 
 ## Cierre
 El usuario escribe `verificado LK-XX`. Sólo entonces Claude:

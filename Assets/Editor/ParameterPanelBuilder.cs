@@ -50,12 +50,38 @@ namespace LumiKit.Editor
         private const string SPRITE_RING = SPRITE_FOLDER + "/SPR_UI_Ring.png";
         private const string SPRITE_TRACK = SPRITE_FOLDER + "/SPR_UI_Track.png";
 
+        // Fuentes del pack (LK-22b): TMP_FontAsset Static de Assets/LumiKit/Fonts/, horneadas en cada
+        // texto del prefab. LumiTheme sólo tiene los tamaños: una clase estática no guarda una fuente.
+        private const string FONT_FOLDER = "Assets/LumiKit/Fonts";
+        private const string FONT_DISPLAY = FONT_FOLDER + "/SpaceGrotesk-Medium SDF.asset";
+        private const string FONT_LABEL = FONT_FOLDER + "/Inter-Medium SDF.asset";
+        private const string FONT_MONO = FONT_FOLDER + "/JetBrainsMono-Regular SDF.asset";
+        // Ningún texto del panel la usa todavía: entra con la familia Body en LK-25. Hasta entonces
+        // RequireFonts() no la exige, porque el generador exige sólo lo que usa.
+        private const string FONT_BODY = FONT_FOLDER + "/Inter-Regular SDF.asset";
+
+        /// <summary>
+        /// Familia tipográfica de un texto (ui-style.md > Tipografía). Enum y no string: una
+        /// familia mal escrita tiene que ser un error de compilación, no un texto invisible.
+        /// </summary>
+        private enum FontFamily
+        {
+            Display,
+            Label,
+            Mono
+        }
+
         // ── Menús ──────────────────────────────────────────────────────────────────────
 
         [MenuItem("LumiKit/UI/Generar prefabs del panel (LK-11)", false, 100)]
         public static void GeneratePrefabs()
         {
             if (!HasDefaultFont())
+            {
+                return;
+            }
+
+            if (!RequireFonts())
             {
                 return;
             }
@@ -188,7 +214,7 @@ namespace LumiKit.Editor
                 root.transform, LumiTheme.SLIDER_VALUE_WIDTH + LumiTheme.SPACING, LumiTheme.WIDGET_LABEL_HEIGHT);
 
             TextMeshProUGUI value = CreateText(
-                "Value", root.transform, LumiTheme.TEXT_MONO, LumiTheme.TextPrimary, TextAlignmentOptions.MidlineRight);
+                "Value", root.transform, FontFamily.Mono, LumiTheme.TEXT_MONO, LumiTheme.TextPrimary, TextAlignmentOptions.MidlineRight);
             RectTransform valueRect = value.rectTransform;
             valueRect.anchorMin = new Vector2(1f, 1f);
             valueRect.anchorMax = new Vector2(1f, 1f);
@@ -311,7 +337,7 @@ namespace LumiKit.Editor
         private static TextMeshProUGUI CreateRowLabel(Transform parent, float rightInset, float height)
         {
             TextMeshProUGUI label = CreateText(
-                "Label", parent, LumiTheme.TEXT_LABEL, LumiTheme.TextSecondary, TextAlignmentOptions.MidlineLeft);
+                "Label", parent, FontFamily.Label, LumiTheme.TEXT_LABEL, LumiTheme.TextSecondary, TextAlignmentOptions.MidlineLeft);
 
             RectTransform rect = label.rectTransform;
             rect.anchorMin = new Vector2(0f, 1f);
@@ -432,7 +458,7 @@ namespace LumiKit.Editor
             layout.preferredHeight = LumiTheme.COLOR_CHANNEL_HEIGHT;
 
             TextMeshProUGUI letter = CreateText(
-                "Letter", row.transform, LumiTheme.TEXT_LABEL, LumiTheme.TextSecondary, TextAlignmentOptions.MidlineLeft);
+                "Letter", row.transform, FontFamily.Mono, LumiTheme.TEXT_MONO, LumiTheme.TextSecondary, TextAlignmentOptions.MidlineLeft);
             RectTransform letterRect = letter.rectTransform;
             letterRect.anchorMin = new Vector2(0f, 0f);
             letterRect.anchorMax = new Vector2(0f, 1f);
@@ -525,7 +551,7 @@ namespace LumiKit.Editor
             button.targetGraphic = background;
 
             TextMeshProUGUI label = CreateText(
-                "Label", root.transform, LumiTheme.TEXT_LABEL, LumiTheme.TextSecondary, TextAlignmentOptions.Center);
+                "Label", root.transform, FontFamily.Label, LumiTheme.TEXT_LABEL, LumiTheme.TextSecondary, TextAlignmentOptions.Center);
             RectTransform labelRect = label.rectTransform;
             labelRect.anchorMin = Vector2.zero;
             labelRect.anchorMax = Vector2.one;
@@ -620,7 +646,7 @@ namespace LumiKit.Editor
             headerRect.sizeDelta = new Vector2(0f, LumiTheme.PANEL_HEADER_HEIGHT);
 
             TextMeshProUGUI effectName = CreateText(
-                "EffectName", header.transform, LumiTheme.TEXT_H2, LumiTheme.TextPrimary, TextAlignmentOptions.MidlineLeft);
+                "EffectName", header.transform, FontFamily.Display, LumiTheme.TEXT_H2, LumiTheme.TextPrimary, TextAlignmentOptions.MidlineLeft);
             RectTransform effectNameRect = effectName.rectTransform;
             effectNameRect.anchorMin = Vector2.zero;
             effectNameRect.anchorMax = Vector2.one;
@@ -750,7 +776,7 @@ namespace LumiKit.Editor
             fill.pixelsPerUnitMultiplier = LumiTheme.RADIUS / (LumiTheme.RADIUS - LumiTheme.BUTTON_BORDER);
 
             TextMeshProUGUI text = CreateText(
-                "Label", root.transform, LumiTheme.TEXT_LABEL, LumiTheme.TextPrimary, TextAlignmentOptions.Center);
+                "Label", root.transform, FontFamily.Label, LumiTheme.TEXT_LABEL, LumiTheme.TextPrimary, TextAlignmentOptions.Center);
             RectTransform textRect = text.rectTransform;
             textRect.anchorMin = Vector2.zero;
             textRect.anchorMax = Vector2.one;
@@ -836,8 +862,9 @@ namespace LumiKit.Editor
         }
 
         /// <summary>
-        /// Sin los TMP Essential Resources no hay fuente por defecto y los textos salen
-        /// invisibles. Mejor abortar que generar un prefab mudo.
+        /// Sin los TMP Essential Resources no hay shader ni ajustes de TMP: las fuentes del pack usan
+        /// TMP_SDF.shader, que viene con ellos, y los textos saldrían rosas o invisibles. La fuente por
+        /// defecto es la señal de que están importados. Mejor abortar que generar un prefab mudo.
         /// </summary>
         private static bool HasDefaultFont()
         {
@@ -850,6 +877,44 @@ namespace LumiKit.Editor
             EditorUtility.DisplayDialog(
                 "LumiKit",
                 "Faltan los TMP Essential Resources.\n\nWindow > TextMeshPro > Import TMP Essential Resources, y vuelve a ejecutar el menú.",
+                "Vale");
+            return false;
+        }
+
+        /// <summary>
+        /// Sin las fuentes del pack el HUD caería en LiberationSans. Aborta si falta alguna de las
+        /// tres que usa el generador, nombrándolas una a una (LK-22b).
+        /// </summary>
+        /// <remarks>
+        /// Se carga como TMP_FontAsset: otro tipo de asset en esa ruta cuenta como ausente.
+        /// FONT_BODY no está: ningún texto la usa todavía.
+        /// </remarks>
+        private static bool RequireFonts()
+        {
+            string[] required = { FONT_DISPLAY, FONT_LABEL, FONT_MONO };
+
+            List<string> missing = new List<string>();
+            for (int i = 0; i < required.Length; i++)
+            {
+                if (AssetDatabase.LoadAssetAtPath<TMP_FontAsset>(required[i]) == null)
+                {
+                    missing.Add(required[i]);
+                }
+            }
+
+            if (missing.Count == 0)
+            {
+                return true;
+            }
+
+            for (int i = 0; i < missing.Count; i++)
+            {
+                Debug.LogError($"{LOG}Falta la fuente '{missing[i]}' o no es un TMP_FontAsset.");
+            }
+
+            EditorUtility.DisplayDialog(
+                "LumiKit",
+                $"Faltan {missing.Count} de las {required.Length} fuentes del pack y no se ha tocado nada. La consola las lista.\n\nVer docs/specs/LK-22b_PackFonts.md.",
                 "Vale");
             return false;
         }
@@ -939,16 +1004,34 @@ namespace LumiKit.Editor
         }
 
         private static TextMeshProUGUI CreateText(
-            string name, Transform parent, float size, Color color, TextAlignmentOptions alignment)
+            string name, Transform parent, FontFamily family, float size, Color color, TextAlignmentOptions alignment)
         {
             GameObject go = CreateUIObject(name, parent);
             TextMeshProUGUI text = go.AddComponent<TextMeshProUGUI>();
+            // Asignar la fuente cambia también el material al de su atlas (TextMeshProUGUI.LoadFontAsset):
+            // el prefab no se queda con el de LiberationSans.
+            text.font = LoadFont(family);
             text.fontSize = size;
             text.color = color;
             text.alignment = alignment;
             text.textWrappingMode = TextWrappingModes.NoWrap;
             text.raycastTarget = false;
             return text;
+        }
+
+        /// <summary>Fuente de cada familia. RequireFonts() ya ha comprobado que existen.</summary>
+        private static TMP_FontAsset LoadFont(FontFamily family)
+        {
+            switch (family)
+            {
+                case FontFamily.Display:
+                    return AssetDatabase.LoadAssetAtPath<TMP_FontAsset>(FONT_DISPLAY);
+                case FontFamily.Mono:
+                    return AssetDatabase.LoadAssetAtPath<TMP_FontAsset>(FONT_MONO);
+                case FontFamily.Label:
+                default:
+                    return AssetDatabase.LoadAssetAtPath<TMP_FontAsset>(FONT_LABEL);
+            }
         }
     }
 }

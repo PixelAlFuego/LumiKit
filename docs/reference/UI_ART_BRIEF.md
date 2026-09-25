@@ -89,6 +89,8 @@ estira entero y las esquinas se deforman.
 cambiar el arte obliga a regenerar. La alternativa es un ScriptableObject `LumiSkin` con las
 referencias, que el comprador podría cambiar sin regenerar nada. Es más alcance y no hace falta para
 el MVP, pero como argumento de venta ("reskinea el pack") no es poca cosa.
+Segundo motivo (usuario, Sesión 10): llevaría también las fuentes, y hará falta en cuanto una tarea cree texto
+desde código sin prefab. Mientras todo el texto salga de prefabs generados, basta con hornear (LK-22b).
 
 ## Consecuencia buena que conviene no perder
 Con `SPR_UI_Rect_R6_Outline` el botón secundario pasa a tener un contorno de verdad con el centro

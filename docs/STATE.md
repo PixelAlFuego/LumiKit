@@ -3,20 +3,25 @@ Actualizado: 2026-09-24 · Sesión 10 (en curso) · se cortó por un apagón y s
 
 ## Ahora
 - Fase: 3 (Interfaz). **LK-51 ✅** (Sesión 10). Para cerrar la fase quedan LK-22b y LK-50.
-- Tarea activa: **LK-22b 🟠**: fuentes y limpiador commiteados; falta conectarlas al generador (ver Handoff). LK-50 sigue con la spec sin aprobar y sin código.
-- Siguiente: plan del resto de LK-22b, pendiente del OK del usuario.
+- Tarea activa: **LK-22b 🟠**: fuentes y limpiador commiteados; generador 🟡 (ver Pendiente). LK-50 sigue con la spec sin aprobar y sin código.
+- Siguiente: el usuario regenera y verifica LK-22b.
 
 ## Últimas 3 sesiones
 | Sesión | Fecha | Tarea | Resultado | Commit |
 |---|---|---|---|---|
 | 08 | 2026-09-20 | Cierre de LK-22a + specs de LK-50 y LK-51 | ✅ | 6947ac8 |
 | 09 | 2026-09-22 | Música a MP3 + LK-51 sprites del pack, verificación parcial | 🟡 | 12d21e6 · 58f9c9c · bb94a11 |
-| 10 | 2026-09-24 | Apagón y auditoría · LK-22b limpiador y fuentes · manija y cierre de LK-51 | ✅ LK-51 · 🟠 LK-22b | 658d8fa · deef7b1 · f4b5b11 · 9b4832a · este commit |
+| 10 | 2026-09-24 | Apagón y auditoría · LK-22b limpiador y fuentes · manija y cierre de LK-51 | ✅ LK-51 · 🟠 LK-22b | 658d8fa · deef7b1 · f4b5b11 · 9b4832a · 81920ba · este commit |
 
 Sesiones 00 a 07 archivadas en `docs/archive/sesiones_2026-Q3.md`.
 
 ## Pendiente de verificación en Unity
-Nada. LK-51 cerrada (Sesión 10). Los criterios de LK-22b se copian aquí cuando se programe el generador.
+**LK-22b 🟡, generador (Sesión 10).** Criterios completos en `docs/specs/LK-22b_PackFonts.md`. Antes: revertir el fallback de LiberationSans.
+- [ ] Compila limpio. Aborto con una de las tres fuentes fuera de `Fonts/`: error con la ruta, diálogo y `Prefabs/UI/` limpio.
+- [ ] Regenerado: cabecera en Space Grotesk, etiquetas en Inter, valor en JetBrains Mono; nada rosa ni invisible.
+- [ ] Slider de 0 a 10 sin bailar de ancho. Mono e Inter, ambos a 16, de tamaño equivalente (si no: token en `LumiTheme`).
+- [ ] Acentos y ñ sin cuadrados ni avisos. Tras Play, sin cambios en `MAT_Debug.mat` ni en el fallback de LiberationSans.
+- [ ] Prueba visual de las cuatro fuentes con kerning (hecha en la Sesión 10, sin marcar) y Reserved Font Name.
 
 ## Entorno confirmado
 - Unity 6000.0.83f1 · URP 17.0.4 · Input System 1.19.0 · uGUI 2.0.0 · 2D Sprite 1.0.0.
@@ -86,8 +91,8 @@ Nada. LK-51 cerrada (Sesión 10). Los criterios de LK-22b se copian aquí cuando
 **LK-22b: fuentes commiteadas (Sesión 10).** Regeneradas con Padding 7 px, `Import Font Features` y `FontFeatureCleaner`: 15,7 MB de
   YAML en total, 0 registros fuera del atlas. Inter-Medium, 5,4 MB con 7.779 pares: aviso de revisión aceptado por el usuario.
 - Bien: nombres y carpeta de los `.asset`, `Scale` 1, `Static`, 70 pt, 1024², SDFAA. Ningún OFL declara Reserved Font Name.
-- **Paso 3, en la spec:** `OFL_*.txt` (spec: `OFL-*`) e `Inter_18pt-*.ttf`; Padding "7 px", porque en **%** el creador da `(int)(70 × 7 / 100) = 4`.
-  Después, el generador: `RequireFonts()` y `CreateText` con familia.
+- **Paso 3 hecho (Sesión 10):** spec corregida con lo que hay en disco y generador con `RequireFonts()` (tres fuentes; `Inter-Regular`
+  no se exige hasta LK-25) y `CreateText` con familia. Falta regenerar los seis `PRF_*` y verificar.
 No tocar: `Core/` y `Utils/` (LK-09, LK-49), `Demo/` (LK-10, LK-12), los cuatro widgets,
 `EffectDebugTester.cs` hasta cerrar la Fase 3, `Assets/LumiKit/Scenes/`, `ProjectSettings/`,
 `Packages/manifest.json`, nada de 3D ni VFX.
