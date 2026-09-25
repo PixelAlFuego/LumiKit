@@ -3,7 +3,7 @@ Actualizado: 2026-09-24 · Sesión 10 (en curso) · se cortó por un apagón y s
 
 ## Ahora
 - Fase: 3 (Interfaz). **LK-51 ✅ y LK-22b ✅** (Sesión 10). Para cerrar la fase queda LK-50.
-- Tarea activa: **LK-50**, spec de la Sesión 08 sin aprobar y sin código; plan presentado al usuario en la Sesión 10.
+- Tarea activa: **LK-50 🟡** (Sesión 10): programado con el plan aprobado, pendiente de verificar (ver Pendiente).
 - Siguiente: LK-50 y después **LK-52** (valor editable en el slider, hallazgo de la verificación de LK-22b): spec escrita, sin aprobar.
 
 ## Últimas 3 sesiones
@@ -11,12 +11,17 @@ Actualizado: 2026-09-24 · Sesión 10 (en curso) · se cortó por un apagón y s
 |---|---|---|---|---|
 | 08 | 2026-09-20 | Cierre de LK-22a + specs de LK-50 y LK-51 | ✅ | 6947ac8 |
 | 09 | 2026-09-22 | Música a MP3 + LK-51 sprites del pack, verificación parcial | 🟡 | 12d21e6 · 58f9c9c · bb94a11 |
-| 10 | 2026-09-24 | Apagón y auditoría · LK-22b limpiador y fuentes · manija y cierre de LK-51 | ✅ LK-51 · ✅ LK-22b | 658d8fa · deef7b1 · f4b5b11 · 9b4832a · 81920ba · 37596da · este commit |
+| 10 | 2026-09-24 | Apagón y auditoría · LK-22b limpiador y fuentes · manija y cierre de LK-51 | ✅ LK-51 · ✅ LK-22b · 🟡 LK-50 | 658d8fa · deef7b1 · f4b5b11 · 9b4832a · 81920ba · 37596da · 3c865e5 · cb27f92 · este commit |
 
 Sesiones 00 a 07 archivadas en `docs/archive/sesiones_2026-Q3.md`.
 
 ## Pendiente de verificación en Unity
-Nada. LK-22b cerrada (Sesión 10): Mono e Inter a 16, dentro de tolerancia a juicio del usuario; no se toca el token.
+**LK-50 🟡 (Sesión 10).** Criterios completos en `docs/specs/LK-50_LumiButton.md`. Antes, regenerar: seis `PRF_*` y `ParameterPanel`.
+- [ ] Compila limpio. Fuera de Play, el Reset se ve con sus colores de reposo, no en blanco.
+- [ ] Play: reposo igual que en LK-51; en hover, fondo, borde y texto cambian a la vez, con fundido.
+- [ ] Pulsado: texto y borde cian, encoge hacia el centro, y al soltar vuelve. Pulsado y arrastrado fuera sin soltar: reposo.
+- [ ] Reset sigue reiniciando y al deseleccionar se apaga. `_style` en Primary, Tertiary y Destructive, a mano en el Inspector.
+- [ ] Sin excepciones con `_border` o `_label` a null. Tras Play, sin cambios en `MAT_Debug.mat` ni en `TestBench.unity`.
 
 ## Entorno confirmado
 - Unity 6000.0.83f1 · URP 17.0.4 · Input System 1.19.0 · uGUI 2.0.0 · 2D Sprite 1.0.0.
@@ -41,6 +46,8 @@ Nada. LK-22b cerrada (Sesión 10): Mono e Inter a 16, dentro de tolerancia a jui
 - **Diferidos a LK-01, no cumplidos:** verificación visual de `SetEffectEnabled` y del color en
   espacio Linear. Los criterios viven en `docs/specs/LK-01_Outline2D.md`.
 - **Botón del pie, deuda de LK-22a:** cerrada por LK-51 (contorno `SPR_UI_Rect_R6_Outline` y `LumiTheme.Transparent`), vista por el usuario.
+- **`LumiButton` pinta `Selected` como reposo** (usuario, Sesión 10; con el cursor encima, como hover): así un usuario de teclado o mando
+  no ve qué botón tiene el foco. El GDD no define ese estado. Se decide antes de publicar.
 - **El pack no tiene dónde poner un script de editor propio.** `Assets/Editor/` no se exporta (CONVENTIONS) y ningún script bajo
   `Assets/LumiKit/` puede hacer `using UnityEditor`. Sale a la luz con LK-50: su `LumiButtonEditor` funcionará aquí pero el comprador
   no verá los campos del componente en el Inspector. Segunda herramienta, `FontFeatureCleaner` (LK-22b): D-009 da los `.ttf` al comprador, pero si regenera sin él sus fuentes vuelven a pesar 20 MB o más. Haría falta un tercer asmdef sólo-editor dentro del pack. Se decide en LK-27.

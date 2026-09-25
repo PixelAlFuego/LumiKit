@@ -4,6 +4,7 @@
     "references": [
         "LumiKit.Runtime",
         "UnityEngine.UI",
+        "UnityEditor.UI",
         "Unity.InputSystem",
         "Unity.TextMeshPro",
         "Unity.RenderPipelines.Universal.Runtime"

@@ -1,5 +1,5 @@
 # LK-50 — Componente de botón con la jerarquía del GDD §2.7
-Estado: ⬜ spec escrita, pendiente de aprobación (Sesión 08) · Depende de: LK-22a (su pie es el banco de pruebas) · Independiente de LK-51: esto es comportamiento, no arte · Diseño: GDD §2.7 (líneas 547-588) · Estilo: `.claude/rules/ui-style.md` > Medidas > Jerarquía · uGUI: D-007
+Estado: 🟡 implementado sin verificar (Sesión 10; spec de la Sesión 08, plan aprobado por el usuario) · Depende de: LK-22a (su pie es el banco de pruebas) · Independiente de LK-51: esto es comportamiento, no arte · Diseño: GDD §2.7 (líneas 547-588) · Estilo: `.claude/rules/ui-style.md` > Medidas > Jerarquía · uGUI: D-007
 
 ## Objetivo
 Un `LumiButton` con los cuatro niveles del GDD —primario, secundario, terciario y destructivo— en los
@@ -9,10 +9,10 @@ cambia el relleno. **No necesita ni un sprite**: los 16 pares de color y la esca
 `LumiTheme`. Lo que sigue necesitando arte —esquinas y contorno de verdad— es LK-51, y va aparte.
 
 ## Archivos
-- `Assets/LumiKit/Runtime/Scripts/UI/LumiButton.cs` (planeado) · `LumiKit.UI`.
-- `UI/LumiTheme.cs` (existe) · aditiva, ~4 líneas: `LumiCyanHover` (`#33EBDD`) y `LumiCyanPressed` (`#00C4B6`), que son del GDD (líneas 555-556) y todavía no están. `Transparent` ya existe: lo añadió LK-51.
-- `Assets/Editor/LumiButtonEditor.cs` (planeado) · `LumiKit.Editor`, ~15 líneas: `[CustomEditor(typeof(LumiButton))]` que llama a `base.OnInspectorGUI()` y dibuja debajo los cuatro campos nuevos. Sin él no se ven; ver Fuera de alcance.
-- `Assets/Editor/ParameterPanelBuilder.cs` (existe) · aditiva, ~15 líneas en `CreateButton`: monta `LumiButton` en vez de `Button`, le cablea borde, relleno y etiqueta, y le pasa el nivel. El resto del generador no se toca.
+- `Assets/LumiKit/Runtime/Scripts/UI/LumiButton.cs` (existe) · `LumiKit.UI`, con el enum `LumiButtonStyle` en el mismo archivo.
+- `UI/LumiTheme.cs` (existe) · aditiva, 3 líneas: `LumiCyanHover` (`#33EBDD`) y `LumiCyanPressed` (`#00C4B6`), del GDD (líneas 556-557). `Transparent` ya existe: lo añadió LK-51.
+- `Assets/Editor/LumiButtonEditor.cs` (existe) · `LumiKit.Editor`: hereda de `ButtonEditor`, llama a `base.OnInspectorGUI()` y dibuja debajo los cuatro campos nuevos. Por heredar, `LumiKit.Editor.asmdef` referencia `UnityEditor.UI` (una línea). Sin él no se ven; ver Fuera de alcance.
+- `Assets/Editor/ParameterPanelBuilder.cs` (existe) · **no aditiva**, 22 líneas en `CreateButton`: monta `LumiButton` en vez de `Button`, le cablea borde, relleno, etiqueta y nivel, fija el pivot a (0.5, 0.5), pone borde y etiqueta en blanco y **sustituye el `ColorBlock` de LK-51**, código muerto con `transition = None` (usuario, Sesión 10). El resto del generador no se toca.
 - `UI/ParameterPanelUI.cs` (existe) · **no se toca**. `LumiButton` hereda de `Button`, así que el campo `_resetButton` sigue siendo válido y `onClick` sigue funcionando igual.
 - No se tocan: `Core/`, `Utils/`, `Demo/`, los cuatro widgets, `EffectDebugTester.cs`, ni los prefabs a mano (D-002: se regeneran).
 
@@ -23,11 +23,14 @@ Serializa `_style` (enum `LumiButtonStyle`: `Primary`, `Secondary`, `Tertiary`, 
 sin borde deja `_border` a null y el componente no se entera.
 
 1. `transition = Transition.None`. El `ColorBlock` de uGUI sólo sabe teñir **un** gráfico, y aquí hay tres. El pintado lo lleva entero el componente.
-2. Override de `DoStateTransition(SelectionState, bool)` —existe, `Selectable.cs` línea 655—, que para cada estado resuelve los tres colores del nivel y los aplica con `Graphic.CrossFadeColor(color, TRANSITION_SECONDS, true, true)`, que es la misma API que usa `Selectable` por dentro. De ahí salen los 150 ms del GDD (línea 587) en fondo, borde y texto a la vez.
+2. Override de `DoStateTransition(SelectionState, bool)` —existe, `Selectable.cs` línea 655—, que para cada estado resuelve los tres colores del nivel y los aplica con `Graphic.CrossFadeColor(color, TRANSITION_SECONDS, true, true)`, que es la misma API que usa `Selectable` por dentro. De ahí salen los 150 ms del GDD (línea 587) en fondo, borde y texto a la vez, **lineales y no ease-out**: `CrossFadeColor` no tiene curva (aceptado por el usuario, Sesión 10).
 3. **`_fill.color`, `_border.color` y `_label.color` se quedan en blanco** en el prefab. `CrossFadeColor` escribe en el `CanvasRenderer`, que multiplica con el color del `Graphic`: si el `Graphic` no es blanco, el color que se ve no es el pedido. Es el mismo motivo por el que el relleno de LK-22a ya es blanco.
 4. Con `instant == true` (al habilitar, al perder el foco) se aplica sin desvanecido: `CrossFadeColor` con duración 0.
 5. Escala: `transform.localScale` a `PRESS_SCALE` en `Pressed` y a 1 en el resto, **sin interpolar**. Suavizarla pide un `Update` o una corrutina y no compensa para una pulsación. Escalar la raíz no descoloca el `HorizontalLayoutGroup` del pie: el layout mide el rect, no la escala.
 6. Los 16 pares de color no se copian aquí: viven en `ui-style.md` > Medidas > Jerarquía, que a su vez los referencia del GDD §2.7 (docs-style, regla 4). Al implementar se leen de ahí y se escriben una sola vez en una tabla estática dentro de `LumiButton`, con los tokens de `LumiTheme`, nunca con hexadecimales.
+7. `Selectable` da `Pressed` mientras siga pulsado aunque el cursor salga (`currentSelectionState`, `Selectable.cs` línea 609). `LumiButton` lleva la cuenta del puntero (`OnPointerEnter/Exit/Down/Up`) y, pulsado con el ratón y arrastrado fuera, pinta reposo. Pulsado con Submit (teclado o mando) sí se ve presionado.
+
+**Interpretaciones, no GDD** (usuario, Sesión 10): Tertiary deshabilitado = `Transparent` / `TextMuted`, sin borde. Destructive deshabilitado = el del secundario, apagado y sin rojo. `Selected`, el quinto estado de uGUI, se pinta como reposo, o como hover con el cursor encima; así un usuario de teclado o mando no ve qué botón tiene el foco (STATE > Dudas abiertas).
 
 **El nivel secundario ya es transparente en Normal** desde LK-51: el borde es `SPR_UI_Rect_R6_Outline`,
 un contorno con el centro vacío, y el relleno usa `LumiTheme.Transparent` (`Surface` con alfa 0) con
@@ -49,13 +52,14 @@ sitio propio en la UI: llegan con LK-13, LK-18, LK-25 y LK-32. Se verifican a ma
 - [ ] Compila sin errores ni warnings nuevos.
 - [ ] Play + selección: el pie se ve igual que en LK-51 en reposo. Nada ha empeorado.
 - [ ] Pasar el ratón por el botón: **fondo, borde y texto cambian a la vez**, con desvanecido, no de golpe.
-- [ ] Mantener pulsado: el texto y el borde se ponen cian y el botón se encoge un pelo. Al soltar, vuelve.
+- [ ] Fuera de Play, en la escena, el botón se ve con sus colores de reposo, no en blanco.
+- [ ] Mantener pulsado: el texto y el borde se ponen cian y el botón se encoge un pelo **hacia su centro**: el pivot del `Reset` es (0.5, 0.5). Al soltar, vuelve.
 - [ ] El Reset sigue reiniciando los seis widgets: el `onClick` heredado no se ha roto.
 - [ ] Deseleccionar: el botón se deshabilita y se ve apagado, sin quedarse en el color del hover.
-- [ ] Sacar el ratón del botón mientras se mantiene pulsado: no se queda encogido ni con el color de presionado.
+- [ ] Pulsar y arrastrar fuera sin soltar: vuelve a tamaño y color de reposo, no se queda encogido ni con el color de presionado.
 - [ ] Con `_style` en `Primary`: fondo cian y texto oscuro. En `Destructive`: borde y texto rojos.
 - [ ] Un `LumiButton` con `_border` o `_label` a null no lanza excepción: pinta lo que tenga.
-- [ ] Grep en `Scripts/UI/`: ni un `new Color(` ni un hexadecimal fuera de `LumiTheme.cs`.
+- [ ] Grep en `LumiButton.cs`: ni un `new Color(` ni un hexadecimal. Los tres `new Color(` de `ColorParameterWidget` (LK-11b) construyen el color del parámetro, no son literales.
 - [ ] Tras salir de Play, `git status` sin cambios en `MAT_Debug.mat` ni en `TestBench.unity`.
 
 ## Fuera de alcance

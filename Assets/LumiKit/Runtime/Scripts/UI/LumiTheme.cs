@@ -34,6 +34,9 @@ namespace LumiKit.UI
 
         // ── Acentos ────────────────────────────────────────────────────────────────────
         public static readonly Color LumiCyan = new Color32(0x00, 0xE5, 0xD4, 0xFF);
+        // Hover y presionado del botón primario (GDD líneas 556-557). Los usa LumiButton (LK-50).
+        public static readonly Color LumiCyanHover = new Color32(0x33, 0xEB, 0xDD, 0xFF);
+        public static readonly Color LumiCyanPressed = new Color32(0x00, 0xC4, 0xB6, 0xFF);
         public static readonly Color LumiMagenta = new Color32(0xFF, 0x3D, 0x9A, 0xFF);
         public static readonly Color LumiViolet = new Color32(0x8B, 0x5C, 0xF6, 0xFF);
 

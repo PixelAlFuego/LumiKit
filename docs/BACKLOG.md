@@ -70,7 +70,7 @@ Una tarea por sesión. No adelantar fases. 3D y VFX están fuera de alcance.
 | LK-47 | Optimización para móviles | Futura v2.1 | — | ⬜ |
 | LK-48 | Documentación en video | Futura v1.1 | — | ⬜ |
 | LK-49 | Validar `propertyName` contra el shader del material | Sistema | 3 | ✅ |
-| LK-50 | Componente de botón con la jerarquía del GDD §2.7 | UI | 3 | ⬜ |
+| LK-50 | Componente de botón con la jerarquía del GDD §2.7 | UI | 3 | 🟡 |
 | LK-51 | Arte de interfaz: sprites propios del pack | Arte | 3 | ✅ |
 | LK-52 | Valor editable en el slider y foco de texto para los atajos | UI | 4 | ⬜ |
 

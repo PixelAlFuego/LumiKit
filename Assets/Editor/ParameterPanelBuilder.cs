@@ -741,22 +741,22 @@ namespace LumiKit.Editor
         }
 
         /// <summary>
-        /// Botón secundario del GDD (líneas 561-567): borde de 1 px y relleno que cambia con
-        /// el estado. Raíz = borde, hijo insertado 1 px = relleno, y el relleno es el
-        /// targetGraphic del Button.
+        /// Botón secundario del GDD (líneas 562-567) como LumiButton (LK-50). Raíz = borde, hijo
+        /// insertado 1 px = relleno, y el relleno es el targetGraphic.
         /// </summary>
         /// <remarks>
-        /// El estado Normal es transparente, como pide el GDD (línea 566): el borde es un
-        /// contorno con el centro vacío (SPR_UI_Rect_R6_Outline, LK-51), así que detrás del
-        /// relleno sólo queda el panel. Hasta LK-51 era un rectángulo macizo y obligaba a Surface.
-        /// El ColorBlock de uGUI sólo tiñe un gráfico: el borde y el texto virando a cian
-        /// (líneas 566-567) y la escala 0.98 al presionar (línea 588) llegan con LK-50, que
-        /// sustituirá este botón de serie por el componente propio.
+        /// El borde es un contorno con el centro vacío (SPR_UI_Rect_R6_Outline, LK-51): en reposo,
+        /// detrás del relleno transparente sólo queda el panel. Fondo, borde y texto los pinta
+        /// LumiButton por estado, así que los tres gráficos van en blanco: su CanvasRenderer
+        /// multiplica con el color del Graphic.
         /// </remarks>
         private static Button CreateButton(string name, Transform parent, string label)
         {
-            Image border = CreateImage(name, parent, LumiTheme.BorderStrong, SPRITE_RECT_R6_OUTLINE, Image.Type.Sliced);
+            Image border = CreateImage(name, parent, Color.white, SPRITE_RECT_R6_OUTLINE, Image.Type.Sliced);
             GameObject root = border.gameObject;
+
+            // LumiButton escala la raíz al presionar: con el pivot al centro, encoge hacia el centro.
+            border.rectTransform.pivot = new Vector2(0.5f, 0.5f);
 
             LayoutElement layout = root.AddComponent<LayoutElement>();
             layout.minHeight = LumiTheme.BUTTON_HEIGHT;
@@ -776,7 +776,7 @@ namespace LumiKit.Editor
             fill.pixelsPerUnitMultiplier = LumiTheme.RADIUS / (LumiTheme.RADIUS - LumiTheme.BUTTON_BORDER);
 
             TextMeshProUGUI text = CreateText(
-                "Label", root.transform, FontFamily.Label, LumiTheme.TEXT_LABEL, LumiTheme.TextPrimary, TextAlignmentOptions.Center);
+                "Label", root.transform, FontFamily.Label, LumiTheme.TEXT_LABEL, Color.white, TextAlignmentOptions.Center);
             RectTransform textRect = text.rectTransform;
             textRect.anchorMin = Vector2.zero;
             textRect.anchorMax = Vector2.one;
@@ -784,18 +784,16 @@ namespace LumiKit.Editor
             textRect.offsetMax = Vector2.zero;
             text.text = label;
 
-            Button button = root.AddComponent<Button>();
+            LumiButton button = root.AddComponent<LumiButton>();
             button.targetGraphic = fill;
-            button.colors = new ColorBlock
-            {
-                normalColor = LumiTheme.Transparent,
-                highlightedColor = LumiTheme.SurfaceElevated,
-                pressedColor = LumiTheme.Surface,
-                selectedColor = LumiTheme.Transparent,
-                disabledColor = LumiTheme.Transparent,
-                colorMultiplier = 1f,
-                fadeDuration = LumiTheme.TRANSITION_SECONDS
-            };
+            button.transition = Selectable.Transition.None;
+
+            SerializedObject serialized = new SerializedObject(button);
+            serialized.FindProperty("_style").enumValueIndex = (int)LumiButtonStyle.Secondary;
+            serialized.FindProperty("_fill").objectReferenceValue = fill;
+            serialized.FindProperty("_border").objectReferenceValue = border;
+            serialized.FindProperty("_label").objectReferenceValue = text;
+            serialized.ApplyModifiedPropertiesWithoutUndo();
 
             return button;
         }
