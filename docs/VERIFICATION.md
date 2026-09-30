@@ -10,6 +10,13 @@ Claude no ejecuta Unity. Nada pasa a ✅ sin que el usuario lo confirme en el ed
 | ✅ | Verificado en el editor | sólo el usuario |
 | ⛔ | Bloqueado | cualquiera, con motivo en STATE.md |
 
+## Flujo por tarea
+1. Claude escribe el plan → `revisor` lo revisa (`.claude/agents/revisor.md`).
+2. Claude enseña al usuario plan y veredicto; programa sólo con su aprobación.
+3. Al terminar, `verificador` (`.claude/agents/verificador.md`) pasa los criterios técnicos por Unity MCP.
+4. Claude entrega su informe al usuario.
+5. El usuario hace lo visual, por lotes, al final de cada día.
+
 ## Al terminar de programar (Claude)
 1. Marcar la tarea 🟡 en BACKLOG.md. Nunca ✅.
 2. Añadir las filas nuevas a CODEMAP.md, sólo de archivos que existan en disco.
@@ -35,7 +42,9 @@ Formulación correcta: "implementado, pendiente de verificar en el editor".
 El usuario escribe `verificado LK-XX`. Sólo entonces Claude:
 - pone ✅ en BACKLOG.md,
 - vacía esa checklist de STATE.md,
-- mueve la sesión a la tabla de últimas 3 sesiones.
+- mueve la sesión a la tabla de últimas 3 sesiones,
+- commit `[LK-XX]`; `grep -rniE "coplay|mcpforunity" Assets/LumiKit/` da 0,
+- tag `cp-NN-nombre` y push con tags.
 
 Si un criterio falla: el usuario describe el fallo, la tarea vuelve a 🟠 y se corrige
 antes de tocar la siguiente tarea.

@@ -4,7 +4,7 @@ Actualizado: 2026-09-29 · Sesión 11 (en curso)
 ## Ahora
 - **Fase 4 en curso:** LK-52 ✅ (Sesión 11). Queda LK-23.
 - Tarea activa: ninguna.
-- Siguiente: LK-23.
+- Siguiente: LK-23, con el flujo de `docs/VERIFICATION.md` > Flujo por tarea.
 - **Modo sprint** hasta el viernes 2026-10-02 por la tarde: rama `sprint/mvp`, alcance y recortes en `docs/MVP_SCOPE.md`. Punto seguro: tag `v0.3-pre-mcp` (2c5d484).
 
 ## Últimas 3 sesiones
@@ -12,7 +12,7 @@ Actualizado: 2026-09-29 · Sesión 11 (en curso)
 |---|---|---|---|---|
 | 09 | 2026-09-22 | Música a MP3 + LK-51 sprites del pack, verificación parcial | 🟡 | 12d21e6 · 58f9c9c · bb94a11 |
 | 10 | 2026-09-24 | Apagón y auditoría · LK-22b limpiador y fuentes · manija y cierre de LK-51 · LK-50 · spec de LK-52 | ✅ LK-51 · ✅ LK-22b · ✅ LK-50 · Fase 3 cerrada | 658d8fa · deef7b1 · f4b5b11 · 9b4832a · 81920ba · 37596da · 3c865e5 · cb27f92 · 6f85bb2 · f6a41dd |
-| 11 | 2026-09-25 y 29 | LK-52 valor editable del slider y `TextInputFocus`, y su cierre · modo sprint | ✅ LK-52 | 9cfbb49 · 2c5d484 · este commit |
+| 11 | 2026-09-25 y 29 | LK-52 valor editable del slider y `TextInputFocus`, y su cierre · modo sprint · Unity MCP y subagentes | ✅ LK-52 | 9cfbb49 · 2c5d484 · 3d2f2b8 · fa4af22 · 087251a · 428efc3 · este commit |
 
 Sesiones 00 a 08 archivadas en `docs/archive/sesiones_2026-Q3.md`.
 
@@ -24,7 +24,8 @@ Nada. LK-52 cerrada (Sesión 11).
 - Active Input Handling = Input System Package (New) (`activeInputHandler: 1`), confirmado
   por el usuario. Única API y forma de lectura: D-006.
 - Remoto `origin` = https://github.com/PixelAlFuego/LumiKit.git
-- **Push siempre requiere autorización del usuario.** Claude commitea; no sube.
+- **Push:** sólo al cerrar una tarea en ✅, con su tag `cp-NN-nombre` (usuario, Sesión 11). Fuera de eso, requiere autorización.
+- Unity MCP: `com.coplaydev.unity-mcp`, servidor 3.4.7, registrado en local como `UnityMCP` (HTTP, 127.0.0.1:8080). Reglas: CLAUDE.md.
 - Los Shader Graph los construye el usuario. Claude entrega la especificación del grafo.
 - D-001 confirmado en la práctica: tras salir de Play Mode, `MAT_Debug.mat` sin cambios
   en `git status` y el Mesh Renderer sin "(Instance)".
@@ -86,6 +87,8 @@ Nada. LK-52 cerrada (Sesión 11).
   Casi todas apuntan a LK-50 o a LK-22b; se corrigen si alguna vez toca abrir ese archivo.
 - **`ENUM_OPTION_HEIGHT` (28) y `BUTTON_HEIGHT_COMPACT` (28) son el mismo número del GDD con dos
   nombres** en `LumiTheme`. No lo unifico sin que me lo pidas. LK-50 no lo hizo: las opciones de enum no son `LumiButton`.
+- **Shaders del MVP (punto 7, Sesión 11): sin elegir** entre HLSL a mano o Shader Graph del usuario. Bloquea LK-01. La regla vive en `.claude/rules/shaders.md`, no en D-004.
+- **Bloqueo por acción, no por herramienta:** `settings.json` no puede frenar `manage_editor` (tags, capas, `deploy_package`), `execute_menu_item` fuera de `LumiKit/*` ni `manage_scene` (guardar). Sólo los frena CLAUDE.md.
 - Ramas `main` y `sprint/mvp` (Sesión 11, desde el tag `v0.3-pre-mcp`). `develop` y `feature/LK-XX-*` del GDD §4.9 aún no creadas.
 
 ## Handoff

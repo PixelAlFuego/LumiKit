@@ -39,7 +39,7 @@ bajo `Assets/LumiKit/`. Nada fuera de esa carpeta se exporta.
 - Nunca edites a mano: `*.meta`, `*.unity`, `*.prefab`, `*.asset`, `ProjectSettings/`,
   `Packages/manifest.json`. Escenas y prefabs se construyen con scripts de editor.
 - Git prohibido: `reset --hard`, `checkout -- .`, `clean -fd`, `push --force`, `rebase`.
-  Permitido: `status`, `diff`, `log`, `add`, `commit`.
+  Permitido: `status`, `diff`, `log`, `add`, `commit`. `tag` y `push` con tags, sólo al cerrar una tarea en ✅.
 
 ## Honestidad — anti-alucinación
 - No puedes ejecutar Unity ni compilar. Nunca escribas "funciona", "probado" o

@@ -53,7 +53,9 @@ editor van en `Assets/Editor/`, que no se exporta.
 
 ## Commits
 Formato: `[LK-XX] descripción en imperativo`. Ejemplos en GDD §4.9 (líneas 1247-1250).
-Ramas: `main` estable · `develop` integración · `feature/LK-XX-descripcion`.
+Fuera de tareas: `chore(tooling):` MCP y agentes · `chore(assets):` arte, audio y fuentes. Nunca mezclados en un commit.
+Ramas: `main` estable · `develop` integración · `feature/LK-XX-descripcion`. Sprint del MVP: `sprint/mvp`.
+Tag `cp-NN-nombre` tras cada tarea en ✅: procedimiento en `docs/VERIFICATION.md` > Cierre.
 
 ## Qué se exporta
 Sólo `Assets/LumiKit/`. Quedan fuera: `Assets/Editor/`, `Assets/_Development/`,
