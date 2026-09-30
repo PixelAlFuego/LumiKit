@@ -5,11 +5,12 @@ Fuente: GDD §4.5 (líneas 1085-1123). Aquí sólo lo aplicable; nada se duplica
 
 | Prefijo | Tipo | Ejemplo | Carpeta |
 |---|---|---|---|
+| `SH_` | Shader HLSL (D-010) | `SH_Outline2D.shader` | `Assets/LumiKit/Shaders/2D/` |
 | `SG_` | Shader Graph | `SG_Outline2D.shadergraph` | `Assets/LumiKit/Shaders/2D/` |
 | `SUB_` | Sub Graph | `SUB_NoiseSampler.shadersubgraph` | `Assets/LumiKit/Shaders/SubGraphs/` |
 | `MAT_` | Material | `MAT_Toon3D_Default.mat` | `Assets/LumiKit/Materials/2D/` |
 | `TEX_` | Textura | `TEX_NoisePerlin_512.png` | `Assets/LumiKit/Textures/Noise/` |
-| `SPR_` | Sprite | `SPR_Lumi_512.png` | `Assets/LumiKit/Sprites/` |
+| `SPR_` | Sprite, sin sufijo de resolución (D-012) | `SPR_Crystal.png` | `Assets/LumiKit/Sprites/` |
 | `MDL_` | Modelo 3D | `MDL_Bust_LowPoly.fbx` | `Assets/LumiKit/Models/` |
 | `PRF_` | Prefab | `PRF_ParameterPanel.prefab` | `Assets/LumiKit/Prefabs/UI/` |
 | `VFX_` | Prefab de partículas | `VFX_FireSmoke.prefab` | `Assets/LumiKit/VFX/Prefabs/` |

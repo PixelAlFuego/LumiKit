@@ -10,3 +10,4 @@ Una línea por sesión. El detalle vive en el commit y en la spec de la tarea.
 - Sesión 06 · 2026-09-18 · LK-49 validación de `propertyName` · ✅ · `dd7140a`
 - Sesión 07 · 2026-09-20 · LK-22a pie del panel con Reset · ✅ · `6161b99`
 - Sesión 08 · 2026-09-20 · Cierre de LK-22a + specs de LK-50 y LK-51 · ✅ · `6947ac8`
+- Sesión 09 · 2026-09-22 · Música a MP3 + LK-51 sprites del pack, verificación parcial · 🟡 · `12d21e6` · `58f9c9c` · `bb94a11`

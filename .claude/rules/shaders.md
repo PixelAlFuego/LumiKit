@@ -34,7 +34,7 @@ El nombre de la propiedad (`Properties` en HLSL, `Reference` en grafo) debe coin
 pases que `Sprite-Unlit-Default` de URP: `Universal2D` y `UniversalForward` (el proyecto usa Universal Renderer).
 Shader Graph (aparcado, Asset Store): `.shadergraph` y `.shadersubgraph` son JSON con GUIDs, **no se escriben
 a mano**; los construye el usuario con la especificación de Claude (nodos, conexiones, propiedades) en tabla.
-`SG_` grafo · `SUB_` subgrafo · `MAT_` material · `.shader`: prefijo pendiente (LK-01). Detalle en docs/CONVENTIONS.md.
+`SH_` shader HLSL · `SG_` grafo · `SUB_` subgrafo · `MAT_` material. Detalle en docs/CONVENTIONS.md.
 
 ## Alcance actual
 Sólo 2D: LK-01 Outline, LK-03 Glow, LK-02 Dissolve. Registrar en CODEMAP.md. Estado 🟡.

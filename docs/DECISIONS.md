@@ -92,40 +92,30 @@ El árbol del GDD (líneas 768-773) no se reescribe: la fuente de verdad de los 
 ---
 
 ## D-007 — La UI del pack es uGUI + TextMeshPro, con la paleta y las medidas en LumiTheme
-Fecha: 2026-09-17 · Sesión 04, verificada en la 05 · Irreversible: **no**
-
-**Decisión.** Toda la interfaz se construye con uGUI (`Canvas`, `Image`, `Slider`, `TextMeshProUGUI`),
-no con UI Toolkit. Colores, tamaños y medidas salen de `LumiKit.UI.LumiTheme`; ni un literal suelto.
-
-**Motivo.** D-006 obliga a `InputSystemUIInputModule`, módulo de `EventSystem` y por tanto de uGUI:
-es lo que hace que `IsPointerOverGameObject` bloquee cámara y selección (LK-10, LK-12). UI Toolkit
-en runtime no pasa por `EventSystem`. Y un único sitio para la paleta evita que LK-22a sea una caza
-de hexadecimales por todo el pack.
-
-**Alcance.** LK-11a/b, LK-13, LK-18, LK-22a/b, LK-25, LK-30 a LK-34, LK-50 y todo prefab de `Assets/LumiKit/Prefabs/UI/` (D-002).
-La resolución de diseño es **1920×1080** (usuario, Sesión 05): `CanvasScaler` en `ScaleWithScreenSize`
-con match = height y esa referencia, y el Game view igual. Es lo que hace comparable un tamaño de
-texto entre sesiones; sin fijarla, la escala del panel depende del tamaño de la ventana.
-
-**Consecuencia.** Depende de `com.unity.ugui` y de los TMP Essential Resources (`Assets/TextMesh Pro/`, en el repo desde la Sesión 05): los prefabs referencian esas fuentes por GUID. Se documenta en LK-26.
+Fecha: 2026-09-17 · Sesión 04, verificada en la 05 · Irreversible: **no** · Condensada en la Sesión 12
+**Decisión.** Toda la interfaz se construye con uGUI (`Canvas`, `Image`, `Slider`, `TextMeshProUGUI`), no con UI
+Toolkit. Colores, tamaños y medidas salen de `LumiKit.UI.LumiTheme`; ni un literal suelto. **Motivo:** D-006 obliga a
+`InputSystemUIInputModule`, módulo de `EventSystem` y por tanto de uGUI: es lo que hace que `IsPointerOverGameObject`
+bloquee cámara y selección (LK-10, LK-12); UI Toolkit en runtime no pasa por `EventSystem`. Y un único sitio para la
+paleta evita que LK-22a sea una caza de hexadecimales por todo el pack. **Alcance:** LK-11a/b, LK-13, LK-18, LK-22a/b,
+LK-25, LK-30 a LK-34, LK-50 y todo prefab de `Assets/LumiKit/Prefabs/UI/` (D-002). La resolución de diseño es
+**1920×1080** (usuario, Sesión 05): `CanvasScaler` en `ScaleWithScreenSize` con match = height y esa referencia, y el
+Game view igual; sin fijarla, la escala del panel depende del tamaño de la ventana y un tamaño de texto no es comparable
+entre sesiones. **Consecuencia:** depende de `com.unity.ugui` y de los TMP Essential Resources (`Assets/TextMesh Pro/`,
+en el repo desde la Sesión 05): los prefabs referencian esas fuentes por GUID. Se documenta en LK-26.
 
 ---
 
 ## D-009 — Los `.ttf` originales entran en el pack, en `Fonts/Source/`
-Fecha: 2026-09-20 · Sesión 07 · Irreversible: **no**
-
-**Decisión.** `Assets/LumiKit/Fonts/` lleva los cuatro `TMP_FontAsset` y, además, los `.ttf`
-originales en `Fonts/Source/` (planeado). El árbol del GDD (líneas 931-938) sólo dibuja los
-`.asset` y un `OFL.txt`: es una desviación deliberada, decidida por el usuario en la Sesión 07.
-
-**Motivo.** Dos. El comprador puede regenerar los atlas —a otro tamaño de muestreo, con otro juego
-de caracteres o para otra resolución de diseño— sin volver a buscar la fuente. Y refuerza el
-cumplimiento de la OFL 1.1: se redistribuye el Font Software completo junto a su licencia, no sólo
-un atlas derivado de él.
-
-**Alcance.** LK-22b y LK-27 (exportación). `Fonts/Licenses/` lleva un `.txt` por familia y no uno
-solo, porque cada una trae su propia línea de copyright. Coste ≈1 MB en el `.unitypackage`; en el
-build no pesa: un `TMP_FontAsset` estático no referencia el `.ttf` en runtime.
+Fecha: 2026-09-20 · Sesión 07 · Irreversible: **no** · Condensada en la Sesión 12
+**Decisión.** `Assets/LumiKit/Fonts/` lleva los cuatro `TMP_FontAsset` y, además, los `.ttf` originales en
+`Fonts/Source/` (planeado). El árbol del GDD (líneas 931-938) sólo dibuja los `.asset` y un `OFL.txt`: desviación
+deliberada, decidida por el usuario en la Sesión 07. **Motivo:** dos. El comprador puede regenerar los atlas —a otro
+tamaño de muestreo, con otro juego de caracteres o para otra resolución de diseño— sin volver a buscar la fuente. Y
+refuerza el cumplimiento de la OFL 1.1: se redistribuye el Font Software completo junto a su licencia, no sólo un atlas
+derivado de él. **Alcance:** LK-22b y LK-27 (exportación). `Fonts/Licenses/` lleva un `.txt` por familia y no uno solo,
+porque cada una trae su propia línea de copyright. Coste ≈1 MB en el `.unitypackage`; en el build no pesa: un
+`TMP_FontAsset` estático no referencia el `.ttf` en runtime.
 
 ---
 
@@ -146,3 +136,12 @@ Fecha: 2026-09-30 · Sesión 11 · Irreversible: **no**
 hijos de `Master`, sin efectos ni snapshots extra. El código sólo lo lee. **Motivo:** Unity no tiene API pública para
 crear un `AudioMixer`; `AudioMixerController` es interno y usarlo por reflexión queda descartado. **Alcance:** LK-23.
 Un cambio de grupos lo hace el usuario a mano y se anota en `docs/specs/LK-23_UIAudio.md`.
+
+---
+
+## D-012 — Los sprites de demostración no llevan sufijo de resolución
+Fecha: 2026-09-30 · Sesión 12 · Irreversible: **no**
+**Decisión.** `SPR_Crystal.png` y `SPR_RuneCoin.png` en `Assets/LumiKit/Sprites/`, a 1024×1024 con PPU 512 y sin sufijo
+de resolución; `SPR_Lumi` (planeado) sigue la misma regla. El GDD decía `SPR_*_512.png`, 512×512 y PPU 100: corregido en
+§2.6 (líneas 522 y 524), §4.2 (866-868), §4.5 (1097) y §4.6 (1130). **Motivo:** decisión del usuario; la resolución ya
+cambió una vez (de 512 a 1024) y con sufijo cada cambio obliga a renombrar. **Alcance:** LK-20 y LK-14. Las `TEX_` conservan el sufijo.

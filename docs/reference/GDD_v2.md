@@ -519,9 +519,9 @@ Las tres familias son gratuitas y de licencia abierta, lo que permite su distrib
 
 | Propiedad | Valor |
 |---|---|
-| Resolución de sprites | 512 × 512 px |
+| Resolución de sprites | 1024 × 1024 px (D-012) |
 | Formato | PNG-24 con canal alfa |
-| Pixels Per Unit (Unity) | 100 |
+| Pixels Per Unit (Unity) | 512 (D-012) |
 | Paleta interna del sprite | Máximo 4 colores planos |
 | Grosor mínimo de detalle | 4 px |
 
@@ -863,9 +863,9 @@ LumiKit_Project/
 │   │   │       └── TEX_BackgroundGradient_1024.png
 │   │   │
 │   │   ├── Sprites/
-│   │   │   ├── SPR_Lumi_512.png
-│   │   │   ├── SPR_Crystal_512.png
-│   │   │   └── SPR_Rune_512.png
+│   │   │   ├── SPR_Lumi.png
+│   │   │   ├── SPR_Crystal.png
+│   │   │   └── SPR_RuneCoin.png
 │   │   │
 │   │   ├── Models/
 │   │   │   ├── MDL_Bust_LowPoly.fbx
@@ -1094,7 +1094,7 @@ Aplicar estas convenciones desde el primer archivo evita reorganizaciones costos
 | `SUB_` | Sub Graph de shader | `SUB_NoiseSampler.shadersubgraph` |
 | `MAT_` | Material | `MAT_Toon3D_Default.mat` |
 | `TEX_` | Textura | `TEX_NoisePerlin_512.png` |
-| `SPR_` | Sprite | `SPR_Lumi_512.png` |
+| `SPR_` | Sprite | `SPR_Lumi.png` (sin sufijo de resolución, D-012) |
 | `MDL_` | Modelo 3D | `MDL_Bust_LowPoly.fbx` |
 | `PRF_` | Prefab | `PRF_ParameterPanel.prefab` |
 | `VFX_` | Prefab de partículas | `VFX_FireSmoke.prefab` |
@@ -1127,7 +1127,7 @@ Prefijo numérico de dos dígitos que refleja el orden en el Build Settings: `00
 
 | Categoría | Ubicación | Formato | Resolución | Configuración de importación |
 |---|---|---|---|---|
-| Sprites de demostración | `Sprites/` | PNG-24 + alfa | 512 × 512 | Sprite (2D and UI), PPU 100, filtro Bilinear, compresión None |
+| Sprites de demostración | `Sprites/` | PNG-24 + alfa | 1024 × 1024 (D-012) | Sprite (2D and UI), PPU 512, filtro Bilinear, compresión None |
 | Texturas de ruido | `Textures/Noise/` | PNG-8 escala de grises | 512 × 512 | Default, Wrap Repeat, compresión Normal Quality |
 | Rampas de color | `Textures/Gradients/` | PNG-24 | 128 × 8 | Default, Wrap Clamp, filtro Bilinear, **sin compresión** (crítico para toon shading) |
 | Texturas de partículas | `Textures/Particles/` | PNG-24 + alfa | 128–256 px | Default, Alpha Is Transparency activado |

@@ -1,20 +1,20 @@
 # Estado del proyecto
-Actualizado: 2026-09-29 · Sesión 11 (en curso)
+Actualizado: 2026-09-30 · Sesión 12 (en curso)
 
 ## Ahora
 - **Fase 4 en curso:** LK-52 ✅ (Sesión 11). Queda LK-23.
-- Tarea activa: ninguna.
-- Siguiente: LK-23, con el flujo de `docs/VERIFICATION.md` > Flujo por tarea. Plan aprobado por el usuario con 5 cambios (2026-09-30), ya en la spec; el código espera a que confirme el mixer.
+- Tarea activa: LK-23 🟠 (Sesión 12). Plan aprobado con 5 cambios, ya en la spec; mixer creado por el usuario.
+- Siguiente: LK-01, con el flujo de `docs/VERIFICATION.md` > Flujo por tarea.
 - **Modo sprint** hasta el viernes 2026-10-02 por la tarde: rama `sprint/mvp`, alcance y recortes en `docs/MVP_SCOPE.md`. Punto seguro: tag `v0.3-pre-mcp` (2c5d484).
 
 ## Últimas 3 sesiones
 | Sesión | Fecha | Tarea | Resultado | Commit |
 |---|---|---|---|---|
-| 09 | 2026-09-22 | Música a MP3 + LK-51 sprites del pack, verificación parcial | 🟡 | 12d21e6 · 58f9c9c · bb94a11 |
 | 10 | 2026-09-24 | Apagón y auditoría · LK-22b limpiador y fuentes · manija y cierre de LK-51 · LK-50 · spec de LK-52 | ✅ LK-51 · ✅ LK-22b · ✅ LK-50 · Fase 3 cerrada | 658d8fa · deef7b1 · f4b5b11 · 9b4832a · 81920ba · 37596da · 3c865e5 · cb27f92 · 6f85bb2 · f6a41dd |
-| 11 | 2026-09-25 y 29 | LK-52 valor editable del slider y `TextInputFocus`, y su cierre · modo sprint · Unity MCP y subagentes | ✅ LK-52 | 9cfbb49 · 2c5d484 · 3d2f2b8 · fa4af22 · 087251a · 428efc3 · 1a9fca5 · este commit |
+| 11 | 2026-09-25, 29 y 30 | LK-52 y su cierre · modo sprint · Unity MCP, subagentes y hook · shaders del MVP en HLSL (D-010) · plan de LK-23 (D-011) | ✅ LK-52 | 9cfbb49 · 2c5d484 · 3d2f2b8 · fa4af22 · 087251a · 428efc3 · 1a9fca5 · a5ad5f4 · 0e2cd88 · ba847e5 · 64916f4 · 90c2409 |
+| 12 | 2026-09-30 | Sprites sin sufijo (D-012), `SH_` · assets del audio y sprites · LK-23 | 🟠 | este commit |
 
-Sesiones 00 a 08 archivadas en `docs/archive/sesiones_2026-Q3.md`.
+Sesiones 00 a 09 archivadas en `docs/archive/sesiones_2026-Q3.md`. El número de sesión cambia al cerrarla aquí; lo hecho no se renumera (usuario, Sesión 12).
 
 ## Pendiente de verificación en Unity
 Nada. LK-52 cerrada (Sesión 11).
@@ -26,7 +26,7 @@ Nada. LK-52 cerrada (Sesión 11).
 - Remoto `origin` = https://github.com/PixelAlFuego/LumiKit.git
 - **Push:** sólo al cerrar una tarea en ✅, con su tag `cp-NN-nombre` (usuario, Sesión 11). Fuera de eso, requiere autorización.
 - Unity MCP: `com.coplaydev.unity-mcp`, servidor 3.4.7, registrado en local como `UnityMCP` (HTTP, 127.0.0.1:8080). Reglas: CLAUDE.md. El registro stdio `unity-mcp`, que no conectaba, borrado (2026-09-30).
-- Los Shader Graph los construye el usuario. Claude entrega la especificación del grafo.
+- Shaders del MVP: HLSL que escribe Claude (D-010). Los Shader Graph, aparcados, los construye el usuario con la especificación de Claude.
 - D-001 confirmado en la práctica: tras salir de Play Mode, `MAT_Debug.mat` sin cambios
   en `git status` y el Mesh Renderer sin "(Instance)".
 
@@ -39,7 +39,7 @@ Nada. LK-52 cerrada (Sesión 11).
   Streaming, Vorbis al 70 % y sin preload (leído en el `.meta`). En WAV no bajaba de 5 MB y recortar el bucle lo rompía.
   Cierra la nota de los 64 MB. `*.mp3` va por LFS (`.gitattributes`). Cambia el GUID, pero nada referenciaba el `.wav`.
 - **`MUS_`:** cerrado (usuario, 2026-09-30). Prefijo de música en la tabla de CONVENTIONS.md. La música entra en LK-23, por el grupo Music.
-  El mixer lo crea el usuario (D-011): hoy en `Assets/LumiKit/Audio/`; GDD y CONVENTIONS dicen `Audio/Mixers/`.
+  El mixer lo crea el usuario (D-011): `Assets/LumiKit/Audio/Mixers/AMX_LumiKit.mixer`, UI a −6 dB. Hueco en el bucle del MP3 → el usuario lo pasa a OGG.
 - **Diferidos a LK-01, no cumplidos:** verificación visual de `SetEffectEnabled` y del color en
   espacio Linear. Los criterios viven en `docs/specs/LK-01_Outline2D.md`.
 - **Botón del pie, deuda de LK-22a:** cerrada por LK-51 (contorno `SPR_UI_Rect_R6_Outline` y `LumiTheme.Transparent`), vista por el usuario.
@@ -73,8 +73,8 @@ Nada. LK-52 cerrada (Sesión 11).
 - **Materiales de los sprites, para la Fase 5:** los marcadores comparten el material por defecto `Sprite-Unlit-Default`.
   Cada efecto necesitará el suyo (`MAT_` en `Assets/LumiKit/Materials/2D/`) o tocar un parámetro en uno los cambiará todos. Entra con LK-01.
 - **Los topes no se suben** (usuario, Sesión 05): al llegar al tope se condensa (Sesión 07: `ui-style.md`, D-001 a D-003, por D-009).
-- `Assets/_Development/SPR_Crystal.png` y `SPR_RuneCoin.png` (1024×1024): **pasan a definitivos** (usuario, 2026-09-30, LK-20).
-  Los mueve el usuario desde Unity a `Assets/LumiKit/Sprites/` (GDD líneas 864-867). Hoy son marcadores en TestBench.
+- `SPR_Crystal.png` y `SPR_RuneCoin.png` **definitivos** (LK-20, D-012): en `Assets/LumiKit/Sprites/`, 1024×1024, PPU 512, sin sufijo.
+  Movidos por el usuario desde `_Development/` (mismo GUID). Siguen de marcadores en TestBench. `SPR_Lumi` entra si llega, sin bloquear LK-14.
 - **Nombres y posiciones de TestBench:** la spec de LK-12 escribió `Marker_Crystal` en (-3,0,0) y `Marker_RuneCoin` en (3,0,0). El estado
   real, confirmado en la Sesión 03, es `SPR_Crystal` en (3,0,0) y `SPR_RuneCoin` en (-3,0,0). LK-10 usa los nombres reales; LK-12 no se toca.
 - `ProjectSettings/TagManager.asset` entró en el cierre de LK-10 con la capa `Selectable` (índice 6) que creó el usuario. Unity aprovechó
@@ -87,8 +87,9 @@ Nada. LK-52 cerrada (Sesión 11).
   Casi todas apuntan a LK-50 o a LK-22b; se corrigen si alguna vez toca abrir ese archivo.
 - **`ENUM_OPTION_HEIGHT` (28) y `BUTTON_HEIGHT_COMPACT` (28) son el mismo número del GDD con dos
   nombres** en `LumiTheme`. No lo unifico sin que me lo pidas. LK-50 no lo hizo: las opciones de enum no son `LumiButton`.
-- **Shaders del MVP:** cerrado (usuario, 2026-09-30). HLSL a mano para URP 2D, D-010 y `.claude/rules/shaders.md`. Falta el prefijo del `.shader` (LK-01).
+- **Shaders del MVP:** cerrado (usuario, 2026-09-30). HLSL a mano para URP 2D, D-010 y `.claude/rules/shaders.md`. Prefijo `SH_` (CONVENTIONS, usuario, Sesión 12).
 - **Bloqueo por acción:** cerrado (2026-09-30). Hook PreToolUse `.claude/hooks/unity-mcp-guard.js`: menús sólo `LumiKit/`, `manage_scene` sin guardar/crear/borrar, `manage_editor` sólo Play, Pausa, Stop y consultas.
+  **Límite aceptado para el MVP** (usuario, Sesión 12): si falta Node, el hook da error y deja pasar la llamada.
 - Ramas `main` y `sprint/mvp` (Sesión 11, desde el tag `v0.3-pre-mcp`). `develop` y `feature/LK-XX-*` del GDD §4.9 aún no creadas.
 
 ## Handoff

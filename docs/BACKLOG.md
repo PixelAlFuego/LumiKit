@@ -12,7 +12,7 @@ Una tarea por sesión. No adelantar fases. 3D y VFX están fuera de alcance.
 | 3 | LK-11a, LK-11b, LK-49, LK-22a, LK-50, LK-51, LK-22b | ParameterWidgetBase + Slider/Color/Toggle/Enum, ParameterPanelUI, LumiTheme.cs con la paleta, prefabs de UI generados por script, pie con Reset, fuentes del pack y `LumiButton`. **✅ Cerrada (Sesión 10)** |
 | 4 | LK-52, LK-23 | Valor del slider editable con clic y `TextInputFocus` para los atajos; UIAudioManager + AMX_LumiKit + enganche hover/click/select |
 | 5 | LK-01, LK-24, LK-03, LK-02 | Outline 2D, ComparisonToggle (TAB, necesita `_EffectEnabled` de LK-01), Glow 2D, Dissolve 2D + generador procedural de texturas de ruido y rampas |
-| 6 | LK-20 | Sprites Lumi, Cristal, Runa (entrega SVG para exportar a PNG 512) |
+| 6 | LK-20 | Sprites Lumi, Cristal, Runa: PNG 1024, PPU 512, sin sufijo (D-012). Cristal y Runa ya en `Sprites/` |
 | 7 | LK-14, LK-13, LK-17 | Escena 02_Demo_2D y 01_MainMenu construidas por script, SceneLoader |
 
 ## Ítems
