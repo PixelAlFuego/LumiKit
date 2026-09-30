@@ -25,7 +25,7 @@ Nada. LK-52 cerrada (Sesión 11).
   por el usuario. Única API y forma de lectura: D-006.
 - Remoto `origin` = https://github.com/PixelAlFuego/LumiKit.git
 - **Push:** sólo al cerrar una tarea en ✅, con su tag `cp-NN-nombre` (usuario, Sesión 11). Fuera de eso, requiere autorización.
-- Unity MCP: `com.coplaydev.unity-mcp`, servidor 3.4.7, registrado en local como `UnityMCP` (HTTP, 127.0.0.1:8080). Reglas: CLAUDE.md.
+- Unity MCP: `com.coplaydev.unity-mcp`, servidor 3.4.7, registrado en local como `UnityMCP` (HTTP, 127.0.0.1:8080). Reglas: CLAUDE.md. El registro stdio `unity-mcp`, que no conectaba, borrado (2026-09-30).
 - Los Shader Graph los construye el usuario. Claude entrega la especificación del grafo.
 - D-001 confirmado en la práctica: tras salir de Play Mode, `MAT_Debug.mat` sin cambios
   en `git status` y el Mesh Renderer sin "(Instance)".
@@ -88,7 +88,7 @@ Nada. LK-52 cerrada (Sesión 11).
 - **`ENUM_OPTION_HEIGHT` (28) y `BUTTON_HEIGHT_COMPACT` (28) son el mismo número del GDD con dos
   nombres** en `LumiTheme`. No lo unifico sin que me lo pidas. LK-50 no lo hizo: las opciones de enum no son `LumiButton`.
 - **Shaders del MVP (punto 7, Sesión 11): sin elegir** entre HLSL a mano o Shader Graph del usuario. Bloquea LK-01. La regla vive en `.claude/rules/shaders.md`, no en D-004.
-- **Bloqueo por acción, no por herramienta:** `settings.json` no puede frenar `manage_editor` (tags, capas, `deploy_package`), `execute_menu_item` fuera de `LumiKit/*` ni `manage_scene` (guardar). Sólo los frena CLAUDE.md.
+- **Bloqueo por acción:** cerrado (2026-09-30). Hook PreToolUse `.claude/hooks/unity-mcp-guard.js`: menús sólo `LumiKit/`, `manage_scene` sin guardar/crear/borrar, `manage_editor` sólo Play, Pausa, Stop y consultas.
 - Ramas `main` y `sprint/mvp` (Sesión 11, desde el tag `v0.3-pre-mcp`). `develop` y `feature/LK-XX-*` del GDD §4.9 aún no creadas.
 
 ## Handoff

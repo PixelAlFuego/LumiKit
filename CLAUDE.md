@@ -54,7 +54,7 @@ bajo `Assets/LumiKit/`. Nada fuera de esa carpeta se exporta.
 - Si te falta contexto, pregunta. Prohibido asumir requisitos.
 
 ## Unity MCP
-- Servidor `UnityMCP`, ámbito local. Ejecuta y verifica; no crea producto. Bloqueos en `.claude/settings.json`.
+- Servidor `UnityMCP`, ámbito local. Ejecuta y verifica; no crea producto. Bloqueos en `.claude/settings.json`: `deny` por herramienta y hook PreToolUse por acción (`.claude/hooks/unity-mcp-guard.js`).
 - Permitido: refrescar, consola, menús `LumiKit/*`, Play/Pausa/Stop, capturas, leer jerarquía y
   montar objetos de prueba sólo en `TestBench`. Capturas con `output_folder: Temp/Captures`, nunca en `Assets/`.
 - El código entra sólo por la herramienta de edición de Claude Code, nunca por el MCP.

@@ -30,5 +30,15 @@
       "mcp__UnityMCP__execute_custom_tool",
       "mcp__UnityMCP__manage_tools"
     ]
+  },
+  "hooks": {
+    "PreToolUse": [
+      {
+        "matcher": "mcp__UnityMCP__(execute_menu_item|manage_scene|manage_editor)",
+        "hooks": [
+          { "type": "command", "command": "node \"$CLAUDE_PROJECT_DIR/.claude/hooks/unity-mcp-guard.js\"" }
+        ]
+      }
+    ]
   }
 }
