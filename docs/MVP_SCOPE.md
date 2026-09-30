@@ -2,20 +2,23 @@
 Rama `sprint/mvp` · Entrega: viernes 2026-10-02 por la tarde · Punto seguro: tag `v0.3-pre-mcp`
 
 ## Dentro
-| Tarea | Qué | ¿Se recorta? |
-|---|---|---|
-| LK-23 | Sonidos de interfaz | Nunca |
-| LK-01 | Outline 2D | Nunca |
-| LK-24 | Comparación antes / después (TAB) | Nunca |
-| LK-03 | Glow 2D | 3.º |
-| LK-14 | Escena `02_Demo_2D` | Nunca |
-| LK-13 + LK-17 | Menú principal y carga entre escenas | 2.º |
-| LK-02 | Dissolve 2D · opcional | 1.º |
+| Tarea | Qué | Tiempo | Se para a (+50 %) | ¿Se recorta? |
+|---|---|---|---|---|
+| LK-23 | Sonidos de interfaz | 2,5 h | 3 h 45 | Nunca |
+| LK-01 | Outline 2D | 3 h | 4 h 30 | Nunca |
+| LK-24 | Comparación antes / después (TAB) | 1,5 h | 2 h 15 | Nunca |
+| LK-03 | Glow 2D | 2 h | 3 h | 3.º |
+| LK-14 | Escena `02_Demo_2D` | 2,5 h | 3 h 45 | Nunca |
+| LK-13 + LK-17 | Menú principal y carga entre escenas | 2 h | 3 h | 2.º |
+| LK-02 | Dissolve 2D · opcional | 2 h | 3 h | 1.º |
+| LK-20 | Sprites: Cristal y Runa definitivos; Lumi si llega | usuario | — | Lumi no bloquea LK-14 |
+
+Total de las tareas con tiempo: 15,5 h.
 
 ## Entregables
 - Build de Windows.
-- `.unitypackage` probado en un proyecto vacío.
-- Vídeo corto.
+- LK-27: `.unitypackage` probado en un proyecto vacío.
+- LK-37: vídeo corto. Lo graba el usuario.
 
 ## Fuera
 - 3D y VFX · localización (LK-19) · portapapeles (LK-29) · menú de pausa (LK-32) · notificaciones (LK-34).
