@@ -72,7 +72,7 @@ Una tarea por sesión. No adelantar fases. 3D y VFX están fuera de alcance.
 | LK-49 | Validar `propertyName` contra el shader del material | Sistema | 3 | ✅ |
 | LK-50 | Componente de botón con la jerarquía del GDD §2.7 | UI | 3 | ✅ |
 | LK-51 | Arte de interfaz: sprites propios del pack | Arte | 3 | ✅ |
-| LK-52 | Valor editable en el slider y foco de texto para los atajos | UI | 4 | 🟡 |
+| LK-52 | Valor editable en el slider y foco de texto para los atajos | UI | 4 | ✅ |
 
 Estimaciones y prioridades originales: GDD §3.2 (líneas 655-686).
 LK-49 y LK-50 no vienen del GDD: LK-49 sale de verificar LK-11b (Sesión 05) y LK-50 del corte de

@@ -1,5 +1,5 @@
 # LK-52 — Valor editable en el slider
-Estado: 🟡 implementado sin verificar (Sesión 11): plan aprobado con ocho ajustes del usuario · Hallazgo de la verificación de LK-22b (usuario) · Depende de: LK-11a (widget `Float`), LK-12 (`DemoCameraController`), LK-22b (JetBrains Mono); va después de LK-50, que cierra la Fase 3 · Diseño: GDD §1.4 regla 5 (línea 83), línea 403 (Border Strong: contorno de campos activos), línea 629 (Unity Editor como referencia de campos numéricos) · uGUI: D-007 · Input: D-006
+Estado: ✅ verificado en Unity 6000.0.83f1 (usuario, Sesión 11; plan aprobado con ocho ajustes del usuario) · Hallazgo de la verificación de LK-22b (usuario) · Depende de: LK-11a (widget `Float`), LK-12 (`DemoCameraController`), LK-22b (JetBrains Mono); va después de LK-50, que cierra la Fase 3 · Diseño: GDD §1.4 regla 5 (línea 83), línea 403 (Border Strong: contorno de campos activos), línea 629 (Unity Editor como referencia de campos numéricos) · uGUI: D-007 · Input: D-006
 
 ## Objetivo
 Con el panel a 280 px, el riel del slider se queda en menos de 200 px para rangos de cientos o miles de valores: arrastrando no se acierta un número concreto. Clic en el número para escribirlo.

@@ -1,25 +1,22 @@
 # Estado del proyecto
-Actualizado: 2026-09-25 · Sesión 11 (en curso)
+Actualizado: 2026-09-29 · Sesión 11 (en curso)
 
 ## Ahora
-- **Fase 3 (Interfaz) cerrada** (Sesión 10). Fase 4 en curso.
-- Tarea activa: **LK-52 🟡** (Sesión 11): programado con el plan aprobado y ocho ajustes del usuario, pendiente de verificar (ver Pendiente).
-- Siguiente: verificar LK-52. Después, LK-23.
+- **Fase 4 en curso:** LK-52 ✅ (Sesión 11). Queda LK-23.
+- Tarea activa: ninguna.
+- Siguiente: LK-23.
 
 ## Últimas 3 sesiones
 | Sesión | Fecha | Tarea | Resultado | Commit |
 |---|---|---|---|---|
 | 09 | 2026-09-22 | Música a MP3 + LK-51 sprites del pack, verificación parcial | 🟡 | 12d21e6 · 58f9c9c · bb94a11 |
 | 10 | 2026-09-24 | Apagón y auditoría · LK-22b limpiador y fuentes · manija y cierre de LK-51 · LK-50 · spec de LK-52 | ✅ LK-51 · ✅ LK-22b · ✅ LK-50 · Fase 3 cerrada | 658d8fa · deef7b1 · f4b5b11 · 9b4832a · 81920ba · 37596da · 3c865e5 · cb27f92 · 6f85bb2 · f6a41dd |
-| 11 | 2026-09-25 | LK-52 valor editable del slider y `TextInputFocus` | 🟡 LK-52 | este commit |
+| 11 | 2026-09-25 y 29 | LK-52 valor editable del slider y `TextInputFocus`, y su cierre | ✅ LK-52 | 9cfbb49 · este commit |
 
 Sesiones 00 a 08 archivadas en `docs/archive/sesiones_2026-Q3.md`.
 
 ## Pendiente de verificación en Unity
-**LK-52 🟡 (Sesión 11).** Criterios completos en `docs/specs/LK-52_SliderValueInput.md`. Antes, regenerar: seis `PRF_*` y `ParameterPanel`.
-- [ ] Compila limpio. Reposo como en LK-22b, 4 px a la izquierda; edición con fondo, contorno, caret cian y todo seleccionado.
-- [ ] `2,5` y `2.5` + Enter aplican; clic fuera confirma; Escape no aplica; tras Enter o Escape, reposo. WASD calla al escribir.
-- [ ] Editar el cristal y, sin confirmar, clic en la moneda: el valor va al cristal y la consola no da errores.
+Nada. LK-52 cerrada (Sesión 11).
 
 ## Entorno confirmado
 - Unity 6000.0.83f1 · URP 17.0.4 · Input System 1.19.0 · uGUI 2.0.0 · 2D Sprite 1.0.0.
@@ -91,8 +88,8 @@ Sesiones 00 a 08 archivadas en `docs/archive/sesiones_2026-Q3.md`.
 - Rama única `main`. `develop` y `feature/LK-XX-*` del GDD §4.9 aún no creadas.
 
 ## Handoff
-**LK-52 🟡 (Sesión 11).** Tocó, con permiso de su spec: `Utils/TextInputFocus.cs` (nuevo), `DemoCameraController`, el widget de Float,
+**LK-52 cerrada (Sesión 11).** Tocó, con permiso de su spec: `Utils/TextInputFocus.cs` (nuevo), `DemoCameraController`, el widget de Float,
   `LumiTheme` (ancho del valor a 68) y el generador. Regenerar una fuente: atlas → `Import Font Features` → `FontFeatureCleaner` (spec de LK-22b).
-No tocar: `Core/` y `Utils/` (LK-09, LK-49), `Demo/` (LK-10, LK-12), los cuatro widgets,
+No tocar: `Core/` y `Utils/` (LK-09, LK-49, LK-52), `Demo/` (LK-10, LK-12), los cuatro widgets,
 `EffectDebugTester.cs` hasta la Fase 5, `Assets/LumiKit/Scenes/`, `ProjectSettings/`,
 `Packages/manifest.json`, nada de 3D ni VFX.
