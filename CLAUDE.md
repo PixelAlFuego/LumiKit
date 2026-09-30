@@ -53,6 +53,13 @@ bajo `Assets/LumiKit/`. Nada fuera de esa carpeta se exporta.
 - Si no estás seguro de una API de Unity 6 o URP 17, dilo en vez de inventar la firma.
 - Si te falta contexto, pregunta. Prohibido asumir requisitos.
 
+## Unity MCP
+- Servidor `UnityMCP`, ámbito local. Ejecuta y verifica; no crea producto. Bloqueos en `.claude/settings.json`.
+- Permitido: refrescar, consola, menús `LumiKit/*`, Play/Pausa/Stop, capturas, leer jerarquía y
+  montar objetos de prueba sólo en `TestBench`. Capturas con `output_folder: Temp/Captures`, nunca en `Assets/`.
+- El código entra sólo por la herramienta de edición de Claude Code, nunca por el MCP.
+- Nada bajo `Assets/LumiKit/` se crea por MCP: sale del generador (D-002).
+
 ## Convenciones rápidas (detalle en docs/CONVENTIONS.md)
 - `namespace LumiKit.<Capa>` · campos privados `_camelCase` · `[SerializeField] private`
 - Prefijos: SG_ SUB_ MAT_ TEX_ SPR_ MDL_ PRF_ VFX_ SFX_ EFF_ LOC_ PRE_ AMX_
