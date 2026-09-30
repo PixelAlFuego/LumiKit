@@ -7,8 +7,8 @@ ni se reinicia al cambiar de escena: el menú de LK-13 cargará la demo. `SFX_UI
 Desviaciones del GDD decididas por el usuario: música (línea 1142, "sin música de fondo"), grupos (línea 1161, `Master → SFX → UI`) y duraciones (punto 3).
 
 ## Antes del código (usuario, en el editor; commits `chore(assets)`)
-1. `Assets/LumiKit/Audio/AMX_LumiKit.mixer`, creado a mano (D-011, excepción a D-002): grupos `UI` y `Music` hijos de `Master`,
-   sin efectos ni snapshots extra. En disco hoy: un snapshot, sólo Attenuation, todo a 0 dB; el GDD pide UI a −6 dB (línea 1162).
+1. `Assets/LumiKit/Audio/Mixers/AMX_LumiKit.mixer`, creado a mano (D-011, excepción a D-002): grupos `UI` y `Music` hijos de `Master`,
+   sin efectos ni snapshots extra. En disco: un snapshot, sólo Attenuation, UI a −6 dB (GDD línea 1162), Master y Music a 0 dB.
 2. Import de `SFX_UI_Click`, `SFX_UI_Hover` y `SFX_UI_Select`: Decompress On Load, PCM, Preload Audio Data y Force To Mono (GDD líneas 1156-1160).
    `MUS_Ambient_Loop.mp3` ya está en Streaming, Vorbis al 70 % y sin preload (STATE > Dudas abiertas > Música en MP3).
 3. Duraciones, límite del usuario (el GDD, líneas 1147-1149, queda como objetivo ideal): Hover ≤150 ms (ideal <100), Click ≤200 ms (<150),
@@ -71,7 +71,7 @@ llevan `UISoundTrigger`. Duraciones dentro del límite (punto 3). Play y Stop si
 - [ ] Click con el izquierdo en Reset, opción, toggle, muestra y preset. El derecho y el central callan.
 - [ ] Enter o Espacio sobre un botón con foco suenan a Click. Arrastrar un slider no suena a Click. Un botón deshabilitado calla.
 - [ ] Seleccionar el cristal suena Select; pasar a la moneda también; deseleccionar calla.
-- [ ] La música suena en bucle desde Play, sin silencio audible al volver a empezar (el MP3 puede añadir relleno al principio y al final).
+- [ ] La música suena en bucle desde Play, sin silencio audible al volver a empezar. Si lo hay (relleno del MP3), el usuario la exporta a OGG.
 - [ ] Silenciar UI en el mixer calla los tres sonidos y no la música; silenciar Music calla sólo la música. Sin `UIAudioManager`: silencio y sin errores.
 
 ## Fuera de alcance

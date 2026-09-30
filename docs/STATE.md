@@ -3,7 +3,7 @@ Actualizado: 2026-09-30 · Sesión 12 (en curso)
 
 ## Ahora
 - **Fase 4 en curso:** LK-52 ✅ (Sesión 11). Queda LK-23.
-- Tarea activa: LK-23 🟠 (Sesión 12). Plan aprobado con 5 cambios, ya en la spec; mixer creado por el usuario.
+- Tarea activa: LK-23 🟡 (Sesión 12): implementado, pendiente de verificar en el editor.
 - Siguiente: LK-01, con el flujo de `docs/VERIFICATION.md` > Flujo por tarea.
 - **Modo sprint** hasta el viernes 2026-10-02 por la tarde: rama `sprint/mvp`, alcance y recortes en `docs/MVP_SCOPE.md`. Punto seguro: tag `v0.3-pre-mcp` (2c5d484).
 
@@ -17,7 +17,14 @@ Actualizado: 2026-09-30 · Sesión 12 (en curso)
 Sesiones 00 a 09 archivadas en `docs/archive/sesiones_2026-Q3.md`. El número de sesión cambia al cerrarla aquí; lo hecho no se renumera (usuario, Sesión 12).
 
 ## Pendiente de verificación en Unity
-Nada. LK-52 cerrada (Sesión 11).
+LK-23 (spec > Criterios). Antes, el usuario: borra los seis `PRF_*` y el `ParameterPanel` de TestBench, ejecuta los dos menús `LumiKit/UI/…` y guarda.
+- [ ] Verificador: compila y consola limpia; `UIAudioManager` con clips, grupo UI y música en bucle (Music); un `UISelectionSound` con `_selector`; prefabs con `UISoundTrigger`; Play y Stop sin excepciones; sin `.mat` ni fallback.
+- [ ] Hover una vez por elemento y no al arrastrar; recorrer rápido las opciones del enum no suena a ráfaga.
+- [ ] Click con el izquierdo en Reset, opción, toggle, muestra y preset; el derecho y el central callan.
+- [ ] Enter o Espacio sobre un botón con foco suenan a Click; arrastrar un slider no; un botón deshabilitado calla.
+- [ ] Select al elegir el cristal y al pasar a la moneda; deseleccionar calla.
+- [ ] Música en bucle desde Play, sin hueco al volver a empezar (si lo hay: OGG).
+- [ ] Silenciar UI calla los tres sonidos y no la música; silenciar Music, sólo la música. Sin `UIAudioManager`: silencio y sin errores.
 
 ## Entorno confirmado
 - Unity 6000.0.83f1 · URP 17.0.4 · Input System 1.19.0 · uGUI 2.0.0 · 2D Sprite 1.0.0.
@@ -31,18 +38,13 @@ Nada. LK-52 cerrada (Sesión 11).
   en `git status` y el Mesh Renderer sin "(Instance)".
 
 ## Dudas abiertas y bloqueos
-- **Audio, para LK-23.** En el repositorio desde la Sesión 08 (por LFS): `Audio/SFX/` con `SFX_UI_Click`, `SFX_UI_Hover`,
-  `SFX_UI_Select`, `SFX_UI_Error` y `SFX_UI_Transition`, y `Audio/Music/MUS_Ambient_Loop.mp3`. **`SFX_UI_Error` y
-  `SFX_UI_Transition` no entran en LK-23**: el primero espera a que haya avisos en pantalla y el segundo al cambio de
-  escena de LK-17. LK-23 engancha sólo los otros tres.
-- **Música en MP3, decisión del usuario (Sesión 09).** `MUS_Ambient_Loop` pasa de WAV (64 MB) a MP3 (4 MB), con Load Type
-  Streaming, Vorbis al 70 % y sin preload (leído en el `.meta`). En WAV no bajaba de 5 MB y recortar el bucle lo rompía.
-  Cierra la nota de los 64 MB. `*.mp3` va por LFS (`.gitattributes`). Cambia el GUID, pero nada referenciaba el `.wav`.
-- **`MUS_`:** cerrado (usuario, 2026-09-30). Prefijo de música en la tabla de CONVENTIONS.md. La música entra en LK-23, por el grupo Music.
-  El mixer lo crea el usuario (D-011): `Assets/LumiKit/Audio/Mixers/AMX_LumiKit.mixer`, UI a −6 dB. Hueco en el bucle del MP3 → el usuario lo pasa a OGG.
+- **Audio (LK-23).** Por LFS: `Audio/SFX/` con los cinco `SFX_UI_*`, recortados por el usuario (Sesión 12), y `Audio/Music/MUS_Ambient_Loop.mp3`.
+  **`SFX_UI_Error` y `SFX_UI_Transition` no entran en LK-23**: el primero espera avisos en pantalla y el segundo el cambio de escena de LK-17.
+  Música en MP3 (usuario, Sesión 09): de WAV (64 MB) a MP3 (4 MB), Streaming, Vorbis al 70 %, sin preload; en WAV no bajaba de 5 MB y recortar
+  el bucle lo rompía. `*.mp3` por LFS; nada referenciaba el `.wav`. Hueco en el bucle → el usuario la pasa a OGG. `MUS_` en CONVENTIONS (Sesión 12).
+  Mixer del usuario (D-011): `Assets/LumiKit/Audio/Mixers/AMX_LumiKit.mixer`, grupos UI (−6 dB) y Music.
 - **Diferidos a LK-01, no cumplidos:** verificación visual de `SetEffectEnabled` y del color en
   espacio Linear. Los criterios viven en `docs/specs/LK-01_Outline2D.md`.
-- **Botón del pie, deuda de LK-22a:** cerrada por LK-51 (contorno `SPR_UI_Rect_R6_Outline` y `LumiTheme.Transparent`), vista por el usuario.
 - **`LumiButton` pinta `Selected` como reposo** (usuario, Sesión 10; con el cursor encima, como hover): así un usuario de teclado o mando
   no ve qué botón tiene el foco. Mismo coste en el campo del slider (LK-52), que suelta la selección al terminar de editar. El GDD no define ese estado. Se decide antes de publicar.
 - **Aviso de rango ancho, para la Fase 5:** el campo del valor (LK-52) muestra 6 caracteres (`-10.00`); con 7 o más, la máscara corta.
@@ -50,9 +52,8 @@ Nada. LK-52 cerrada (Sesión 11).
 - **El pack no tiene dónde poner un script de editor propio.** `Assets/Editor/` no se exporta (CONVENTIONS) y ningún script bajo
   `Assets/LumiKit/` puede hacer `using UnityEditor`. Sale a la luz con LK-50: su `LumiButtonEditor` funcionará aquí pero el comprador
   no verá los campos del componente en el Inspector. Segunda herramienta, `FontFeatureCleaner` (LK-22b): D-009 da los `.ttf` al comprador, pero si regenera sin él sus fuentes vuelven a pesar 20 MB o más. Haría falta un tercer asmdef sólo-editor dentro del pack. Se decide en LK-27.
-- **Borrar al cerrar la Fase 5:** de `Assets/_Development/`, sólo `EffectDebugTester.cs`, `EFF_Debug.asset` y `MAT_Debug.mat`.
-  Desechables, fuera del pack, deliberadamente ausentes de CODEMAP y BACKLOG. El panel (LK-11) sustituyó al tester como UI de parámetros,
-  pero no se retira: es el único disparador de `SetEffectEnabled`, que hará falta en la Fase 5 (corrección del usuario, Sesión 10).
+- **Borrar al cerrar la Fase 5:** de `Assets/_Development/`, sólo `EffectDebugTester.cs`, `EFF_Debug.asset` y `MAT_Debug.mat`: desechables, fuera del pack, deliberadamente ausentes de CODEMAP y BACKLOG.
+  El panel (LK-11) sustituyó al tester como UI de parámetros, pero no se retira: es el único disparador de `SetEffectEnabled`, que hará falta en la Fase 5 (corrección del usuario, Sesión 10).
 - **`Assets/_Development/TestBench.unity` no se borra:** banco de pruebas permanente, crece con
   cada tarea (sección "Banco de pruebas" de cada spec). No se exporta.
 - `Assets/Settings/DefaultVolumeProfile.asset` cambió solo (migración de Unity al importar) y entró en el commit `2cc98ff` sin revisión. Fuera del alcance de LK-09.
@@ -63,7 +64,6 @@ Nada. LK-52 cerrada (Sesión 11).
 - **`Assets/TextMesh Pro/` (4 MB) entra al repositorio** (usuario, Sesión 05): los prefabs la referencian por GUID. Documentar en LK-26.
 - **`LiberationSans SDF - Fallback.asset` se reescribe solo:** es dinámico y guarda los glifos que le piden. Con la prueba visual de las fuentes
   (Sesión 10) ganó 25 caracteres. No se commitea; lo revierte el usuario. Con LK-22b el HUD ya no se lo pide: no cambió tras Play (usuario, Sesión 10).
-- **Tamaño de texto por encima del GDD:** cerrado. Label y Mono a 16 px (GDD: 13) con la resolución de diseño en 1920×1080; anotado en `LumiTheme`, en D-007 y ya en `ui-style.md` (LK-22a).
 - **`EFF_Debug.asset` tiene seis parámetros** y dos son deliberadamente distintos: `_Color` existe
   en el shader de los sprites y `_BaseColor` **no**. `_BaseColor` se queda como control negativo
   permanente de LK-49. Los marcadores usan `Sprite-Unlit-Default` (`_MainTex` y `_Color`) y el cubo, un shader URP
@@ -82,19 +82,18 @@ Nada. LK-52 cerrada (Sesión 11).
 - **Enmienda pendiente a D-001:** autorizar la lectura de `sharedMaterials` (en plural) para validar todos los materiales de un `Renderer`,
   no sólo el primero. No instancia copias, que es lo que D-001 prohíbe, pero no está en su lista de permitidos. Hoy LK-49 valida el
   primero y cuenta el resto con `GetSharedMaterials`. Se decide cuando un objeto del pack lleve más de un material.
-- **Referencias a "LK-22" a secas que el corte deja obsoletas** y no se han tocado, por estar en specs cerradas o fuera del alcance de hoy:
-  `LK-11a` (líneas 18, 59, 78, 79), `LK-11b` (9, 39, 44, 74-76) y los widgets Color/Enum/Toggle. La de `ParameterPanelBuilder` la quitó LK-51.
-  Casi todas apuntan a LK-50 o a LK-22b; se corrigen si alguna vez toca abrir ese archivo.
+- **Referencias a "LK-22" a secas que el corte deja obsoletas**, sin tocar por estar en specs cerradas o fuera del alcance: `LK-11a` (líneas 18, 59, 78, 79), `LK-11b` (9, 39, 44, 74-76)
+  y los widgets Color/Enum/Toggle. La de `ParameterPanelBuilder` la quitó LK-51. Casi todas apuntan a LK-50 o a LK-22b; se corrigen si toca abrir ese archivo.
 - **`ENUM_OPTION_HEIGHT` (28) y `BUTTON_HEIGHT_COMPACT` (28) son el mismo número del GDD con dos
   nombres** en `LumiTheme`. No lo unifico sin que me lo pidas. LK-50 no lo hizo: las opciones de enum no son `LumiButton`.
-- **Shaders del MVP:** cerrado (usuario, 2026-09-30). HLSL a mano para URP 2D, D-010 y `.claude/rules/shaders.md`. Prefijo `SH_` (CONVENTIONS, usuario, Sesión 12).
+- **Cerradas:** botón del pie, deuda de LK-22a (LK-51: `SPR_UI_Rect_R6_Outline` y `LumiTheme.Transparent`, vista por el usuario) · tamaño de texto sobre el GDD (Label y Mono a 16 px, GDD 13, a 1920×1080; en `LumiTheme`, D-007 y `ui-style.md`) · shaders del MVP (usuario, Sesión 11: HLSL, D-010 y `shaders.md`; `SH_` en CONVENTIONS, Sesión 12).
+- **`AudioMixer.FindMatchingGroups`, semántica sin confirmar** (LK-23): no sé si `subPath` compara por prefijo. `UIAudioBuilder` filtra además por nombre exacto del grupo.
 - **Bloqueo por acción:** cerrado (2026-09-30). Hook PreToolUse `.claude/hooks/unity-mcp-guard.js`: menús sólo `LumiKit/`, `manage_scene` sin guardar/crear/borrar, `manage_editor` sólo Play, Pausa, Stop y consultas.
   **Límite aceptado para el MVP** (usuario, Sesión 12): si falta Node, el hook da error y deja pasar la llamada.
-- Ramas `main` y `sprint/mvp` (Sesión 11, desde el tag `v0.3-pre-mcp`). `develop` y `feature/LK-XX-*` del GDD §4.9 aún no creadas.
+- Ramas `main` y `sprint/mvp` (Sesión 11, desde el tag `v0.3-pre-mcp`; `sprint/mvp` en `origin` desde la Sesión 12). `develop` y `feature/LK-XX-*` del GDD §4.9 aún no creadas.
 
 ## Handoff
-**LK-52 cerrada (Sesión 11).** Tocó, con permiso de su spec: `Utils/TextInputFocus.cs` (nuevo), `DemoCameraController`, el widget de Float,
-  `LumiTheme` (ancho del valor a 68) y el generador. Regenerar una fuente: atlas → `Import Font Features` → `FontFeatureCleaner` (spec de LK-22b).
-No tocar: `Core/` y `Utils/` (LK-09, LK-49, LK-52), `Demo/` (LK-10, LK-12), los cuatro widgets,
-`EffectDebugTester.cs` hasta la Fase 5, `Assets/LumiKit/Scenes/`, `ProjectSettings/`,
-`Packages/manifest.json`, nada de 3D ni VFX.
+**LK-23 🟡 (Sesión 12).** Tocó, con permiso de su spec: `Systems/` (tres archivos nuevos), `Assets/Editor/UIAudioBuilder.cs` (nuevo) y `ParameterPanelBuilder` (+20 líneas).
+  Regenerar una fuente: atlas → `Import Font Features` → `FontFeatureCleaner` (spec de LK-22b). Regenerar el panel: STATE > Pendiente de verificación.
+No tocar: `Core/` y `Utils/` (LK-09, LK-49, LK-52), `Demo/` (LK-10, LK-12), los cuatro widgets, `EffectDebugTester.cs` hasta la Fase 5,
+`Assets/LumiKit/Scenes/`, `ProjectSettings/`, `Packages/manifest.json`, nada de 3D ni VFX.

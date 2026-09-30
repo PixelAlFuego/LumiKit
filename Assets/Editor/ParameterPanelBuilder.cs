@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using LumiKit.Demo;
+using LumiKit.Systems;
 using LumiKit.UI;
 using LumiKit.UI.Widgets;
 using TMPro;
@@ -287,6 +288,7 @@ namespace LumiKit.Editor
             text.text = "0.00";
 
             TMP_InputField input = background.gameObject.AddComponent<TMP_InputField>();
+            AddSoundTrigger(input, false);
             input.textViewport = textAreaRect;
             input.textComponent = text;
             input.targetGraphic = background;
@@ -375,6 +377,7 @@ namespace LumiKit.Editor
             handleCore.raycastTarget = false;
 
             Slider slider = sliderGo.AddComponent<Slider>();
+            AddSoundTrigger(slider, false);
             slider.direction = Slider.Direction.LeftToRight;
             slider.fillRect = fillRect;
             slider.handleRect = handleRect;
@@ -450,6 +453,7 @@ namespace LumiKit.Editor
 
             Button swatchButton = swatch.gameObject.AddComponent<Button>();
             swatchButton.targetGraphic = swatch;
+            AddSoundTrigger(swatchButton, true);
 
             GameObject expand = CreateUIObject("Expand", root.transform);
             RectTransform expandRect = expand.GetComponent<RectTransform>();
@@ -498,6 +502,7 @@ namespace LumiKit.Editor
                 Image preset = CreateImage($"Preset_{i}", palette.transform, presets[i], SPRITE_RECT_R4, Image.Type.Sliced);
                 Button presetButton = preset.gameObject.AddComponent<Button>();
                 presetButton.targetGraphic = preset;
+                AddSoundTrigger(presetButton, true);
                 paletteButtons[i] = presetButton;
             }
 
@@ -591,6 +596,7 @@ namespace LumiKit.Editor
             toggle.graphic = null;
             toggle.toggleTransition = Toggle.ToggleTransition.None;
             toggle.SetIsOnWithoutNotify(false);
+            AddSoundTrigger(toggle, true);
 
             ToggleParameterWidget widget = root.AddComponent<ToggleParameterWidget>();
             SerializedObject serialized = new SerializedObject(widget);
@@ -626,6 +632,7 @@ namespace LumiKit.Editor
 
             Button button = root.AddComponent<Button>();
             button.targetGraphic = background;
+            AddSoundTrigger(button, true);
 
             TextMeshProUGUI label = CreateText(
                 "Label", root.transform, FontFamily.Label, LumiTheme.TEXT_LABEL, LumiTheme.TextSecondary, TextAlignmentOptions.Center);
@@ -864,6 +871,7 @@ namespace LumiKit.Editor
             LumiButton button = root.AddComponent<LumiButton>();
             button.targetGraphic = fill;
             button.transition = Selectable.Transition.None;
+            AddSoundTrigger(button, true);
 
             SerializedObject serialized = new SerializedObject(button);
             serialized.FindProperty("_style").enumValueIndex = (int)LumiButtonStyle.Secondary;
@@ -873,6 +881,18 @@ namespace LumiKit.Editor
             serialized.ApplyModifiedPropertiesWithoutUndo();
 
             return button;
+        }
+
+        /// <summary>
+        /// Sonido de interfaz (LK-23) en el mismo GameObject que el Selectable. Sin clic en
+        /// sliders y en el campo del valor: arrastrar un Slider puede disparar OnPointerClick.
+        /// </summary>
+        private static void AddSoundTrigger(Selectable selectable, bool playClick)
+        {
+            UISoundTrigger trigger = selectable.gameObject.AddComponent<UISoundTrigger>();
+            SerializedObject serialized = new SerializedObject(trigger);
+            serialized.FindProperty("_playClick").boolValue = playClick;
+            serialized.ApplyModifiedPropertiesWithoutUndo();
         }
 
         // ── Escena ─────────────────────────────────────────────────────────────────────
