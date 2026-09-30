@@ -137,3 +137,12 @@ Fecha: 2026-09-30 · Sesión 11 · Irreversible: **no**
 árbol §4.2 (líneas 817-820): las versiones Shader Graph quedan aparcadas para la versión de Asset Store
 (`docs/MVP_SCOPE.md` > Aparcado). **Motivo:** decisión del usuario (Sesión 11); desbloquea LK-01.
 **Alcance:** LK-01, LK-02, LK-03 y `.claude/rules/shaders.md`. Keywords, D-001 y nombres de propiedad, sin cambios.
+
+---
+
+## D-011 — Excepción a D-002: el Audio Mixer lo crea el usuario
+Fecha: 2026-09-30 · Sesión 11 · Irreversible: **no**
+**Decisión.** `AMX_LumiKit.mixer` no sale de un generador: lo crea el usuario en el editor, con los grupos `UI` y `Music`
+hijos de `Master`, sin efectos ni snapshots extra. El código sólo lo lee. **Motivo:** Unity no tiene API pública para
+crear un `AudioMixer`; `AudioMixerController` es interno y usarlo por reflexión queda descartado. **Alcance:** LK-23.
+Un cambio de grupos lo hace el usuario a mano y se anota en `docs/specs/LK-23_UIAudio.md`.

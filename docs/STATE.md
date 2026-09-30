@@ -4,7 +4,7 @@ Actualizado: 2026-09-29 · Sesión 11 (en curso)
 ## Ahora
 - **Fase 4 en curso:** LK-52 ✅ (Sesión 11). Queda LK-23.
 - Tarea activa: ninguna.
-- Siguiente: LK-23, con el flujo de `docs/VERIFICATION.md` > Flujo por tarea. Spec escrita y pasada por el revisor, sin aprobar.
+- Siguiente: LK-23, con el flujo de `docs/VERIFICATION.md` > Flujo por tarea. Plan aprobado por el usuario con 5 cambios (2026-09-30), ya en la spec; el código espera a que confirme el mixer.
 - **Modo sprint** hasta el viernes 2026-10-02 por la tarde: rama `sprint/mvp`, alcance y recortes en `docs/MVP_SCOPE.md`. Punto seguro: tag `v0.3-pre-mcp` (2c5d484).
 
 ## Últimas 3 sesiones
@@ -38,8 +38,8 @@ Nada. LK-52 cerrada (Sesión 11).
 - **Música en MP3, decisión del usuario (Sesión 09).** `MUS_Ambient_Loop` pasa de WAV (64 MB) a MP3 (4 MB), con Load Type
   Streaming, Vorbis al 70 % y sin preload (leído en el `.meta`). En WAV no bajaba de 5 MB y recortar el bucle lo rompía.
   Cierra la nota de los 64 MB. `*.mp3` va por LFS (`.gitattributes`). Cambia el GUID, pero nada referenciaba el `.wav`.
-- **`MUS_` no existe como prefijo** en la tabla de CONVENTIONS.md ni en CLAUDE.md, aunque el archivo ya use ese nombre.
-  Se decide en LK-23: o se añade el prefijo a la tabla, o la música se nombra de otra forma. No lo toco sin que me lo pidas.
+- **`MUS_`:** cerrado (usuario, 2026-09-30). Prefijo de música en la tabla de CONVENTIONS.md. La música entra en LK-23, por el grupo Music.
+  El mixer lo crea el usuario (D-011): hoy en `Assets/LumiKit/Audio/`; GDD y CONVENTIONS dicen `Audio/Mixers/`.
 - **Diferidos a LK-01, no cumplidos:** verificación visual de `SetEffectEnabled` y del color en
   espacio Linear. Los criterios viven en `docs/specs/LK-01_Outline2D.md`.
 - **Botón del pie, deuda de LK-22a:** cerrada por LK-51 (contorno `SPR_UI_Rect_R6_Outline` y `LumiTheme.Transparent`), vista por el usuario.

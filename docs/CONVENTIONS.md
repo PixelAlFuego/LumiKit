@@ -14,6 +14,7 @@ Fuente: GDD §4.5 (líneas 1085-1123). Aquí sólo lo aplicable; nada se duplica
 | `PRF_` | Prefab | `PRF_ParameterPanel.prefab` | `Assets/LumiKit/Prefabs/UI/` |
 | `VFX_` | Prefab de partículas | `VFX_FireSmoke.prefab` | `Assets/LumiKit/VFX/Prefabs/` |
 | `SFX_` | Efecto de sonido | `SFX_UI_Click.wav` | `Assets/LumiKit/Audio/SFX/` |
+| `MUS_` | Música | `MUS_Ambient_Loop.mp3` | `Assets/LumiKit/Audio/Music/` |
 | `EFF_` | EffectDefinition (SO) | `EFF_Outline2D.asset` | `Assets/LumiKit/Runtime/Data/Effects/` |
 | `LOC_` | Localización | `LOC_Spanish.asset` | `Assets/LumiKit/Runtime/Data/Localization/` |
 | `PRE_` | Preset | `PRE_Outline_Neon.asset` | `Assets/LumiKit/Runtime/Data/Presets/` |
