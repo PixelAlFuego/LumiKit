@@ -18,6 +18,7 @@ bajo `Assets/LumiKit/`. Nada fuera de esa carpeta se exporta.
 | Archivo | Léelo cuando |
 |---|---|
 | docs/BACKLOG.md | Vas a elegir o cerrar una tarea |
+| docs/MVP_SCOPE.md | Sprint del MVP: qué entra, qué se recorta y dónde aparcar ideas |
 | docs/specs/LK-XX_*.md | Vas a implementar esa tarea |
 | docs/CODEMAP.md | Vas a tocar código existente |
 | docs/CONVENTIONS.md | Vas a crear archivos o assets nuevos |

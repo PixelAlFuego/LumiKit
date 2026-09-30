@@ -5,13 +5,14 @@ Actualizado: 2026-09-29 · Sesión 11 (en curso)
 - **Fase 4 en curso:** LK-52 ✅ (Sesión 11). Queda LK-23.
 - Tarea activa: ninguna.
 - Siguiente: LK-23.
+- **Modo sprint** hasta el viernes 2026-10-02 por la tarde: rama `sprint/mvp`, alcance y recortes en `docs/MVP_SCOPE.md`. Punto seguro: tag `v0.3-pre-mcp` (2c5d484).
 
 ## Últimas 3 sesiones
 | Sesión | Fecha | Tarea | Resultado | Commit |
 |---|---|---|---|---|
 | 09 | 2026-09-22 | Música a MP3 + LK-51 sprites del pack, verificación parcial | 🟡 | 12d21e6 · 58f9c9c · bb94a11 |
 | 10 | 2026-09-24 | Apagón y auditoría · LK-22b limpiador y fuentes · manija y cierre de LK-51 · LK-50 · spec de LK-52 | ✅ LK-51 · ✅ LK-22b · ✅ LK-50 · Fase 3 cerrada | 658d8fa · deef7b1 · f4b5b11 · 9b4832a · 81920ba · 37596da · 3c865e5 · cb27f92 · 6f85bb2 · f6a41dd |
-| 11 | 2026-09-25 y 29 | LK-52 valor editable del slider y `TextInputFocus`, y su cierre | ✅ LK-52 | 9cfbb49 · este commit |
+| 11 | 2026-09-25 y 29 | LK-52 valor editable del slider y `TextInputFocus`, y su cierre · modo sprint | ✅ LK-52 | 9cfbb49 · 2c5d484 · este commit |
 
 Sesiones 00 a 08 archivadas en `docs/archive/sesiones_2026-Q3.md`.
 
@@ -85,7 +86,7 @@ Nada. LK-52 cerrada (Sesión 11).
   Casi todas apuntan a LK-50 o a LK-22b; se corrigen si alguna vez toca abrir ese archivo.
 - **`ENUM_OPTION_HEIGHT` (28) y `BUTTON_HEIGHT_COMPACT` (28) son el mismo número del GDD con dos
   nombres** en `LumiTheme`. No lo unifico sin que me lo pidas. LK-50 no lo hizo: las opciones de enum no son `LumiButton`.
-- Rama única `main`. `develop` y `feature/LK-XX-*` del GDD §4.9 aún no creadas.
+- Ramas `main` y `sprint/mvp` (Sesión 11, desde el tag `v0.3-pre-mcp`). `develop` y `feature/LK-XX-*` del GDD §4.9 aún no creadas.
 
 ## Handoff
 **LK-52 cerrada (Sesión 11).** Tocó, con permiso de su spec: `Utils/TextInputFocus.cs` (nuevo), `DemoCameraController`, el widget de Float,
