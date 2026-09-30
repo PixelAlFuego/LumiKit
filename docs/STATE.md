@@ -4,7 +4,7 @@ Actualizado: 2026-09-30 · Sesión 12 (en curso)
 ## Ahora
 - **Fase 4 en curso:** LK-52 ✅ (Sesión 11). Queda LK-23.
 - Tarea activa: LK-23 🟡 (Sesión 12): implementado, pendiente de verificar en el editor.
-- Siguiente: LK-01, con el flujo de `docs/VERIFICATION.md` > Flujo por tarea.
+- Siguiente: LK-01. Plan en la spec, pasado por el revisor (APROBADO CON CAMBIOS, 9 aplicados); espera la aprobación del usuario.
 - **Modo sprint** hasta el viernes 2026-10-02 por la tarde: rama `sprint/mvp`, alcance y recortes en `docs/MVP_SCOPE.md`. Punto seguro: tag `v0.3-pre-mcp` (2c5d484).
 
 ## Últimas 3 sesiones
