@@ -87,7 +87,7 @@ Nada. LK-52 cerrada (Sesión 11).
   Casi todas apuntan a LK-50 o a LK-22b; se corrigen si alguna vez toca abrir ese archivo.
 - **`ENUM_OPTION_HEIGHT` (28) y `BUTTON_HEIGHT_COMPACT` (28) son el mismo número del GDD con dos
   nombres** en `LumiTheme`. No lo unifico sin que me lo pidas. LK-50 no lo hizo: las opciones de enum no son `LumiButton`.
-- **Shaders del MVP (punto 7, Sesión 11): sin elegir** entre HLSL a mano o Shader Graph del usuario. Bloquea LK-01. La regla vive en `.claude/rules/shaders.md`, no en D-004.
+- **Shaders del MVP:** cerrado (usuario, 2026-09-30). HLSL a mano para URP 2D, D-010 y `.claude/rules/shaders.md`. Falta el prefijo del `.shader` (LK-01).
 - **Bloqueo por acción:** cerrado (2026-09-30). Hook PreToolUse `.claude/hooks/unity-mcp-guard.js`: menús sólo `LumiKit/`, `manage_scene` sin guardar/crear/borrar, `manage_editor` sólo Play, Pausa, Stop y consultas.
 - Ramas `main` y `sprint/mvp` (Sesión 11, desde el tag `v0.3-pre-mcp`). `develop` y `feature/LK-XX-*` del GDD §4.9 aún no creadas.
 

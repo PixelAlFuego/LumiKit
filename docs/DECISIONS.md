@@ -42,23 +42,16 @@ que el contrato se cierra en LK-09. **Referencia:** GDD §4.3 (líneas 1001-1008
 ---
 
 ## D-005 — El efecto se apaga con la propiedad `_EffectEnabled`
-Fecha: 2026-09-10 · Sesión 01 · Irreversible: **sí**
-
-**Decisión.** Todo Shader Graph del pack expone una propiedad `Float` llamada
-`_EffectEnabled` (0 = sin efecto, 1 = con efecto) y termina en
-`Lerp(colorBase, colorConEfecto, _EffectEnabled)`. `EffectController.SetEffectEnabled`
-la escribe por `MaterialPropertyBlock`.
-
-**Motivo.** D-001 prohíbe modificar el material, y un `MaterialPropertyBlock` no puede
-activar keywords de shader. Apagar el efecto escribiendo "valores neutros" no sirve:
-en un Dissolve al 0% el borde emisivo puede seguir siendo visible.
-
-**Alcance.** Grafos de LK-01, LK-02 y LK-03. Comparación con TAB (LK-24).
+Fecha: 2026-09-10 · Sesión 01 · Irreversible: **sí** · Condensada en la Sesión 11
+**Decisión.** Todo Shader Graph del pack expone una propiedad `Float` llamada `_EffectEnabled` (0 = sin
+efecto, 1 = con efecto) y termina en `Lerp(colorBase, colorConEfecto, _EffectEnabled)`;
+`EffectController.SetEffectEnabled` la escribe por `MaterialPropertyBlock`. **Motivo:** D-001 prohíbe
+modificar el material y un `MaterialPropertyBlock` no puede activar keywords; apagar el efecto con
+"valores neutros" no sirve (en un Dissolve al 0% el borde emisivo puede seguir visible). **Alcance:**
+grafos de LK-01, LK-02 y LK-03 (en HLSL por D-010); comparación con TAB (LK-24).
 `MaterialPropertyHelper.EFFECT_ENABLED_PROPERTY` es el único sitio donde vive el nombre.
-
-**Consecuencia.** Un grafo sin `_EffectEnabled` compila y no falla: la escritura se
-ignora en silencio y el TAB no hace nada. Es criterio de aceptación de cada shader.
-Prohibición asociada de keywords: `.claude/rules/shaders.md`.
+**Consecuencia:** un shader sin `_EffectEnabled` compila y no falla: la escritura se ignora en silencio
+y el TAB no hace nada. Es criterio de aceptación de cada shader. Keywords: `.claude/rules/shaders.md`.
 
 ---
 
@@ -71,42 +64,30 @@ documentación. Sólo cambió el nombre; el contenido (1274 líneas) no se tocó
 ---
 
 ## D-006 — El input se lee sólo con Input System
-Fecha: 2026-09-14 · Sesión 02 · Irreversible: **no**
-
-**Decisión.** Active Input Handling = `Input System Package (New)`: `activeInputHandler: 1`
-en `ProjectSettings/ProjectSettings.asset`, confirmado por el usuario (Sesión 02). Todo el
-pack lee input con `UnityEngine.InputSystem` y con ninguna otra API.
-Forma única: `Keyboard.current` y `Mouse.current` leídos en `Update`, con comprobación de
-null. Sin `InputAction` creadas en código ni assets `.inputactions`.
-
-**Motivo.** Con ese valor, la API antigua `UnityEngine.Input` lanza excepción en runtime.
-Una sola API evita dos formas de leer el mismo ratón (LK-10, LK-12, LK-24).
-
-**Alcance.** Todo script bajo `Assets/LumiKit/`.
-Prohibido: `UnityEngine.Input` (`Input.GetKey`, `Input.mousePosition`…), `StandaloneInputModule`,
+Fecha: 2026-09-14 · Sesión 02 · Irreversible: **no** · Condensada en la Sesión 11
+**Decisión.** Active Input Handling = `Input System Package (New)`: `activeInputHandler: 1` en
+`ProjectSettings/ProjectSettings.asset`, confirmado por el usuario (Sesión 02). Todo el pack lee input con
+`UnityEngine.InputSystem` y con ninguna otra API. Forma única: `Keyboard.current` y `Mouse.current` leídos
+en `Update`, con comprobación de null; sin `InputAction` creadas en código ni assets `.inputactions`.
+**Motivo:** con ese valor, la API antigua `UnityEngine.Input` lanza excepción en runtime; una sola API evita
+dos formas de leer el mismo ratón (LK-10, LK-12, LK-24). **Alcance:** todo script bajo `Assets/LumiKit/`.
+**Prohibido:** `UnityEngine.Input` (`Input.GetKey`, `Input.mousePosition`…), `StandaloneInputModule`,
 `InputSystem.actions` y `Assets/InputSystem_Actions.inputactions` (son del proyecto, no se exportan).
-Obligatorio: el `EventSystem` de toda escena del pack usa `InputSystemUIInputModule`.
-
-**Consecuencia.** El proyecto del comprador necesita `com.unity.inputsystem` y Active Input
-Handling en `New` o `Both`. Se documenta en LK-26.
+**Obligatorio:** el `EventSystem` de toda escena del pack usa `InputSystemUIInputModule`. **Consecuencia:**
+el comprador necesita `com.unity.inputsystem` y Active Input Handling en `New` o `Both`; se documenta en LK-26.
 
 ---
 
 ## D-008 — Los widgets de parámetros se llaman `<Tipo>ParameterWidget`
-Fecha: 2026-09-17 · Sesión 04 · Irreversible: **no**
-
-**Decisión.** El widget de `Float` es `SliderParameterWidget`, no `SliderWidget` como escribe el
-árbol de archivos del GDD §4.2 (línea 770). Misma regla para los que faltan (LK-11b):
-`ColorParameterWidget`, `ToggleParameterWidget` y `EnumParameterWidget`.
-
-**Motivo.** `SliderWidget` nombra el control de interfaz; `SliderParameterWidget` nombra lo que la
-clase es: el widget de un `EffectParameter`, que hereda de `ParameterWidgetBase` y se configura sólo
-desde la `EffectDefinition` (D-003). El pack va a tener sliders que no editan parámetros de efecto
-—volumen y calidad en LK-18— y el nombre corto los mezclaría en la misma carpeta `Widgets/`.
-
-**Alcance.** LK-11a y LK-11b. Los prefabs mantienen el nombre del GDD: `PRF_Widget_Slider.prefab`.
-El árbol del GDD (líneas 768-773) queda desactualizado en ese punto y no se reescribe: la fuente de
-verdad de los nombres de clase es CODEMAP.md, y el GDD se referencia, no se duplica.
+Fecha: 2026-09-17 · Sesión 04 · Irreversible: **no** · Condensada en la Sesión 11
+**Decisión.** El widget de `Float` es `SliderParameterWidget`, no `SliderWidget` como escribe el árbol de
+archivos del GDD §4.2 (línea 770). Misma regla para los que faltan (LK-11b): `ColorParameterWidget`,
+`ToggleParameterWidget` y `EnumParameterWidget`. **Motivo:** `SliderWidget` nombra el control de interfaz;
+`SliderParameterWidget` nombra lo que la clase es: el widget de un `EffectParameter`, que hereda de
+`ParameterWidgetBase` y se configura sólo desde la `EffectDefinition` (D-003). El pack va a tener sliders
+que no editan parámetros de efecto —volumen y calidad en LK-18— y el nombre corto los mezclaría en
+`Widgets/`. **Alcance:** LK-11a y LK-11b. Los prefabs mantienen el nombre del GDD: `PRF_Widget_Slider.prefab`.
+El árbol del GDD (líneas 768-773) no se reescribe: la fuente de verdad de los nombres de clase es CODEMAP.md.
 
 ---
 
@@ -145,3 +126,14 @@ un atlas derivado de él.
 **Alcance.** LK-22b y LK-27 (exportación). `Fonts/Licenses/` lleva un `.txt` por familia y no uno
 solo, porque cada una trae su propia línea de copyright. Coste ≈1 MB en el `.unitypackage`; en el
 build no pesa: un `TMP_FontAsset` estático no referencia el `.ttf` en runtime.
+
+---
+
+## D-010 — Los shaders 2D del MVP se escriben en HLSL
+Fecha: 2026-09-30 · Sesión 11 · Irreversible: **no**
+**Decisión.** Para el MVP, Claude escribe los shaders 2D (LK-01, LK-03, LK-02) en HLSL para URP: archivos
+`.shader` en `Assets/LumiKit/Shaders/2D/`. Cumplen D-005 igual que un grafo: `Float _EffectEnabled` y
+`lerp(base, conEfecto, _EffectEnabled)`. Desviación del GDD §1.12 (línea 313, "Shader Graph 17.x") y del
+árbol §4.2 (líneas 817-820): las versiones Shader Graph quedan aparcadas para la versión de Asset Store
+(`docs/MVP_SCOPE.md` > Aparcado). **Motivo:** decisión del usuario (Sesión 11); desbloquea LK-01.
+**Alcance:** LK-01, LK-02, LK-03 y `.claude/rules/shaders.md`. Keywords, D-001 y nombres de propiedad, sin cambios.

@@ -28,3 +28,4 @@ Rama `sprint/mvp` · Entrega: viernes 2026-10-02 por la tarde · Punto seguro: t
 
 ## Aparcado
 Toda idea nueva va aquí en una línea, sin implementarla.
+- Versiones Shader Graph de LK-01, LK-03 y LK-02, para la versión de Asset Store (D-010).
