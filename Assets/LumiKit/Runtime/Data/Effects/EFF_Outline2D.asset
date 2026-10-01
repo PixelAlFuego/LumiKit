@@ -1,0 +1,56 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e9d5228f3dea91c49831917c26c80353, type: 3}
+  m_Name: EFF_Outline2D
+  m_EditorClassIdentifier: 
+  _displayNameEs: Contorno 2D
+  _displayNameEn: Outline 2D
+  _descriptionEs: Contorno de color alrededor de la silueta del sprite.
+  _descriptionEn: Colored outline around the sprite silhouette.
+  _shader: {fileID: 4800000, guid: 2fca8711674efc14b96731a42dff620a, type: 3}
+  _parameters:
+  - _displayNameEs: Color del contorno
+    _displayNameEn: Outline color
+    _propertyName: _OutlineColor
+    _type: 1
+    _minValue: 0
+    _maxValue: 1
+    _defaultFloat: 0
+    _defaultColor: {r: 0, g: 0.8980392, b: 0.83137256, a: 1}
+    _defaultBool: 0
+    _defaultEnumIndex: 0
+    _enumOptions: []
+  - _displayNameEs: Grosor
+    _displayNameEn: Width
+    _propertyName: _OutlineWidth
+    _type: 0
+    _minValue: 0
+    _maxValue: 10
+    _defaultFloat: 4
+    _defaultColor: {r: 1, g: 1, b: 1, a: 1}
+    _defaultBool: 0
+    _defaultEnumIndex: 0
+    _enumOptions: []
+  - _displayNameEs: Modo
+    _displayNameEn: Mode
+    _propertyName: _OutlineMode
+    _type: 3
+    _minValue: 0
+    _maxValue: 1
+    _defaultFloat: 0
+    _defaultColor: {r: 1, g: 1, b: 1, a: 1}
+    _defaultBool: 0
+    _defaultEnumIndex: 0
+    _enumOptions:
+    - "S\xF3lido"
+    - Punteado
+    - Animado

@@ -3,7 +3,7 @@ Actualizado: 2026-09-30 · Sesión 12 (en curso)
 
 ## Ahora
 - **Fase 4 cerrada:** LK-52 ✅ (Sesión 11) y LK-23 ✅ (Sesión 12, tag `cp-01-audio`). Fase 5 en curso.
-- Tarea activa: LK-01 🟠 (Sesión 12). Plan aprobado por el usuario con 4 decisiones y un requisito de margen, ya en la spec.
+- Tarea activa: LK-01 🟡 (Sesión 12): implementado, pendiente de verificar en el editor. Parte técnica pasada por el verificador.
 - Siguiente: LK-24, con el flujo de `docs/VERIFICATION.md` > Flujo por tarea.
 - **Modo sprint** hasta el viernes 2026-10-02 por la tarde: rama `sprint/mvp`, alcance y recortes en `docs/MVP_SCOPE.md`. Punto seguro: tag `v0.3-pre-mcp` (2c5d484).
 
@@ -12,12 +12,19 @@ Actualizado: 2026-09-30 · Sesión 12 (en curso)
 |---|---|---|---|---|
 | 10 | 2026-09-24 | Apagón y auditoría · LK-22b limpiador y fuentes · manija y cierre de LK-51 · LK-50 · spec de LK-52 | ✅ LK-51 · ✅ LK-22b · ✅ LK-50 · Fase 3 cerrada | 658d8fa · deef7b1 · f4b5b11 · 9b4832a · 81920ba · 37596da · 3c865e5 · cb27f92 · 6f85bb2 · f6a41dd |
 | 11 | 2026-09-25, 29 y 30 | LK-52 y su cierre · modo sprint · Unity MCP, subagentes y hook · shaders del MVP en HLSL (D-010) · plan de LK-23 (D-011) | ✅ LK-52 | 9cfbb49 · 2c5d484 · 3d2f2b8 · fa4af22 · 087251a · 428efc3 · 1a9fca5 · a5ad5f4 · 0e2cd88 · ba847e5 · 64916f4 · 90c2409 |
-| 12 | 2026-09-30 | Sprites sin sufijo (D-012), `SH_` · assets del audio y sprites · LK-23 y su cierre · spec de LK-01 | ✅ LK-23 | b4045d2 · ced99b9 · 2a43e80 · 13454a7 · este commit |
+| 12 | 2026-09-30 | Sprites sin sufijo (D-012), `SH_` · assets del audio y sprites · LK-23 y su cierre · LK-01 | ✅ LK-23 · 🟡 LK-01 | b4045d2 · ced99b9 · 2a43e80 · 13454a7 · a69d112 · este commit |
 
 Sesiones 00 a 09 archivadas en `docs/archive/sesiones_2026-Q3.md`. El número de sesión cambia al cerrarla aquí; lo hecho no se renumera (usuario, Sesión 12).
 
 ## Pendiente de verificación en Unity
-Nada. LK-23 cerrada (Sesión 12).
+LK-01 (spec > Banco y Criterios). Antes, el usuario: en `SPR_RuneCoin`, material `MAT_Outline2D_Default` y `EFF_Outline2D`; en "Cube de Prueba", `EffectDebugTester` con `_controller` = ese marcador y `_colorProperty` = `_OutlineColor`.
+- [ ] Al pintarse, la consola sigue sin errores del shader (las variantes se compilan al usarse); en Play, LK-49 no avisa de propiedades ausentes.
+- [ ] Contorno Lumi Cyan sin cortes; grosor 0 lo quita y 10 lo engrosa. Con grosor 10 no se corta ni en `SPR_RuneCoin` ni en `SPR_Crystal` (material sólo para la prueba).
+- [ ] Max Size 256: el grosor en pantalla no cambia; volver a 2048.
+- [ ] Zoom: el contorno escala con el sprite. Rotar 45°, Flip X o escala X = 2: el contorno sigue uniforme.
+- [ ] Punteado muestra trazos; Animado, trazos que avanzan; Sólido, contorno continuo.
+- [ ] `SetEffectEnabled(false)` quita el contorno; `true` lo devuelve.
+- [ ] Linear: captura en Sólido, grosor alto, post apagado y sin Volume; el centro del trazo da `#00E5D4` ±2. La mide Claude en `Temp/Captures`.
 
 ## Entorno confirmado
 - Unity 6000.0.83f1 · URP 17.0.4 · Input System 1.19.0 · uGUI 2.0.0 · 2D Sprite 1.0.0.
@@ -64,10 +71,11 @@ Nada. LK-23 cerrada (Sesión 12).
 - **`MAT_Debug.mat` usa `Universal Render Pipeline/Unlit`** (usuario, Sesión 06; en disco, GUID
   `650dd952…`): sin iluminación, lo acordado en LK-09 para poder cerrar el criterio de Linear.
 - **Materiales de los sprites, para la Fase 5:** los marcadores comparten el material por defecto `Sprite-Unlit-Default`.
-  Cada efecto necesitará el suyo (`MAT_` en `Assets/LumiKit/Materials/2D/`) o tocar un parámetro en uno los cambiará todos. Entra con LK-01.
+  Cada efecto necesitará el suyo (`MAT_` en `Assets/LumiKit/Materials/2D/`) o tocar un parámetro en uno los cambiará todos. LK-01 trae `MAT_Outline2D_Default`; faltan LK-03 y LK-02.
 - **Los topes no se suben** (usuario, Sesión 05): al llegar al tope se condensa (Sesión 07: `ui-style.md`, D-001 a D-003, por D-009).
 - `SPR_Crystal.png` y `SPR_RuneCoin.png` **definitivos** (LK-20, D-012): en `Assets/LumiKit/Sprites/`, 1024×1024, PPU 512, sin sufijo.
   Movidos por el usuario desde `_Development/` (mismo GUID). Siguen de marcadores en TestBench. `SPR_Lumi` entra si llega, sin bloquear LK-14.
+  **Pendiente de confirmar (Sesión 12):** sus `.meta` sin commit, con Full Rect (LK-01) y además PPU 512 → 256, que contradice D-012. No se commitean hasta que el usuario lo aclare.
 - **Nombres y posiciones de TestBench:** la spec de LK-12 escribió `Marker_Crystal` en (-3,0,0) y `Marker_RuneCoin` en (3,0,0). El estado
   real, confirmado en la Sesión 03, es `SPR_Crystal` en (3,0,0) y `SPR_RuneCoin` en (-3,0,0). LK-10 usa los nombres reales; LK-12 no se toca.
 - `ProjectSettings/TagManager.asset` entró en el cierre de LK-10 con la capa `Selectable` (índice 6) que creó el usuario. Unity aprovechó
@@ -86,7 +94,7 @@ Nada. LK-23 cerrada (Sesión 12).
 - Ramas `main` y `sprint/mvp` (Sesión 11, desde el tag `v0.3-pre-mcp`; `sprint/mvp` en `origin` desde la Sesión 12). `develop` y `feature/LK-XX-*` del GDD §4.9 aún no creadas.
 
 ## Handoff
-**LK-23 cerrada (Sesión 12).** Tocó, con permiso de su spec: `Systems/` (tres archivos nuevos), `Assets/Editor/UIAudioBuilder.cs` (nuevo) y `ParameterPanelBuilder` (+20 líneas).
+**LK-01 🟡 (Sesión 12).** Nuevos: `SH_Outline2D.shader` y `Assets/Editor/EffectAssetBuilder.cs`, que genera `MAT_Outline2D_Default` y `EFF_Outline2D`. LK-23 cerrada.
   Regenerar una fuente: atlas → `Import Font Features` → `FontFeatureCleaner` (spec de LK-22b). Regenerar el panel: STATE > Pendiente de verificación.
 No tocar: `Core/` y `Utils/` (LK-09, LK-49, LK-52), `Demo/` (LK-10, LK-12), `Systems/` (LK-23), los cuatro widgets, `EffectDebugTester.cs` hasta la Fase 5,
 `Assets/LumiKit/Scenes/`, `ProjectSettings/`, `Packages/manifest.json`, nada de 3D ni VFX.

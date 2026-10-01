@@ -1,5 +1,5 @@
 # Mapa de código
-Una fila por archivo `.cs` o `.shadergraph` que exista en disco. Si no está aquí, no existe.
+Una fila por archivo `.cs`, `.shader` o `.shadergraph` que exista en disco. Si no está aquí, no existe.
 Se actualiza al cerrar cada tarea, antes del commit.
 
 Reglas de esta tabla:
@@ -44,13 +44,14 @@ Sin consumidores todavía: `EffectRegistry` lo usa LK-30. `Singleton` lo usa `UI
 | `Assets/Editor/ParameterPanelBuilder.cs` | estática | Genera los seis prefabs del panel (`PRF_ParameterPanel`, `PRF_Widget_Slider/Color/Toggle/Enum/EnumOption`), con su pie y su `LumiButton` secundario, y monta `UI_Root`, `EventSystem` y el panel en la escena abierta. Usa seis de los siete `SPR_UI_*` de `Sprites/UI/` (`SPR_UI_Ring` no) y tres de las cuatro fuentes de `Fonts/` por familia `Display`/`Label`/`Mono` (`Inter-Regular` no), y aborta si falta un obligatorio. Aborta si algún prefab existe; no guarda la escena. El valor del slider es un `TMP_InputField` (LK-52). Cada `Selectable` lleva `UISoundTrigger`; sliders y campo del valor, sin clic (LK-23) | LumiTheme, LumiButton, ParameterPanelUI, los cuatro widgets, ObjectSelector, UISoundTrigger | LK-11a · LK-11b · LK-22a · LK-51 · LK-22b · LK-50 · LK-52 · LK-23 | ✅ |
 | `Assets/Editor/UIAudioBuilder.cs` | estática | Genera `PRF_UIAudioManager` (dos `AudioSource`: SFX al grupo UI, música en bucle al grupo Music) y lo monta en la raíz de la escena abierta, con `UISelectionSound` en el `ObjectSelector`. Aborta si falta el mixer (D-011), un grupo o un clip, o si el prefab o el montaje ya existen; no guarda la escena. Sin diálogos: lo lanza también el verificador por MCP | UIAudioManager, UISelectionSound, ObjectSelector | LK-23 | ✅ |
 | `Assets/Editor/FontFeatureCleaner.cs` | estática | Quita de las cinco tablas de features de cada `TMP_FontAsset` Static de `Fonts/` todo registro con algún glifo fuera del atlas. Informa por tabla y del peso en disco. Paso obligatorio tras regenerar una fuente o usar "Import Font Features"; repetible | — | LK-22b | ✅ |
+| `Assets/Editor/EffectAssetBuilder.cs` | estática | Genera el `MAT_` por defecto y el `EFF_` de cada efecto 2D (hoy, Outline 2D). Si existen, los actualiza en su sitio y conserva el GUID; el material toma los valores por defecto del shader. Aborta si falta el shader. Sin diálogos (MCP) | EffectDefinition, EffectParameter, LumiTheme | LK-01 | 🟡 |
 | `Assets/Editor/LumiButtonEditor.cs` | clase (`ButtonEditor`) | Inspector de `LumiButton`: el de `Button` y debajo `_style`, `_fill`, `_border` y `_label`. Por heredar, el asmdef referencia `UnityEditor.UI`. No se exporta (duda de LK-27) | LumiButton | LK-50 | ✅ |
 
 ## Shaders y materiales
 
 | Archivo | Tipo | Propiedades expuestas | Material(es) | LK | Estado |
 |---|---|---|---|---|---|
-| _(vacío)_ | | | | | |
+| `Assets/LumiKit/Shaders/2D/SH_Outline2D.shader` | HLSL (`LumiKit/2D/Outline`), pases `Universal2D` y `UniversalForward` | `_OutlineColor` (HDR), `_OutlineWidth` (centésimas de unidad de mundo, a UV por derivadas), `_OutlineMode` (sólido, punteado, animado), `_EffectEnabled` | `Materials/2D/MAT_Outline2D_Default.mat` (generado por `EffectAssetBuilder`, valores del shader) | LK-01 | 🟡 |
 
 ## Assembly definitions
 
@@ -63,7 +64,7 @@ Sin consumidores todavía: `EffectRegistry` lo usa LK-30. `Singleton` lo usa `UI
 
 | Asset | Tipo | LK | Estado |
 |---|---|---|---|
-| _(vacío)_ | | | |
+| `Runtime/Data/Effects/EFF_Outline2D.asset` | EffectDefinition, generado por `EffectAssetBuilder`: `_OutlineColor`, `_OutlineWidth` (0-10, 4), `_OutlineMode` (Sólido, Punteado, Animado) | LK-01 | 🟡 |
 
 ## Escenas
 
