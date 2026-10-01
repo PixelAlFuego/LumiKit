@@ -1,5 +1,5 @@
 # LK-23 — Sonidos de interfaz
-Estado: ⬜ plan aprobado por el usuario con 5 cambios (2026-09-30), aplicados; el código espera a que el usuario confirme el mixer · Depende de: LK-10 (`ObjectSelector`), LK-11a/LK-11b (generador), LK-50 (`LumiButton`) · Diseño: GDD §4.7 (líneas 1140-1164), §4.4 (líneas 1022-1031, 1061 y 1080)
+Estado: ✅ verificado por el usuario (Sesión 12): suenan hover, clic, selección y música; bucle sin huecos y equilibrio correcto · Depende de: LK-10 (`ObjectSelector`), LK-11a/LK-11b (generador), LK-50 (`LumiButton`) · Diseño: GDD §4.7 (líneas 1140-1164), §4.4 (líneas 1022-1031, 1061 y 1080)
 
 ## Objetivo
 Hover, Click y Select suenan por el grupo UI de `AMX_LumiKit`. `MUS_Ambient_Loop` suena en bucle por el grupo Music y no se corta

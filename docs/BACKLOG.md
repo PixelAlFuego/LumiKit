@@ -43,7 +43,7 @@ Una tarea por sesión. No adelantar fases. 3D y VFX están fuera de alcance.
 | LK-21 | Objetos demo 3D low-poly en Blender | Arte | — | ⬜ fuera de alcance |
 | LK-22a | Pie del panel con Reset y `ui-style.md` al día | UI | 3 | ✅ |
 | LK-22b | Fuentes TMP del pack y sus licencias | Arte | 3 | ✅ |
-| LK-23 | Efectos de sonido de interfaz y música | Audio | 4 | 🟡 |
+| LK-23 | Efectos de sonido de interfaz y música | Audio | 4 | ✅ |
 | LK-24 | Comparación antes / después (TAB) | Sistema | 5 | ⬜ |
 | LK-25 | Pantalla de créditos e info del pack | UI | — | ⬜ |
 | LK-26 | Documentación técnica bilingüe | Doc | — | ⬜ |

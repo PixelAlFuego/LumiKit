@@ -2,9 +2,9 @@
 Actualizado: 2026-09-30 · Sesión 12 (en curso)
 
 ## Ahora
-- **Fase 4 en curso:** LK-52 ✅ (Sesión 11). Queda LK-23.
-- Tarea activa: LK-23 🟡 (Sesión 12): implementado, pendiente de verificar en el editor.
-- Siguiente: LK-01. Plan en la spec, pasado por el revisor (APROBADO CON CAMBIOS, 9 aplicados); espera la aprobación del usuario.
+- **Fase 4 cerrada:** LK-52 ✅ (Sesión 11) y LK-23 ✅ (Sesión 12, tag `cp-01-audio`). Fase 5 en curso.
+- Tarea activa: LK-01 🟠 (Sesión 12). Plan aprobado por el usuario con 4 decisiones y un requisito de margen, ya en la spec.
+- Siguiente: LK-24, con el flujo de `docs/VERIFICATION.md` > Flujo por tarea.
 - **Modo sprint** hasta el viernes 2026-10-02 por la tarde: rama `sprint/mvp`, alcance y recortes en `docs/MVP_SCOPE.md`. Punto seguro: tag `v0.3-pre-mcp` (2c5d484).
 
 ## Últimas 3 sesiones
@@ -12,19 +12,12 @@ Actualizado: 2026-09-30 · Sesión 12 (en curso)
 |---|---|---|---|---|
 | 10 | 2026-09-24 | Apagón y auditoría · LK-22b limpiador y fuentes · manija y cierre de LK-51 · LK-50 · spec de LK-52 | ✅ LK-51 · ✅ LK-22b · ✅ LK-50 · Fase 3 cerrada | 658d8fa · deef7b1 · f4b5b11 · 9b4832a · 81920ba · 37596da · 3c865e5 · cb27f92 · 6f85bb2 · f6a41dd |
 | 11 | 2026-09-25, 29 y 30 | LK-52 y su cierre · modo sprint · Unity MCP, subagentes y hook · shaders del MVP en HLSL (D-010) · plan de LK-23 (D-011) | ✅ LK-52 | 9cfbb49 · 2c5d484 · 3d2f2b8 · fa4af22 · 087251a · 428efc3 · 1a9fca5 · a5ad5f4 · 0e2cd88 · ba847e5 · 64916f4 · 90c2409 |
-| 12 | 2026-09-30 | Sprites sin sufijo (D-012), `SH_` · assets del audio y sprites · LK-23 | 🟠 | este commit |
+| 12 | 2026-09-30 | Sprites sin sufijo (D-012), `SH_` · assets del audio y sprites · LK-23 y su cierre · spec de LK-01 | ✅ LK-23 | b4045d2 · ced99b9 · 2a43e80 · 13454a7 · este commit |
 
 Sesiones 00 a 09 archivadas en `docs/archive/sesiones_2026-Q3.md`. El número de sesión cambia al cerrarla aquí; lo hecho no se renumera (usuario, Sesión 12).
 
 ## Pendiente de verificación en Unity
-LK-23 (spec > Criterios). Antes, el usuario: borra los seis `PRF_*` y el `ParameterPanel` de TestBench, ejecuta los dos menús `LumiKit/UI/…` y guarda.
-- [ ] Verificador: compila y consola limpia; `UIAudioManager` con clips, grupo UI y música en bucle (Music); un `UISelectionSound` con `_selector`; prefabs con `UISoundTrigger`; Play y Stop sin excepciones; sin `.mat` ni fallback.
-- [ ] Hover una vez por elemento y no al arrastrar; recorrer rápido las opciones del enum no suena a ráfaga.
-- [ ] Click con el izquierdo en Reset, opción, toggle, muestra y preset; el derecho y el central callan.
-- [ ] Enter o Espacio sobre un botón con foco suenan a Click; arrastrar un slider no; un botón deshabilitado calla.
-- [ ] Select al elegir el cristal y al pasar a la moneda; deseleccionar calla.
-- [ ] Música en bucle desde Play, sin hueco al volver a empezar (si lo hay: OGG).
-- [ ] Silenciar UI calla los tres sonidos y no la música; silenciar Music, sólo la música. Sin `UIAudioManager`: silencio y sin errores.
+Nada. LK-23 cerrada (Sesión 12).
 
 ## Entorno confirmado
 - Unity 6000.0.83f1 · URP 17.0.4 · Input System 1.19.0 · uGUI 2.0.0 · 2D Sprite 1.0.0.
@@ -42,7 +35,7 @@ LK-23 (spec > Criterios). Antes, el usuario: borra los seis `PRF_*` y el `Parame
   **`SFX_UI_Error` y `SFX_UI_Transition` no entran en LK-23**: el primero espera avisos en pantalla y el segundo el cambio de escena de LK-17.
   Música en MP3 (usuario, Sesión 09): de WAV (64 MB) a MP3 (4 MB), Streaming, Vorbis al 70 %, sin preload; en WAV no bajaba de 5 MB y recortar
   el bucle lo rompía. `*.mp3` por LFS; nada referenciaba el `.wav`. Hueco en el bucle → el usuario la pasa a OGG. `MUS_` en CONVENTIONS (Sesión 12).
-  Mixer del usuario (D-011): `Assets/LumiKit/Audio/Mixers/AMX_LumiKit.mixer`, grupos UI (−6 dB) y Music.
+  Mixer del usuario (D-011): `Assets/LumiKit/Audio/Mixers/AMX_LumiKit.mixer`, grupos UI (−6 dB) y Music. Hover: al usuario le suena algo raro; probablemente no se cambia (Sesión 12).
 - **Diferidos a LK-01, no cumplidos:** verificación visual de `SetEffectEnabled` y del color en
   espacio Linear. Los criterios viven en `docs/specs/LK-01_Outline2D.md`.
 - **`LumiButton` pinta `Selected` como reposo** (usuario, Sesión 10; con el cursor encima, como hover): así un usuario de teclado o mando
@@ -93,7 +86,7 @@ LK-23 (spec > Criterios). Antes, el usuario: borra los seis `PRF_*` y el `Parame
 - Ramas `main` y `sprint/mvp` (Sesión 11, desde el tag `v0.3-pre-mcp`; `sprint/mvp` en `origin` desde la Sesión 12). `develop` y `feature/LK-XX-*` del GDD §4.9 aún no creadas.
 
 ## Handoff
-**LK-23 🟡 (Sesión 12).** Tocó, con permiso de su spec: `Systems/` (tres archivos nuevos), `Assets/Editor/UIAudioBuilder.cs` (nuevo) y `ParameterPanelBuilder` (+20 líneas).
+**LK-23 cerrada (Sesión 12).** Tocó, con permiso de su spec: `Systems/` (tres archivos nuevos), `Assets/Editor/UIAudioBuilder.cs` (nuevo) y `ParameterPanelBuilder` (+20 líneas).
   Regenerar una fuente: atlas → `Import Font Features` → `FontFeatureCleaner` (spec de LK-22b). Regenerar el panel: STATE > Pendiente de verificación.
-No tocar: `Core/` y `Utils/` (LK-09, LK-49, LK-52), `Demo/` (LK-10, LK-12), los cuatro widgets, `EffectDebugTester.cs` hasta la Fase 5,
+No tocar: `Core/` y `Utils/` (LK-09, LK-49, LK-52), `Demo/` (LK-10, LK-12), `Systems/` (LK-23), los cuatro widgets, `EffectDebugTester.cs` hasta la Fase 5,
 `Assets/LumiKit/Scenes/`, `ProjectSettings/`, `Packages/manifest.json`, nada de 3D ni VFX.
