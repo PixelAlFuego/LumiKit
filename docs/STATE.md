@@ -2,12 +2,12 @@
 Actualizado: 2026-10-02 · Sesión 12 (en curso)
 
 ## Ahora
-- **Fase 5 del MVP cerrada:** LK-01 ✅ (`cp-02-outline`), LK-24 ✅ (`cp-03-tab`), LK-03 ✅ (`cp-05-glow`), Sesión 12; LK-02 recortada. Fase 4: LK-52 y LK-23 (`cp-01-audio`). Fase 7: LK-14 ✅ (`cp-04-demo`).
-- Tarea activa: LK-13 + LK-17 🟡 (menú de inicio mínimo y `SceneLoader`): implementadas, pendientes de verificar en el editor. Vuelven al MVP por la entrega (usuario, 2026-10-02).
+- **Fase 5 del MVP cerrada:** LK-01 ✅ (`cp-02-outline`), LK-24 ✅ (`cp-03-tab`), LK-03 ✅ (`cp-05-glow`), Sesión 12; LK-02 recortada. Fase 4: LK-52 y LK-23 (`cp-01-audio`). Fase 7: LK-14 ✅ (`cp-04-demo`), LK-13 + LK-17 ✅ (`cp-06-menu`).
+- Tarea activa: ninguna. **Siguiente sesión** (usuario): las capas del halo de LK-03, que siguen a intensidad 2, y los criterios sin confirmar de sesiones anteriores (Dudas abiertas).
 - **Modo sprint** hasta el viernes 2026-10-02 por la tarde, último día por enfermedad. Rama `sprint/mvp`, alcance y recortes en `docs/MVP_SCOPE.md`. Punto seguro: tag `v0.3-pre-mcp` (2c5d484).
 
 ## Hoy (2026-10-02)
-1. LK-13 + LK-17: lista del build, checklist de abajo y "verificado LK-13" o el fallo. Push con tag al cerrarla.
+1. "Salir" en el build (LK-13, pendiente).
 2. Exportar el `.unitypackage` (LK-27); la prueba de importación, la semana del 2026-10-05.
 
 ## Últimas 3 sesiones
@@ -15,17 +15,16 @@ Actualizado: 2026-10-02 · Sesión 12 (en curso)
 |---|---|---|---|---|
 | 10 | 2026-09-24 | Apagón y auditoría · LK-22b limpiador y fuentes · manija y cierre de LK-51 · LK-50 · spec de LK-52 | ✅ LK-51 · ✅ LK-22b · ✅ LK-50 · Fase 3 cerrada | 658d8fa · deef7b1 · f4b5b11 · 9b4832a · 81920ba · 37596da · 3c865e5 · cb27f92 · 6f85bb2 · f6a41dd |
 | 11 | 2026-09-25, 29 y 30 | LK-52 y su cierre · modo sprint · Unity MCP, subagentes y hook · shaders del MVP en HLSL (D-010) · plan de LK-23 (D-011) | ✅ LK-52 | 9cfbb49 · 2c5d484 · 3d2f2b8 · fa4af22 · 087251a · 428efc3 · 1a9fca5 · a5ad5f4 · 0e2cd88 · ba847e5 · 64916f4 · 90c2409 |
-| 12 | 2026-09-30, 10-01 y 10-02 | Sprites sin sufijo (D-012), `SH_` · assets del audio y sprites · LK-23 y su cierre · LK-01 y su cierre · alcance recortado · LK-24 y su cierre · LK-14 (D-013) y su cierre · LK-03 y su cierre · LK-13 + LK-17 | ✅ LK-23 · ✅ LK-01 · ✅ LK-24 · ✅ LK-14 · ✅ LK-03 · 🟡 LK-13 + LK-17 | b4045d2 · ced99b9 · 2a43e80 · 13454a7 · a69d112 · 98ad2a1 · 83ad8a4 · a633f0f · 67564dc · 5dbfa8a · 4219e96 · 0cc38f3 · 952b864 · 96a9f7e · 1f8a619 · dd33d9f · 19d91bc · 6287e99 · este commit |
+| 12 | 2026-09-30, 10-01 y 10-02 | Sprites sin sufijo (D-012), `SH_` · assets del audio y sprites · LK-23 y su cierre · LK-01 y su cierre · alcance recortado · LK-24 y su cierre · LK-14 (D-013) y su cierre · LK-03 y su cierre · LK-13 + LK-17 y su cierre | ✅ LK-23 · ✅ LK-01 · ✅ LK-24 · ✅ LK-14 · ✅ LK-03 · ✅ LK-13 + LK-17 | b4045d2 · ced99b9 · 2a43e80 · 13454a7 · a69d112 · 98ad2a1 · 83ad8a4 · a633f0f · 67564dc · 5dbfa8a · 4219e96 · 0cc38f3 · 952b864 · 96a9f7e · 1f8a619 · dd33d9f · 19d91bc · 6287e99 · bcdb2f8 · este commit |
 
 Sesiones 00 a 09 archivadas en `docs/archive/sesiones_2026-Q3.md`. El número de sesión cambia al cerrarla aquí; lo hecho no se renumera (usuario, Sesión 12).
 
 ## Pendiente de verificación en Unity
-**LK-13 + LK-17** (spec > Criterios). Antes: en la lista del build, `01_MainMenu` activada y primera, y `02_Demo_2D` activada (sin ellas, `SceneLoader` da error y no carga).
-- [ ] Play desde `01_MainMenu`: título, subtítulo, dos botones y versión, legibles y centrados; suena la música. Hover y clic suenan.
-- [ ] "Demo 2D": suena la transición y carga la demo; la música sigue sin cortarse ni reiniciarse.
-- [ ] Demo: cristal con brillo, runa con contorno; "Menú" arriba a la izquierda vuelve al menú.
-- [ ] Menú → demo → menú → demo varias veces: música continua y única, un solo `UIAudioManager` en `DontDestroyOnLoad`, consola sin errores (el aviso de duplicado de `Singleton` es esperado).
-- [ ] Build: arranca en el menú; "Salir" cierra la aplicación.
+Tareas cerradas con criterios sin confirmar (siguiente sesión, usuario):
+- [ ] LK-13: build de Windows: arranca en el menú; "Salir" cierra la aplicación.
+- [ ] LK-14: esquina transparente de cada sprite no selecciona; build a 16:9 y 16:10 (ahora entra por el menú).
+- [ ] LK-24: criterio del tester con su botón, confirmado a medias.
+- [ ] LK-03: halo sin capas a la intensidad máxima del `EFF` (hoy, 2, no basta).
 
 ## Entorno confirmado
 - Unity 6000.0.83f1 · URP 17.0.4 · Input System 1.19.0 · uGUI 2.0.0 · 2D Sprite 1.0.0.
@@ -41,7 +40,8 @@ Sesiones 00 a 09 archivadas en `docs/archive/sesiones_2026-Q3.md`. El número de
 - **LK-14 cerrada** (usuario, 2026-10-02). Su confirmación no nombra la esquina transparente ni el build de Windows: si fallan, se reabre.
 - **LK-13 + LK-17, sin certeza:** `Application.CanStreamedLevelBeLoaded` (existe en 6000.0, sin ver si está obsoleto) y `characterSpacing` de TMP en centésimas de em.
 - **LK-03, limitación conocida** (usuario, 2026-10-02): a intensidad alta el halo muestra capas (cebolla): 4 anillos de muestras. Mitigación del MVP: máximo del `EFF` a 2,
-  medido en una simulación en CPU de la fórmula (capas tenues desde 2, claras desde 2,5), no en Unity. Arreglo de fondo, por probar: fundido o difuminado entre capas, más anillos o direcciones (MVP_SCOPE > Aparcado).
+  medido en una simulación en CPU de la fórmula (capas tenues desde 2, claras desde 2,5), no en Unity. **A 2 siguen** (usuario, cierre de LK-13): no basta. Arreglo de fondo, siguiente sesión: fundido o difuminado entre capas, más anillos o direcciones (MVP_SCOPE > Aparcado).
+- **Cambios de render del build, sin commit:** `Assets/Settings/PC_RPAsset.asset`, `UniversalRenderPipelineGlobalSettings.asset` y `ProjectSettings/GraphicsSettings.asset` los reescribió Unity al compilar el build (filtros de variantes de URP). Sin revisar; se decide si entran.
 - **Audio (LK-23).** Por LFS: `Audio/SFX/` con los cinco `SFX_UI_*`, recortados por el usuario (Sesión 12), y `Audio/Music/MUS_Ambient_Loop.mp3`.
   **`SFX_UI_Error` y `SFX_UI_Transition` no entran en LK-23**: el primero espera avisos en pantalla y el segundo el cambio de escena de LK-17. Música en MP3 (usuario, Sesión 09): de WAV (64 MB) a MP3 (4 MB), Streaming, Vorbis al 70 %, sin preload; en WAV no bajaba de 5 MB y recortar
   el bucle lo rompía. `*.mp3` por LFS; nada referenciaba el `.wav`. Hueco en el bucle → el usuario la pasa a OGG. `MUS_` en CONVENTIONS (Sesión 12). Mixer del usuario (D-011): `Assets/LumiKit/Audio/Mixers/AMX_LumiKit.mixer`, grupos UI (−6 dB) y Music. Hover: al usuario le suena algo raro; probablemente no se cambia (Sesión 12).
@@ -89,7 +89,7 @@ Sesiones 00 a 09 archivadas en `docs/archive/sesiones_2026-Q3.md`. El número de
 - Ramas `main` y `sprint/mvp` (Sesión 11, desde el tag `v0.3-pre-mcp`; `sprint/mvp` en `origin` desde la Sesión 12). `develop` y `feature/LK-XX-*` del GDD §4.9 aún no creadas.
 
 ## Handoff
-**LK-13 + LK-17 🟡 (Sesión 12).** Nuevos: `Systems/SceneLoader.cs`, `Systems/SceneMenu.cs`, `Assets/Editor/MainMenuSceneBuilder.cs` (genera y guarda `01_MainMenu`, D-013). Orden: `LumiKit/Audio/Añadir sonido de transición (LK-17)`, luego las dos escenas.
+**LK-13 + LK-17 ✅ (Sesión 12).** Nuevos: `Systems/SceneLoader.cs`, `Systems/SceneMenu.cs`, `Assets/Editor/MainMenuSceneBuilder.cs` (genera y guarda `01_MainMenu`, D-013). Orden: `LumiKit/Audio/Añadir sonido de transición (LK-17)`, luego las dos escenas.
   Regenerar una fuente: atlas → `Import Font Features` → `FontFeatureCleaner` (spec de LK-22b). Regenerar el panel: STATE > Pendiente de verificación.
 No tocar: `Core/` y `Utils/` (LK-09, LK-49, LK-52), `Demo/` (LK-10, LK-12), `SH_Outline2D.shader` y `SH_Glow2D.shader`, los cuatro widgets, `EffectDebugTester.cs` hasta la Fase 5,
 `ProjectSettings/` (la lista del build la pone el usuario), `Packages/manifest.json`, nada de 3D ni VFX. Las escenas generadas, sólo por sus generadores.

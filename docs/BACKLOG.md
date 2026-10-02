@@ -32,11 +32,11 @@ Una tarea por sesión. No adelantar fases. 3D y VFX están fuera de alcance.
 | LK-11a | Panel de parámetros + widget `Float` (slider) | UI | 3 | ✅ |
 | LK-11b | Widgets `Color`, `Toggle` y `Enum` | UI | 3 | ✅ |
 | LK-12 | Controlador de cámara (ortográfica 2D) | Sistema | 2 | ✅ |
-| LK-13 | Escena de menú principal con navegación | UI | 7 | 🟡 |
+| LK-13 | Escena de menú principal con navegación | UI | 7 | ✅ |
 | LK-14 | Escena `02_Demo_2D` construida y poblada | Escena | 7 | ✅ |
 | LK-15 | Escena `03_Demo_3D` construida y poblada | Escena | — | ⬜ fuera de alcance |
 | LK-16 | Escena `04_Demo_VFX` construida y poblada | Escena | — | ⬜ fuera de alcance |
-| LK-17 | Carga asíncrona entre escenas | Sistema | 7 | 🟡 |
+| LK-17 | Carga asíncrona entre escenas | Sistema | 7 | ✅ |
 | LK-18 | Pantalla de configuración (calidad, res., idioma) | UI | — | ⬜ |
 | LK-19 | Localización ES / EN | Sistema | — | ⬜ |
 | LK-20 | Objetos demo 2D (Lumi, cristal, runa) | Arte | 6 | ⬜ |
