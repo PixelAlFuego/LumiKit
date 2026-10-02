@@ -97,9 +97,10 @@ namespace LumiKit.Editor
             SetParameter(
                 parameters.GetArrayElementAtIndex(0), "Color del brillo", "Glow color", "_GlowColor",
                 ParameterType.Color, 0f, 1f, 0f, LumiTheme.LumiViolet, 0, new string[0]);
+            // Máximo 2, no el 5 del shader: por encima, el halo muestra capas (limitación conocida de LK-03).
             SetParameter(
                 parameters.GetArrayElementAtIndex(1), "Intensidad", "Intensity", "_GlowIntensity",
-                ParameterType.Float, 0f, 5f, 1.5f, Color.white, 0, new string[0]);
+                ParameterType.Float, 0f, 2f, 1.5f, Color.white, 0, new string[0]);
             SetParameter(
                 parameters.GetArrayElementAtIndex(2), "Pulso", "Pulse", "_PulseEnabled",
                 ParameterType.Boolean, 0f, 1f, 0f, Color.white, 0, new string[0]);

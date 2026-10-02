@@ -35,3 +35,4 @@ Toda idea nueva va aquí en una línea, sin implementarla.
 - Versiones Shader Graph de LK-01, LK-03 y LK-02, para la versión de Asset Store (D-010).
 - Botón "Comparar" en pantalla (GDD línea 59) e indicador de controles del GDD (línea 137: se desvanece, tecla H). El MVP lleva un texto fijo temporal en `02_Demo_2D` (LK-14), que se quitará.
 - 4:3: la composición de `02_Demo_2D` no se garantiza (usuario, Sesión 12).
+- Halo de LK-03 sin capas a intensidad alta: fundido o difuminado entre anillos, o más muestras; probarlo y devolver el máximo del `EFF` a 5.

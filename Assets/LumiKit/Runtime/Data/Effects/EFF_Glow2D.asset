@@ -34,7 +34,7 @@ MonoBehaviour:
     _propertyName: _GlowIntensity
     _type: 0
     _minValue: 0
-    _maxValue: 5
+    _maxValue: 2
     _defaultFloat: 1.5
     _defaultColor: {r: 1, g: 1, b: 1, a: 1}
     _defaultBool: 0

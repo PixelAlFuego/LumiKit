@@ -1,5 +1,5 @@
 # LK-03 — Glow / Inner Glow Shader 2D
-Estado: 🟡 implementado, pendiente de verificar en el editor (Sesión 12, 2026-10-02). Verificador: 7 de 7 técnicos; el shader se importó sin errores, pero sus variantes se compilan al dibujarse (Play del usuario). Revisor: APROBADO CON CAMBIOS, 9 aplicados. Usuario: sin demo, violeta, borde de luz en los huecos · Depende de: LK-09, LK-49, LK-01 (`EffectAssetBuilder`, estructura de `SH_Outline2D`), LK-24 (TAB) · Diseño: GDD §3.2 (línea 659), §1.3 (líneas 51-52), §1.7 (línea 156), D-001, D-005, D-010
+Estado: ✅ verificado por el usuario (Sesión 12, 2026-10-02): halo suave a valores normales, se lee como luz sin post; color, pulso, TAB, Reset, zoom, rotación y flip; ningún `.mat` modificado. **Limitación conocida:** a intensidad alta el halo muestra capas (cebolla); el máximo del `EFF` baja a 2 (simulación en CPU de la fórmula: capas tenues desde 2, claras desde 2,5). Verificador: 7 de 7 técnicos. Revisor: APROBADO CON CAMBIOS, 9 aplicados. Usuario: sin demo, violeta, borde de luz en los huecos · Depende de: LK-09, LK-49, LK-01 (`EffectAssetBuilder`, estructura de `SH_Outline2D`), LK-24 (TAB) · Diseño: GDD §3.2 (línea 659), §1.3 (líneas 51-52), §1.7 (línea 156), D-001, D-005, D-010
 
 ## Objetivo
 Brillo exterior e interior alrededor de la silueta del sprite, con intensidad y pulso opcional, en HLSL para URP (D-010). Objeto de prueba: `SPR_RuneCoin`
@@ -23,7 +23,7 @@ El nombre de cada propiedad coincide exactamente con el `propertyName` del `Effe
 |---|---|---|---|---|---|
 | `_EffectEnabled` | `Float` | — (no va al panel) | 0 / 1 | 1 | **D-005** |
 | `_GlowColor` | `[HDR] Color` | Color | — | Lumi Violet `#8B5CF6` (GDD línea 411; usuario, 2026-10-02) | GDD línea 51 |
-| `_GlowIntensity` | `Range(0, 5)` | Float | 0 – 5 (propuesta) | 1,5 (propuesta) | GDD línea 659: sólo "intensidad" |
+| `_GlowIntensity` | `Range(0, 5)` | Float | 0 – 5 en el shader; 0 – 2 en `EFF_Glow2D` (capas por encima) | 1,5 | GDD línea 659: sólo "intensidad" |
 | `_PulseEnabled` | `[ToggleUI] Float` | Boolean | 0 / 1 | 0 | GDD línea 52 |
 | `_PulseSpeed` | `Range(0, 3)` | Float | 0 – 3 pulsos por segundo (propuesta; ≤ 3 destellos/s, WCAG 2.3.1) | 1 (propuesta) | GDD línea 659: sólo "pulso" |
 | `_MainTex`, `_Color` | como `Sprite-Unlit-Default` | — | — | — | URP |
