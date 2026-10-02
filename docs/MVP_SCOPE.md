@@ -32,3 +32,4 @@ El 2026-10-02: LK-24 + LK-14 = 4 h (6 h con el +50 %). LK-03 suma 2 h si entra.
 ## Aparcado
 Toda idea nueva va aquí en una línea, sin implementarla.
 - Versiones Shader Graph de LK-01, LK-03 y LK-02, para la versión de Asset Store (D-010).
+- Botón "Comparar" en pantalla y recordatorio de teclas `WASD · Clic · TAB` (GDD líneas 59 y 137): sin ellos, TAB sólo se descubre por la documentación o el vídeo (LK-24).
