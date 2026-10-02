@@ -1,5 +1,5 @@
 # LK-24 — Comparación antes / después (TAB)
-Estado: 🟡 implementado, pendiente de verificar en el editor (Sesión 12). Revisor: APROBADO CON CAMBIOS, 8 aplicados; programar sin bloqueantes, autorizado por el usuario · Depende de: LK-09 (`SetEffectEnabled`, `IsEffectEnabled`), LK-10 (`ObjectSelector`), LK-52 (`TextInputFocus`), LK-01 (`_EffectEnabled` en `SH_Outline2D`) · Diseño: GDD §1.3 Mecánica 3 (líneas 57-59), §1.11 (línea 250), D-001, D-005, D-006
+Estado: ✅ verificado por el usuario (Sesión 12, 2026-10-02): ojo completo; el criterio del tester, repetido con su botón: al soltar TAB el contorno conserva el estado previo, apagado o encendido. Confirmación a medias según el usuario: anotada en STATE > Dudas abiertas. Revisor: APROBADO CON CAMBIOS, 8 aplicados; programar sin bloqueantes, autorizado por el usuario · Depende de: LK-09 (`SetEffectEnabled`, `IsEffectEnabled`), LK-10 (`ObjectSelector`), LK-52 (`TextInputFocus`), LK-01 (`_EffectEnabled` en `SH_Outline2D`) · Diseño: GDD §1.3 Mecánica 3 (líneas 57-59), §1.11 (línea 250), D-001, D-005, D-006
 
 ## Objetivo
 Mientras el usuario mantiene `TAB`, el objeto seleccionado se ve sin efecto; al soltar, el efecto vuelve. Sin tocar el material (D-001):
