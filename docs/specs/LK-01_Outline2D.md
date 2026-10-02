@@ -1,5 +1,5 @@
 # LK-01 — Outline Shader 2D
-Estado: 🟡 implementado, pendiente de verificar en el editor (Sesión 12). Plan aprobado por el usuario con 4 decisiones y el requisito de margen; revisor: APROBADO CON CAMBIOS, 9 aplicados · Depende de: LK-09, LK-49 · Diseño: GDD §3.2 (línea 657), §1.3 (líneas 48-53), §1.7 (línea 154), D-005, D-010
+Estado: ✅ verificado por el usuario (Sesión 12): checklist completa; centro del trazo `#00E5D4` exacto en Linear. Plan aprobado por el usuario con 4 decisiones y el requisito de margen; revisor: APROBADO CON CAMBIOS, 9 aplicados · Depende de: LK-09, LK-49 · Diseño: GDD §3.2 (línea 657), §1.3 (líneas 48-53), §1.7 (línea 154), D-005, D-010
 
 ## Objetivo
 Contorno configurable sobre sprite, con color, grosor y modo, en HLSL para URP (D-010). Objeto demo: Lumi (LK-20); mientras no llegue, `SPR_RuneCoin`.

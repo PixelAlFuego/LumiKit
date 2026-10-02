@@ -1,9 +1,9 @@
 # Estado del proyecto
-Actualizado: 2026-09-30 · Sesión 12 (en curso)
+Actualizado: 2026-10-01 · Sesión 12 (en curso)
 
 ## Ahora
-- **Fase 4 cerrada:** LK-52 ✅ (Sesión 11) y LK-23 ✅ (Sesión 12, tag `cp-01-audio`). Fase 5 en curso.
-- Tarea activa: LK-01 🟡 (Sesión 12): implementado, pendiente de verificar en el editor. Parte técnica pasada por el verificador.
+- **Fase 5 en curso:** LK-01 ✅ (Sesión 12, tag `cp-02-outline`). Fase 4 cerrada: LK-52 y LK-23 (`cp-01-audio`).
+- Tarea activa: ninguna. LK-01 cerrada.
 - Siguiente: LK-24, con el flujo de `docs/VERIFICATION.md` > Flujo por tarea.
 - **Modo sprint** hasta el viernes 2026-10-02 por la tarde: rama `sprint/mvp`, alcance y recortes en `docs/MVP_SCOPE.md`. Punto seguro: tag `v0.3-pre-mcp` (2c5d484).
 
@@ -12,19 +12,12 @@ Actualizado: 2026-09-30 · Sesión 12 (en curso)
 |---|---|---|---|---|
 | 10 | 2026-09-24 | Apagón y auditoría · LK-22b limpiador y fuentes · manija y cierre de LK-51 · LK-50 · spec de LK-52 | ✅ LK-51 · ✅ LK-22b · ✅ LK-50 · Fase 3 cerrada | 658d8fa · deef7b1 · f4b5b11 · 9b4832a · 81920ba · 37596da · 3c865e5 · cb27f92 · 6f85bb2 · f6a41dd |
 | 11 | 2026-09-25, 29 y 30 | LK-52 y su cierre · modo sprint · Unity MCP, subagentes y hook · shaders del MVP en HLSL (D-010) · plan de LK-23 (D-011) | ✅ LK-52 | 9cfbb49 · 2c5d484 · 3d2f2b8 · fa4af22 · 087251a · 428efc3 · 1a9fca5 · a5ad5f4 · 0e2cd88 · ba847e5 · 64916f4 · 90c2409 |
-| 12 | 2026-09-30 | Sprites sin sufijo (D-012), `SH_` · assets del audio y sprites · LK-23 y su cierre · LK-01 | ✅ LK-23 · 🟡 LK-01 | b4045d2 · ced99b9 · 2a43e80 · 13454a7 · a69d112 · este commit |
+| 12 | 2026-09-30 y 10-01 | Sprites sin sufijo (D-012), `SH_` · assets del audio y sprites · LK-23 y su cierre · LK-01 y su cierre | ✅ LK-23 · ✅ LK-01 | b4045d2 · ced99b9 · 2a43e80 · 13454a7 · a69d112 · 98ad2a1 · 83ad8a4 · este commit |
 
 Sesiones 00 a 09 archivadas en `docs/archive/sesiones_2026-Q3.md`. El número de sesión cambia al cerrarla aquí; lo hecho no se renumera (usuario, Sesión 12).
 
 ## Pendiente de verificación en Unity
-LK-01 (spec > Banco y Criterios). Antes, el usuario: en `SPR_RuneCoin`, material `MAT_Outline2D_Default` y `EFF_Outline2D`; en "Cube de Prueba", `EffectDebugTester` con `_controller` = ese marcador y `_colorProperty` = `_OutlineColor`.
-- [ ] Al pintarse, la consola sigue sin errores del shader (las variantes se compilan al usarse); en Play, LK-49 no avisa de propiedades ausentes.
-- [ ] Contorno Lumi Cyan sin cortes; grosor 0 lo quita y 10 lo engrosa. Con grosor 10 no se corta ni en `SPR_RuneCoin` ni en `SPR_Crystal` (material sólo para la prueba).
-- [ ] Max Size 256: el grosor en pantalla no cambia; volver a 2048.
-- [ ] Zoom: el contorno escala con el sprite. Rotar 45°, Flip X o escala X = 2: el contorno sigue uniforme.
-- [ ] Punteado muestra trazos; Animado, trazos que avanzan; Sólido, contorno continuo.
-- [ ] `SetEffectEnabled(false)` quita el contorno; `true` lo devuelve.
-- [ ] Linear: captura en Sólido, grosor alto, post apagado y sin Volume; el centro del trazo da `#00E5D4` ±2. La mide Claude en `Temp/Captures`.
+Nada. LK-01 cerrada (Sesión 12).
 
 ## Entorno confirmado
 - Unity 6000.0.83f1 · URP 17.0.4 · Input System 1.19.0 · uGUI 2.0.0 · 2D Sprite 1.0.0.
@@ -43,8 +36,6 @@ LK-01 (spec > Banco y Criterios). Antes, el usuario: en `SPR_RuneCoin`, material
   Música en MP3 (usuario, Sesión 09): de WAV (64 MB) a MP3 (4 MB), Streaming, Vorbis al 70 %, sin preload; en WAV no bajaba de 5 MB y recortar
   el bucle lo rompía. `*.mp3` por LFS; nada referenciaba el `.wav`. Hueco en el bucle → el usuario la pasa a OGG. `MUS_` en CONVENTIONS (Sesión 12).
   Mixer del usuario (D-011): `Assets/LumiKit/Audio/Mixers/AMX_LumiKit.mixer`, grupos UI (−6 dB) y Music. Hover: al usuario le suena algo raro; probablemente no se cambia (Sesión 12).
-- **Diferidos a LK-01, no cumplidos:** verificación visual de `SetEffectEnabled` y del color en
-  espacio Linear. Los criterios viven en `docs/specs/LK-01_Outline2D.md`.
 - **`LumiButton` pinta `Selected` como reposo** (usuario, Sesión 10; con el cursor encima, como hover): así un usuario de teclado o mando
   no ve qué botón tiene el foco. Mismo coste en el campo del slider (LK-52), que suelta la selección al terminar de editar. El GDD no define ese estado. Se decide antes de publicar.
 - **Aviso de rango ancho, para la Fase 5:** el campo del valor (LK-52) muestra 6 caracteres (`-10.00`); con 7 o más, la máscara corta.
@@ -75,7 +66,7 @@ LK-01 (spec > Banco y Criterios). Antes, el usuario: en `SPR_RuneCoin`, material
 - **Los topes no se suben** (usuario, Sesión 05): al llegar al tope se condensa (Sesión 07: `ui-style.md`, D-001 a D-003, por D-009).
 - `SPR_Crystal.png` y `SPR_RuneCoin.png` **definitivos** (LK-20, D-012): en `Assets/LumiKit/Sprites/`, 1024×1024, PPU 512, sin sufijo.
   Movidos por el usuario desde `_Development/` (mismo GUID). Siguen de marcadores en TestBench. `SPR_Lumi` entra si llega, sin bloquear LK-14.
-  **Pendiente de confirmar (Sesión 12):** sus `.meta` sin commit, con Full Rect (LK-01) y además PPU 512 → 256, que contradice D-012. No se commitean hasta que el usuario lo aclare.
+  Full Rect por LK-01 (`83ad8a4`). El PPU a 256 fue por un collider viejo, no por diseño: vuelve a 512 y D-012 se mantiene (usuario, Sesión 12).
 - **Nombres y posiciones de TestBench:** la spec de LK-12 escribió `Marker_Crystal` en (-3,0,0) y `Marker_RuneCoin` en (3,0,0). El estado
   real, confirmado en la Sesión 03, es `SPR_Crystal` en (3,0,0) y `SPR_RuneCoin` en (-3,0,0). LK-10 usa los nombres reales; LK-12 no se toca.
 - `ProjectSettings/TagManager.asset` entró en el cierre de LK-10 con la capa `Selectable` (índice 6) que creó el usuario. Unity aprovechó
@@ -87,14 +78,14 @@ LK-01 (spec > Banco y Criterios). Antes, el usuario: en `SPR_RuneCoin`, material
   y los widgets Color/Enum/Toggle. La de `ParameterPanelBuilder` la quitó LK-51. Casi todas apuntan a LK-50 o a LK-22b; se corrigen si toca abrir ese archivo.
 - **`ENUM_OPTION_HEIGHT` (28) y `BUTTON_HEIGHT_COMPACT` (28) son el mismo número del GDD con dos
   nombres** en `LumiTheme`. No lo unifico sin que me lo pidas. LK-50 no lo hizo: las opciones de enum no son `LumiButton`.
-- **Cerradas:** botón del pie, deuda de LK-22a (LK-51: `SPR_UI_Rect_R6_Outline` y `LumiTheme.Transparent`, vista por el usuario) · tamaño de texto sobre el GDD (Label y Mono a 16 px, GDD 13, a 1920×1080; en `LumiTheme`, D-007 y `ui-style.md`) · shaders del MVP (usuario, Sesión 11: HLSL, D-010 y `shaders.md`; `SH_` en CONVENTIONS, Sesión 12).
+- **Cerradas:** botón del pie, deuda de LK-22a (LK-51: `SPR_UI_Rect_R6_Outline` y `LumiTheme.Transparent`, vista por el usuario) · tamaño de texto sobre el GDD (Label y Mono a 16 px, GDD 13, a 1920×1080; en `LumiTheme`, D-007 y `ui-style.md`) · shaders del MVP (usuario, Sesión 11: HLSL, D-010 y `shaders.md`; `SH_` en CONVENTIONS, Sesión 12) · diferidos de LK-09 (LK-01, Sesión 12: `SetEffectEnabled` visto por el usuario; centro del trazo `#00E5D4` exacto, medido en `Temp/Captures`).
 - **`AudioMixer.FindMatchingGroups`, semántica sin confirmar** (LK-23): no sé si `subPath` compara por prefijo. `UIAudioBuilder` filtra además por nombre exacto del grupo.
 - **Bloqueo por acción:** cerrado (2026-09-30). Hook PreToolUse `.claude/hooks/unity-mcp-guard.js`: menús sólo `LumiKit/`, `manage_scene` sin guardar/crear/borrar, `manage_editor` sólo Play, Pausa, Stop y consultas.
   **Límite aceptado para el MVP** (usuario, Sesión 12): si falta Node, el hook da error y deja pasar la llamada.
 - Ramas `main` y `sprint/mvp` (Sesión 11, desde el tag `v0.3-pre-mcp`; `sprint/mvp` en `origin` desde la Sesión 12). `develop` y `feature/LK-XX-*` del GDD §4.9 aún no creadas.
 
 ## Handoff
-**LK-01 🟡 (Sesión 12).** Nuevos: `SH_Outline2D.shader` y `Assets/Editor/EffectAssetBuilder.cs`, que genera `MAT_Outline2D_Default` y `EFF_Outline2D`. LK-23 cerrada.
+**LK-01 cerrada (Sesión 12).** Nuevos: `SH_Outline2D.shader` y `Assets/Editor/EffectAssetBuilder.cs`, que genera `MAT_Outline2D_Default` y `EFF_Outline2D`. LK-23 cerrada.
   Regenerar una fuente: atlas → `Import Font Features` → `FontFeatureCleaner` (spec de LK-22b). Regenerar el panel: STATE > Pendiente de verificación.
-No tocar: `Core/` y `Utils/` (LK-09, LK-49, LK-52), `Demo/` (LK-10, LK-12), `Systems/` (LK-23), los cuatro widgets, `EffectDebugTester.cs` hasta la Fase 5,
+No tocar: `Core/` y `Utils/` (LK-09, LK-49, LK-52), `Demo/` (LK-10, LK-12), `Systems/` (LK-23), `SH_Outline2D.shader` (LK-01), los cuatro widgets, `EffectDebugTester.cs` hasta la Fase 5,
 `Assets/LumiKit/Scenes/`, `ProjectSettings/`, `Packages/manifest.json`, nada de 3D ni VFX.
