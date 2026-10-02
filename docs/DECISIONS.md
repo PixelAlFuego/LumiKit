@@ -80,42 +80,36 @@ el comprador necesita `com.unity.inputsystem` y Active Input Handling en `New` o
 
 ## D-008 — Los widgets de parámetros se llaman `<Tipo>ParameterWidget`
 Fecha: 2026-09-17 · Sesión 04 · Irreversible: **no** · Condensada en la Sesión 11
-**Decisión.** El widget de `Float` es `SliderParameterWidget`, no `SliderWidget` como escribe el árbol de
-archivos del GDD §4.2 (línea 770). Misma regla para los que faltan (LK-11b): `ColorParameterWidget`,
-`ToggleParameterWidget` y `EnumParameterWidget`. **Motivo:** `SliderWidget` nombra el control de interfaz;
-`SliderParameterWidget` nombra lo que la clase es: el widget de un `EffectParameter`, que hereda de
-`ParameterWidgetBase` y se configura sólo desde la `EffectDefinition` (D-003). El pack va a tener sliders
-que no editan parámetros de efecto —volumen y calidad en LK-18— y el nombre corto los mezclaría en
-`Widgets/`. **Alcance:** LK-11a y LK-11b. Los prefabs mantienen el nombre del GDD: `PRF_Widget_Slider.prefab`.
-El árbol del GDD (líneas 768-773) no se reescribe: la fuente de verdad de los nombres de clase es CODEMAP.md.
+**Decisión.** El widget de `Float` es `SliderParameterWidget`, no `SliderWidget` como escribe el árbol de archivos del GDD §4.2 (línea 770). Misma
+regla para los que faltan (LK-11b): `ColorParameterWidget`, `ToggleParameterWidget` y `EnumParameterWidget`. **Motivo:** `SliderWidget` nombra el
+control de interfaz; `SliderParameterWidget` nombra lo que la clase es: el widget de un `EffectParameter`, que hereda de `ParameterWidgetBase` y se
+configura sólo desde la `EffectDefinition` (D-003). El pack va a tener sliders que no editan parámetros de efecto —volumen y calidad en LK-18— y el
+nombre corto los mezclaría en `Widgets/`. **Alcance:** LK-11a y LK-11b. Los prefabs mantienen el nombre del GDD: `PRF_Widget_Slider.prefab`. El árbol
+del GDD (líneas 768-773) no se reescribe: la fuente de verdad de los nombres de clase es CODEMAP.md.
 
 ---
 
 ## D-007 — La UI del pack es uGUI + TextMeshPro, con la paleta y las medidas en LumiTheme
 Fecha: 2026-09-17 · Sesión 04, verificada en la 05 · Irreversible: **no** · Condensada en la Sesión 12
-**Decisión.** Toda la interfaz se construye con uGUI (`Canvas`, `Image`, `Slider`, `TextMeshProUGUI`), no con UI
-Toolkit. Colores, tamaños y medidas salen de `LumiKit.UI.LumiTheme`; ni un literal suelto. **Motivo:** D-006 obliga a
-`InputSystemUIInputModule`, módulo de `EventSystem` y por tanto de uGUI: es lo que hace que `IsPointerOverGameObject`
-bloquee cámara y selección (LK-10, LK-12); UI Toolkit en runtime no pasa por `EventSystem`. Y un único sitio para la
-paleta evita que LK-22a sea una caza de hexadecimales por todo el pack. **Alcance:** LK-11a/b, LK-13, LK-18, LK-22a/b,
-LK-25, LK-30 a LK-34, LK-50 y todo prefab de `Assets/LumiKit/Prefabs/UI/` (D-002). La resolución de diseño es
-**1920×1080** (usuario, Sesión 05): `CanvasScaler` en `ScaleWithScreenSize` con match = height y esa referencia, y el
-Game view igual; sin fijarla, la escala del panel depende del tamaño de la ventana y un tamaño de texto no es comparable
-entre sesiones. **Consecuencia:** depende de `com.unity.ugui` y de los TMP Essential Resources (`Assets/TextMesh Pro/`,
-en el repo desde la Sesión 05): los prefabs referencian esas fuentes por GUID. Se documenta en LK-26.
+**Decisión.** Toda la interfaz se construye con uGUI (`Canvas`, `Image`, `Slider`, `TextMeshProUGUI`), no con UI Toolkit. Colores, tamaños y medidas
+salen de `LumiKit.UI.LumiTheme`; ni un literal suelto. **Motivo:** D-006 obliga a `InputSystemUIInputModule`, módulo de `EventSystem` y por tanto de
+uGUI: es lo que hace que `IsPointerOverGameObject` bloquee cámara y selección (LK-10, LK-12); UI Toolkit en runtime no pasa por `EventSystem`. Y un
+único sitio para la paleta evita que LK-22a sea una caza de hexadecimales por todo el pack. **Alcance:** LK-11a/b, LK-13, LK-18, LK-22a/b, LK-25,
+LK-30 a LK-34, LK-50 y todo prefab de `Assets/LumiKit/Prefabs/UI/` (D-002). La resolución de diseño es **1920×1080** (usuario, Sesión 05):
+`CanvasScaler` en `ScaleWithScreenSize` con match = height y esa referencia, y el Game view igual; sin fijarla, la escala del panel depende del tamaño
+de la ventana y un tamaño de texto no es comparable entre sesiones. **Consecuencia:** depende de `com.unity.ugui` y de los TMP Essential Resources
+(`Assets/TextMesh Pro/`, en el repo desde la Sesión 05): los prefabs referencian esas fuentes por GUID. Se documenta en LK-26.
 
 ---
 
 ## D-009 — Los `.ttf` originales entran en el pack, en `Fonts/Source/`
 Fecha: 2026-09-20 · Sesión 07 · Irreversible: **no** · Condensada en la Sesión 12
-**Decisión.** `Assets/LumiKit/Fonts/` lleva los cuatro `TMP_FontAsset` y, además, los `.ttf` originales en
-`Fonts/Source/` (planeado). El árbol del GDD (líneas 931-938) sólo dibuja los `.asset` y un `OFL.txt`: desviación
-deliberada, decidida por el usuario en la Sesión 07. **Motivo:** dos. El comprador puede regenerar los atlas —a otro
-tamaño de muestreo, con otro juego de caracteres o para otra resolución de diseño— sin volver a buscar la fuente. Y
-refuerza el cumplimiento de la OFL 1.1: se redistribuye el Font Software completo junto a su licencia, no sólo un atlas
-derivado de él. **Alcance:** LK-22b y LK-27 (exportación). `Fonts/Licenses/` lleva un `.txt` por familia y no uno solo,
-porque cada una trae su propia línea de copyright. Coste ≈1 MB en el `.unitypackage`; en el build no pesa: un
-`TMP_FontAsset` estático no referencia el `.ttf` en runtime.
+**Decisión.** `Assets/LumiKit/Fonts/` lleva los cuatro `TMP_FontAsset` y, además, los `.ttf` originales en `Fonts/Source/` (planeado). El árbol del
+GDD (líneas 931-938) sólo dibuja los `.asset` y un `OFL.txt`: desviación deliberada, decidida por el usuario en la Sesión 07. **Motivo:** dos. El
+comprador puede regenerar los atlas —a otro tamaño de muestreo, con otro juego de caracteres o para otra resolución de diseño— sin volver a buscar la
+fuente. Y refuerza el cumplimiento de la OFL 1.1: se redistribuye el Font Software completo junto a su licencia, no sólo un atlas derivado de él.
+**Alcance:** LK-22b y LK-27 (exportación). `Fonts/Licenses/` lleva un `.txt` por familia y no uno solo, porque cada una trae su propia línea de
+copyright. Coste ≈1 MB en el `.unitypackage`; en el build no pesa: un `TMP_FontAsset` estático no referencia el `.ttf` en runtime.
 
 ---
 
@@ -145,3 +139,12 @@ Fecha: 2026-09-30 · Sesión 12 · Irreversible: **no**
 de resolución; `SPR_Lumi` (planeado) sigue la misma regla. El GDD decía `SPR_*_512.png`, 512×512 y PPU 100: corregido en
 §2.6 (líneas 522 y 524), §4.2 (866-868), §4.5 (1097) y §4.6 (1130). **Motivo:** decisión del usuario; la resolución ya
 cambió una vez (de 512 a 1024) y con sufijo cada cambio obliga a renombrar. **Alcance:** LK-20 y LK-14. Las `TEX_` conservan el sufijo.
+
+---
+
+## D-013 — Excepción: `DemoSceneBuilder` guarda `02_Demo_2D`
+Fecha: 2026-10-01 · Sesión 12 · Irreversible: **no**
+**Decisión.** El generador de LK-14 guarda él mismo la escena que reconstruye, con `EditorSceneManager.SaveScene` en su sitio (el GUID no
+cambia). Excepción acotada a `DemoSceneBuilder` y a `Assets/LumiKit/Scenes/02_Demo_2D.unity`: los demás generadores siguen dejando la escena
+sin guardar, y por MCP las escenas las guarda, crea y borra el usuario (hook). **Motivo:** decisión del usuario (Sesión 12): un solo paso para
+regenerar la escena que se enseña. **Alcance:** LK-14. Regenerar borra lo que se haya hecho a mano en esa escena (D-002).

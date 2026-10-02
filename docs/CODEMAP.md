@@ -46,6 +46,7 @@ Sin consumidores todavía: `EffectRegistry` lo usa LK-30. `Singleton` lo usa `UI
 | `Assets/Editor/UIAudioBuilder.cs` | estática | Genera `PRF_UIAudioManager` (dos `AudioSource`: SFX al grupo UI, música en bucle al grupo Music) y lo monta en la raíz de la escena abierta, con `UISelectionSound` en el `ObjectSelector`. Aborta si falta el mixer (D-011), un grupo o un clip, o si el prefab o el montaje ya existen; no guarda la escena. Sin diálogos: lo lanza también el verificador por MCP | UIAudioManager, UISelectionSound, ObjectSelector | LK-23 | ✅ |
 | `Assets/Editor/FontFeatureCleaner.cs` | estática | Quita de las cinco tablas de features de cada `TMP_FontAsset` Static de `Fonts/` todo registro con algún glifo fuera del atlas. Informa por tabla y del peso en disco. Paso obligatorio tras regenerar una fuente o usar "Import Font Features"; repetible | — | LK-22b | ✅ |
 | `Assets/Editor/EffectAssetBuilder.cs` | estática | Genera el `MAT_` por defecto y el `EFF_` de cada efecto 2D (hoy, Outline 2D). Si existen, los actualiza en su sitio y conserva el GUID; el material toma los valores por defecto del shader. Aborta si falta el shader. Sin diálogos (MCP) | EffectDefinition, EffectParameter, LumiTheme | LK-01 | ✅ |
+| `Assets/Editor/DemoSceneBuilder.cs` | estática | Regenera `02_Demo_2D` desde cero y la guarda (D-013): cámara ortográfica desplazada medio panel, `SPR_Crystal` y `SPR_RuneCoin` con `MAT_Outline2D_Default`, `EFF_Outline2D` y la forma física del sprite en el collider, `Systems` (`ObjectSelector`, `ComparisonToggle`), HUD y audio por `BuildSceneRig` y `MountInScene`, y `ControlsHint` temporal. Aborta en Play, con Prefab Mode o con escenas sin guardar; sin diálogos (MCP) | ParameterPanelBuilder, UIAudioBuilder, LumiTheme, EffectController, ObjectSelector, ComparisonToggle, DemoCameraController | LK-14 | 🟡 |
 | `Assets/Editor/LumiButtonEditor.cs` | clase (`ButtonEditor`) | Inspector de `LumiButton`: el de `Button` y debajo `_style`, `_fill`, `_border` y `_label`. Por heredar, el asmdef referencia `UnityEditor.UI`. No se exporta (duda de LK-27) | LumiButton | LK-50 | ✅ |
 
 ## Shaders y materiales
@@ -69,14 +70,14 @@ Sin consumidores todavía: `EffectRegistry` lo usa LK-30. `Singleton` lo usa `UI
 
 ## Escenas
 
-Las 5 escenas existen y están **vacías** (confirmado por el usuario, Sesión 01).
+Las 5 escenas existen (confirmado por el usuario, Sesión 01); `02_Demo_2D` ya generada (LK-14), las demás **vacías**.
 Se pueblan con generadores de editor (D-002). No se crean escenas nuevas.
 
 | Escena | Construida por | Contenido | LK | Estado |
 |---|---|---|---|---|
 | `Assets/LumiKit/Scenes/00_Splash.unity` | _(planeado)_ | vacía | — | ⬜ |
 | `Assets/LumiKit/Scenes/01_MainMenu.unity` | _(planeado)_ | vacía | LK-13 | ⬜ |
-| `Assets/LumiKit/Scenes/02_Demo_2D.unity` | _(planeado)_ | vacía | LK-14 | ⬜ |
+| `Assets/LumiKit/Scenes/02_Demo_2D.unity` | `DemoSceneBuilder`, que la guarda (D-013) | Cámara, `SPR_Crystal` y `SPR_RuneCoin` con contorno, `Systems`, `UI_Root` (panel y `ControlsHint` temporal), `EventSystem`, `PRF_UIAudioManager`. Primera del build | LK-14 | 🟡 |
 | `Assets/LumiKit/Scenes/03_Demo_3D.unity` | — | vacía · fuera del MVP 2D | LK-15 | ⬜ |
 | `Assets/LumiKit/Scenes/04_Demo_VFX.unity` | — | vacía · fuera del MVP 2D | LK-16 | ⬜ |
 
