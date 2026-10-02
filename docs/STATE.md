@@ -3,11 +3,11 @@ Actualizado: 2026-10-02 · Sesión 12 (en curso)
 
 ## Ahora
 - **Fase 5 en curso:** LK-01 ✅ (`cp-02-outline`), LK-24 ✅ (`cp-03-tab`), Sesión 12. Fase 4 cerrada: LK-52 y LK-23 (`cp-01-audio`). Fase 7: LK-14 ✅ (`cp-04-demo`).
-- Tarea activa: LK-03 🟠 (Glow 2D), flujo completo; entra por decisión del usuario (2026-10-02, pasadas las 11:00). Spec reescrita en HLSL, en revisión.
+- Tarea activa: LK-03 🟡 (Glow 2D): implementada, pendiente de verificar en el editor; entra por decisión del usuario (2026-10-02, pasadas las 11:00). Sin demo: se prueba en TestBench.
 - **Modo sprint** hasta el viernes 2026-10-02 por la tarde, último día por enfermedad. Rama `sprint/mvp`, alcance y recortes en `docs/MVP_SCOPE.md`. Punto seguro: tag `v0.3-pre-mcp` (2c5d484).
 
 ## Hoy (2026-10-02)
-1. LK-03: spec, plan, revisor y aprobación del usuario antes de programar.
+1. LK-03: montaje en TestBench, checklist de abajo y "verificado LK-03" o el fallo. Push con tag al cerrarla.
 2. Exportar el `.unitypackage` (LK-27); la prueba de importación, la semana del 2026-10-05.
 
 ## Últimas 3 sesiones
@@ -15,12 +15,18 @@ Actualizado: 2026-10-02 · Sesión 12 (en curso)
 |---|---|---|---|---|
 | 10 | 2026-09-24 | Apagón y auditoría · LK-22b limpiador y fuentes · manija y cierre de LK-51 · LK-50 · spec de LK-52 | ✅ LK-51 · ✅ LK-22b · ✅ LK-50 · Fase 3 cerrada | 658d8fa · deef7b1 · f4b5b11 · 9b4832a · 81920ba · 37596da · 3c865e5 · cb27f92 · 6f85bb2 · f6a41dd |
 | 11 | 2026-09-25, 29 y 30 | LK-52 y su cierre · modo sprint · Unity MCP, subagentes y hook · shaders del MVP en HLSL (D-010) · plan de LK-23 (D-011) | ✅ LK-52 | 9cfbb49 · 2c5d484 · 3d2f2b8 · fa4af22 · 087251a · 428efc3 · 1a9fca5 · a5ad5f4 · 0e2cd88 · ba847e5 · 64916f4 · 90c2409 |
-| 12 | 2026-09-30, 10-01 y 10-02 | Sprites sin sufijo (D-012), `SH_` · assets del audio y sprites · LK-23 y su cierre · LK-01 y su cierre · alcance recortado · LK-24 y su cierre · LK-14 (D-013) y su cierre | ✅ LK-23 · ✅ LK-01 · ✅ LK-24 · ✅ LK-14 | b4045d2 · ced99b9 · 2a43e80 · 13454a7 · a69d112 · 98ad2a1 · 83ad8a4 · a633f0f · 67564dc · 5dbfa8a · 4219e96 · 0cc38f3 · 952b864 · 96a9f7e · este commit |
+| 12 | 2026-09-30, 10-01 y 10-02 | Sprites sin sufijo (D-012), `SH_` · assets del audio y sprites · LK-23 y su cierre · LK-01 y su cierre · alcance recortado · LK-24 y su cierre · LK-14 (D-013) y su cierre · LK-03 | ✅ LK-23 · ✅ LK-01 · ✅ LK-24 · ✅ LK-14 · 🟡 LK-03 | b4045d2 · ced99b9 · 2a43e80 · 13454a7 · a69d112 · 98ad2a1 · 83ad8a4 · a633f0f · 67564dc · 5dbfa8a · 4219e96 · 0cc38f3 · 952b864 · 96a9f7e · 1f8a619 · dd33d9f · este commit |
 
 Sesiones 00 a 09 archivadas en `docs/archive/sesiones_2026-Q3.md`. El número de sesión cambia al cerrarla aquí; lo hecho no se renumera (usuario, Sesión 12).
 
 ## Pendiente de verificación en Unity
-Nada pendiente.
+**LK-03** (spec > Criterios). Montaje a mano en TestBench, **sin guardar**: `SPR_RuneCoin` con `MAT_Glow2D_Default` y `_definition` = `EFF_Glow2D`. Al terminar, deshacer o cerrar sin guardar.
+- [ ] Play: consola sin errores del shader ni avisos de LK-49. Halo violeta suave; huecos con borde de luz y centro más tenue; sin corte ni anillos marcados.
+- [ ] Intensidad 0 quita el brillo; 5 lo ensancha y lo hace más opaco. El color cambia halo e interior.
+- [ ] Pulso: el toggle lo arranca y lo detiene; la velocidad lo acelera; a 0, fijo. Arrastrando la velocidad puede saltar (aceptado).
+- [ ] TAB con la runa: sin brillo mientras se mantiene. Panel "Brillo 2D" en la runa y otro en el cristal. Reset devuelve el brillo por defecto.
+- [ ] Zoom: el halo escala. En Play, runa a 45° en Z, Flip X y alfa del `SpriteRenderer` a 0,5: halo uniforme, sin verse a través del cuerpo.
+- [ ] Stop: ningún `.mat` modificado en `git status` (D-001).
 
 ## Entorno confirmado
 - Unity 6000.0.83f1 · URP 17.0.4 · Input System 1.19.0 · uGUI 2.0.0 · 2D Sprite 1.0.0.
@@ -34,6 +40,7 @@ Nada pendiente.
 ## Dudas abiertas y bloqueos
 - **LK-24 cerrada con una confirmación a medias** (usuario, 2026-10-02): repitió el criterio del tester con su botón; al soltar TAB el contorno conserva el estado previo, apagado o encendido. Si TAB y el tester fallan juntos, se reabre.
 - **LK-14 cerrada** (usuario, 2026-10-02). Su confirmación no nombra la esquina transparente ni el build de Windows: si fallan, se reabre.
+- **LK-03, sin certeza:** el verificador sólo vio importar `SH_Glow2D`; las variantes se compilan al dibujarse. `SAMPLE_TEXTURE2D_LOD` y `[ToggleUI]`, vistos en los paquetes, no probados.
 - **Audio (LK-23).** Por LFS: `Audio/SFX/` con los cinco `SFX_UI_*`, recortados por el usuario (Sesión 12), y `Audio/Music/MUS_Ambient_Loop.mp3`.
   **`SFX_UI_Error` y `SFX_UI_Transition` no entran en LK-23**: el primero espera avisos en pantalla y el segundo el cambio de escena de LK-17. Música en MP3 (usuario, Sesión 09): de WAV (64 MB) a MP3 (4 MB), Streaming, Vorbis al 70 %, sin preload; en WAV no bajaba de 5 MB y recortar
   el bucle lo rompía. `*.mp3` por LFS; nada referenciaba el `.wav`. Hueco en el bucle → el usuario la pasa a OGG. `MUS_` en CONVENTIONS (Sesión 12). Mixer del usuario (D-011): `Assets/LumiKit/Audio/Mixers/AMX_LumiKit.mixer`, grupos UI (−6 dB) y Music. Hover: al usuario le suena algo raro; probablemente no se cambia (Sesión 12).
@@ -55,7 +62,7 @@ Nada pendiente.
   que declara `_BaseColor` **y también `_Color`** en `ObsoleteProperties` (`Unlit.shader` línea 28): por eso reporta cuatro ausentes y no cinco.
 - **`MAT_Debug.mat` usa `Universal Render Pipeline/Unlit`** (usuario, Sesión 06; en disco, GUID `650dd952…`): sin iluminación, lo acordado en LK-09 para poder cerrar el criterio de Linear.
 - **Materiales de los sprites, para la Fase 5:** los marcadores comparten el material por defecto `Sprite-Unlit-Default`.
-  Cada efecto necesitará el suyo (`MAT_` en `Assets/LumiKit/Materials/2D/`) o tocar un parámetro en uno los cambiará todos. LK-01 trae `MAT_Outline2D_Default`; falta LK-03 (LK-02, fuera del MVP).
+  Cada efecto necesitará el suyo (`MAT_` en `Assets/LumiKit/Materials/2D/`) o tocar un parámetro en uno los cambiará todos. LK-01 trae `MAT_Outline2D_Default` y LK-03, `MAT_Glow2D_Default` (LK-02, fuera del MVP).
 - **Los topes no se suben** (usuario, Sesión 05): al llegar al tope se condensa (Sesión 07: `ui-style.md`, D-001 a D-003, por D-009).
 - `SPR_Crystal.png` y `SPR_RuneCoin.png` **definitivos** (LK-20, D-012): en `Assets/LumiKit/Sprites/`, 1024×1024, PPU 512, sin sufijo.
   Movidos por el usuario desde `_Development/` (mismo GUID). Siguen de marcadores en TestBench. `SPR_Lumi` entra si llega, sin bloquear LK-14.
@@ -81,7 +88,7 @@ Nada pendiente.
 - Ramas `main` y `sprint/mvp` (Sesión 11, desde el tag `v0.3-pre-mcp`; `sprint/mvp` en `origin` desde la Sesión 12). `develop` y `feature/LK-XX-*` del GDD §4.9 aún no creadas.
 
 ## Handoff
-**LK-01, LK-24 y LK-14 cerradas (Sesión 12).** `Assets/Editor/DemoSceneBuilder.cs` genera y guarda `02_Demo_2D` (D-013). Siguiente: LK-03.
+**LK-03 🟡 (Sesión 12).** Nuevo: `SH_Glow2D.shader`; `EffectAssetBuilder` genera `MAT_Glow2D_Default` y `EFF_Glow2D` (menú `LumiKit/Efectos/Generar Glow 2D (LK-03)`). LK-01, LK-24 y LK-14 cerradas.
   Regenerar una fuente: atlas → `Import Font Features` → `FontFeatureCleaner` (spec de LK-22b). Regenerar el panel: STATE > Pendiente de verificación.
 No tocar: `Core/` y `Utils/` (LK-09, LK-49, LK-52), `Demo/` (LK-10, LK-12), `Systems/` (LK-23), `SH_Outline2D.shader` (LK-01), los cuatro widgets, `EffectDebugTester.cs` hasta la Fase 5,
 `Assets/LumiKit/Scenes/`, `ProjectSettings/`, `Packages/manifest.json`, nada de 3D ni VFX.

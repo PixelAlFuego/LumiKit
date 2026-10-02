@@ -1,5 +1,5 @@
 # LK-03 — Glow / Inner Glow Shader 2D
-Estado: 🟠 en curso (Sesión 12, 2026-10-02). Revisor: APROBADO CON CAMBIOS, 9 aplicados. Usuario: sin demo, violeta, borde de luz en los huecos · Depende de: LK-09, LK-49, LK-01 (`EffectAssetBuilder`, estructura de `SH_Outline2D`), LK-24 (TAB) · Diseño: GDD §3.2 (línea 659), §1.3 (líneas 51-52), §1.7 (línea 156), D-001, D-005, D-010
+Estado: 🟡 implementado, pendiente de verificar en el editor (Sesión 12, 2026-10-02). Verificador: 7 de 7 técnicos; el shader se importó sin errores, pero sus variantes se compilan al dibujarse (Play del usuario). Revisor: APROBADO CON CAMBIOS, 9 aplicados. Usuario: sin demo, violeta, borde de luz en los huecos · Depende de: LK-09, LK-49, LK-01 (`EffectAssetBuilder`, estructura de `SH_Outline2D`), LK-24 (TAB) · Diseño: GDD §3.2 (línea 659), §1.3 (líneas 51-52), §1.7 (línea 156), D-001, D-005, D-010
 
 ## Objetivo
 Brillo exterior e interior alrededor de la silueta del sprite, con intensidad y pulso opcional, en HLSL para URP (D-010). Objeto de prueba: `SPR_RuneCoin`

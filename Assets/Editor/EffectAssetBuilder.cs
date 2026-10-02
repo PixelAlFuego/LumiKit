@@ -23,6 +23,10 @@ namespace LumiKit.Editor
         private const string OUTLINE_MATERIAL_PATH = "Assets/LumiKit/Materials/2D/MAT_Outline2D_Default.mat";
         private const string OUTLINE_DEFINITION_PATH = "Assets/LumiKit/Runtime/Data/Effects/EFF_Outline2D.asset";
 
+        private const string GLOW_SHADER_PATH = "Assets/LumiKit/Shaders/2D/SH_Glow2D.shader";
+        private const string GLOW_MATERIAL_PATH = "Assets/LumiKit/Materials/2D/MAT_Glow2D_Default.mat";
+        private const string GLOW_DEFINITION_PATH = "Assets/LumiKit/Runtime/Data/Effects/EFF_Glow2D.asset";
+
         // ── Menús ──────────────────────────────────────────────────────────────────────
 
         [MenuItem("LumiKit/Efectos/Generar Outline 2D (LK-01)", false, 300)]
@@ -63,6 +67,52 @@ namespace LumiKit.Editor
 
             Debug.Log(
                 $"{LOG}Outline 2D: '{OUTLINE_MATERIAL_PATH}' {Verb(materialCreated)} y '{OUTLINE_DEFINITION_PATH}' " +
+                $"{Verb(definitionCreated)}. Sin verificar en el editor.");
+        }
+
+        [MenuItem("LumiKit/Efectos/Generar Glow 2D (LK-03)", false, 301)]
+        public static void GenerateGlow2D()
+        {
+            Shader shader = AssetDatabase.LoadAssetAtPath<Shader>(GLOW_SHADER_PATH);
+            if (shader == null)
+            {
+                Debug.LogError($"{LOG}No existe '{GLOW_SHADER_PATH}'. No se genera nada.");
+                return;
+            }
+
+            bool materialCreated = CreateOrUpdateMaterial(shader, GLOW_MATERIAL_PATH);
+
+            bool definitionCreated;
+            EffectDefinition definition = LoadOrCreate(GLOW_DEFINITION_PATH, out definitionCreated);
+            SerializedObject serialized = new SerializedObject(definition);
+            SetIdentity(
+                serialized, shader,
+                "Brillo 2D", "Glow 2D",
+                "Brillo interior y exterior alrededor de la silueta, con pulso opcional.",
+                "Inner and outer glow around the silhouette, with optional pulse.");
+
+            // SetParameter escribe _defaultBool = false: coincide con _PulseEnabled = 0 del shader.
+            SerializedProperty parameters = serialized.FindProperty("_parameters");
+            parameters.arraySize = 4;
+            SetParameter(
+                parameters.GetArrayElementAtIndex(0), "Color del brillo", "Glow color", "_GlowColor",
+                ParameterType.Color, 0f, 1f, 0f, LumiTheme.LumiViolet, 0, new string[0]);
+            SetParameter(
+                parameters.GetArrayElementAtIndex(1), "Intensidad", "Intensity", "_GlowIntensity",
+                ParameterType.Float, 0f, 5f, 1.5f, Color.white, 0, new string[0]);
+            SetParameter(
+                parameters.GetArrayElementAtIndex(2), "Pulso", "Pulse", "_PulseEnabled",
+                ParameterType.Boolean, 0f, 1f, 0f, Color.white, 0, new string[0]);
+            SetParameter(
+                parameters.GetArrayElementAtIndex(3), "Velocidad del pulso", "Pulse speed", "_PulseSpeed",
+                ParameterType.Float, 0f, 3f, 1f, Color.white, 0, new string[0]);
+
+            serialized.ApplyModifiedPropertiesWithoutUndo();
+            EditorUtility.SetDirty(definition);
+            AssetDatabase.SaveAssets();
+
+            Debug.Log(
+                $"{LOG}Glow 2D: '{GLOW_MATERIAL_PATH}' {Verb(materialCreated)} y '{GLOW_DEFINITION_PATH}' " +
                 $"{Verb(definitionCreated)}. Sin verificar en el editor.");
         }
 

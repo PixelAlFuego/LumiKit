@@ -1,0 +1,64 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e9d5228f3dea91c49831917c26c80353, type: 3}
+  m_Name: EFF_Glow2D
+  m_EditorClassIdentifier: 
+  _displayNameEs: Brillo 2D
+  _displayNameEn: Glow 2D
+  _descriptionEs: Brillo interior y exterior alrededor de la silueta, con pulso opcional.
+  _descriptionEn: Inner and outer glow around the silhouette, with optional pulse.
+  _shader: {fileID: 4800000, guid: 86365df4dfaf6cb4b9039663dd173d2a, type: 3}
+  _parameters:
+  - _displayNameEs: Color del brillo
+    _displayNameEn: Glow color
+    _propertyName: _GlowColor
+    _type: 1
+    _minValue: 0
+    _maxValue: 1
+    _defaultFloat: 0
+    _defaultColor: {r: 0.54509807, g: 0.36078432, b: 0.9647059, a: 1}
+    _defaultBool: 0
+    _defaultEnumIndex: 0
+    _enumOptions: []
+  - _displayNameEs: Intensidad
+    _displayNameEn: Intensity
+    _propertyName: _GlowIntensity
+    _type: 0
+    _minValue: 0
+    _maxValue: 5
+    _defaultFloat: 1.5
+    _defaultColor: {r: 1, g: 1, b: 1, a: 1}
+    _defaultBool: 0
+    _defaultEnumIndex: 0
+    _enumOptions: []
+  - _displayNameEs: Pulso
+    _displayNameEn: Pulse
+    _propertyName: _PulseEnabled
+    _type: 2
+    _minValue: 0
+    _maxValue: 1
+    _defaultFloat: 0
+    _defaultColor: {r: 1, g: 1, b: 1, a: 1}
+    _defaultBool: 0
+    _defaultEnumIndex: 0
+    _enumOptions: []
+  - _displayNameEs: Velocidad del pulso
+    _displayNameEn: Pulse speed
+    _propertyName: _PulseSpeed
+    _type: 0
+    _minValue: 0
+    _maxValue: 3
+    _defaultFloat: 1
+    _defaultColor: {r: 1, g: 1, b: 1, a: 1}
+    _defaultBool: 0
+    _defaultEnumIndex: 0
+    _enumOptions: []
