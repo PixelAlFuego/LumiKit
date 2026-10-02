@@ -140,5 +140,11 @@ namespace LumiKit.UI
         /// </summary>
         public const float REFERENCE_WIDTH = 1920f;
         public const float REFERENCE_HEIGHT = 1080f;
+
+        // ── Menú de inicio (LK-13) ─────────────────────────────────────────────────────
+        // Derivados, el GDD no los fija: los botones del menú miden lo mismo que el Reset del
+        // pie del panel, y entre el subtítulo y los botones van cuatro separaciones.
+        public const float MENU_BUTTON_WIDTH = PANEL_WIDTH - 2f * PANEL_PADDING;
+        public const float MENU_SECTION_GAP = 4f * SPACING;
     }
 }

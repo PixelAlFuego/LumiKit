@@ -25,6 +25,7 @@ namespace LumiKit.Editor
         private const string HOVER_PATH = "Assets/LumiKit/Audio/SFX/SFX_UI_Hover.wav";
         private const string CLICK_PATH = "Assets/LumiKit/Audio/SFX/SFX_UI_Click.wav";
         private const string SELECT_PATH = "Assets/LumiKit/Audio/SFX/SFX_UI_Select.wav";
+        private const string TRANSITION_PATH = "Assets/LumiKit/Audio/SFX/SFX_UI_Transition.wav";
         private const string MUSIC_PATH = "Assets/LumiKit/Audio/Music/MUS_Ambient_Loop.mp3";
 
         private const string UI_GROUP = "UI";
@@ -61,12 +62,14 @@ namespace LumiKit.Editor
             AudioClip hover = AssetDatabase.LoadAssetAtPath<AudioClip>(HOVER_PATH);
             AudioClip click = AssetDatabase.LoadAssetAtPath<AudioClip>(CLICK_PATH);
             AudioClip select = AssetDatabase.LoadAssetAtPath<AudioClip>(SELECT_PATH);
+            AudioClip transition = AssetDatabase.LoadAssetAtPath<AudioClip>(TRANSITION_PATH);
             AudioClip music = AssetDatabase.LoadAssetAtPath<AudioClip>(MUSIC_PATH);
 
             List<string> missing = new List<string>();
             AddIfMissing(missing, hover, HOVER_PATH);
             AddIfMissing(missing, click, CLICK_PATH);
             AddIfMissing(missing, select, SELECT_PATH);
+            AddIfMissing(missing, transition, TRANSITION_PATH);
             AddIfMissing(missing, music, MUSIC_PATH);
             if (missing.Count > 0)
             {
@@ -97,6 +100,7 @@ namespace LumiKit.Editor
             serialized.FindProperty("_hoverClip").objectReferenceValue = hover;
             serialized.FindProperty("_clickClip").objectReferenceValue = click;
             serialized.FindProperty("_selectClip").objectReferenceValue = select;
+            serialized.FindProperty("_transitionClip").objectReferenceValue = transition;
             serialized.ApplyModifiedPropertiesWithoutUndo();
 
             GameObject asset = PrefabUtility.SaveAsPrefabAsset(root, PREFAB_PATH);
@@ -157,6 +161,54 @@ namespace LumiKit.Editor
             Selection.activeGameObject = instance;
 
             Debug.Log($"{LOG}Audio montado en '{scene.name}'. La escena NO se ha guardado: revísala y guárdala tú.");
+        }
+
+        /// <summary>
+        /// Asigna SFX_UI_Transition (LK-17) al prefab ya generado, en su sitio: conserva el GUID y
+        /// las instancias de las escenas reciben el campo. Repetible.
+        /// </summary>
+        [MenuItem("LumiKit/Audio/Añadir sonido de transición (LK-17)", false, 202)]
+        public static void AddTransitionClip()
+        {
+            if (AssetDatabase.LoadAssetAtPath<GameObject>(PREFAB_PATH) == null)
+            {
+                Abort($"No existe '{PREFAB_PATH}'. Ejecuta antes 'Generar prefab de audio'.");
+                return;
+            }
+
+            AudioClip transition = AssetDatabase.LoadAssetAtPath<AudioClip>(TRANSITION_PATH);
+            if (transition == null)
+            {
+                Abort($"No existe '{TRANSITION_PATH}'. No se ha tocado el prefab.");
+                return;
+            }
+
+            GameObject root = PrefabUtility.LoadPrefabContents(PREFAB_PATH);
+            try
+            {
+                UIAudioManager manager = root.GetComponent<UIAudioManager>();
+                if (manager == null)
+                {
+                    Abort($"'{PREFAB_PATH}' no tiene UIAudioManager en la raíz. No se ha tocado.");
+                    return;
+                }
+
+                SerializedObject serialized = new SerializedObject(manager);
+                serialized.FindProperty("_transitionClip").objectReferenceValue = transition;
+                serialized.ApplyModifiedPropertiesWithoutUndo();
+
+                if (PrefabUtility.SaveAsPrefabAsset(root, PREFAB_PATH) == null)
+                {
+                    Abort($"No se pudo guardar '{PREFAB_PATH}'.");
+                    return;
+                }
+            }
+            finally
+            {
+                PrefabUtility.UnloadPrefabContents(root);
+            }
+
+            Debug.Log($"{LOG}'{TRANSITION_PATH}' asignado a '{PREFAB_PATH}'. Sin verificar en el editor.");
         }
 
         // ── Utilidades ─────────────────────────────────────────────────────────────────

@@ -21,6 +21,7 @@ namespace LumiKit.Editor
     /// mano en ella se pierde. Única excepción a "las escenas las guarda el usuario": ésta la guarda
     /// el propio generador (D-013). Sin diálogos: el verificador lo lanza por Unity MCP.
     /// El HUD y el audio no se duplican aquí: los montan ParameterPanelBuilder y UIAudioBuilder.
+    /// El botón "Menú" sale de MainMenuSceneBuilder.BuildSceneMenu (LK-13).
     /// </remarks>
     public static class DemoSceneBuilder
     {
@@ -31,6 +32,8 @@ namespace LumiKit.Editor
         private const string RUNE_SPRITE_PATH = "Assets/LumiKit/Sprites/SPR_RuneCoin.png";
         private const string OUTLINE_MATERIAL_PATH = "Assets/LumiKit/Materials/2D/MAT_Outline2D_Default.mat";
         private const string OUTLINE_DEFINITION_PATH = "Assets/LumiKit/Runtime/Data/Effects/EFF_Outline2D.asset";
+        private const string GLOW_MATERIAL_PATH = "Assets/LumiKit/Materials/2D/MAT_Glow2D_Default.mat";
+        private const string GLOW_DEFINITION_PATH = "Assets/LumiKit/Runtime/Data/Effects/EFF_Glow2D.asset";
         private const string PANEL_PREFAB_PATH = "Assets/LumiKit/Prefabs/UI/PRF_ParameterPanel.prefab";
         private const string AUDIO_PREFAB_PATH = "Assets/LumiKit/Prefabs/Systems/PRF_UIAudioManager.prefab";
         // Familia Label (ui-style.md > Tipografía), la misma que hornea ParameterPanelBuilder.
@@ -56,6 +59,11 @@ namespace LumiKit.Editor
         // cuando llegue el indicador de controles del GDD (línea 137). "·" está en el atlas (183).
         private const string CONTROLS_HINT_NAME = "ControlsHint";
         private const string CONTROLS_HINT_TEXT = "Clic: seleccionar · Clic derecho: mover · Rueda: zoom · TAB: comparar";
+
+        // Botón de vuelta al menú (LK-13). Escape no: está reservado.
+        private const string MENU_BUTTON_NAME = "MenuButton";
+        private const string MENU_BUTTON_LABEL = "Menú";
+        private const string MENU_SCENE_NAME = "01_MainMenu";
 
         // ── Menús ──────────────────────────────────────────────────────────────────────
 
@@ -98,7 +106,9 @@ namespace LumiKit.Editor
             DemoAssets assets = DemoAssets.Load();
 
             Camera camera = BuildCamera();
-            BuildDemoObject(CRYSTAL_NAME, assets.Crystal, -OBJECT_OFFSET_X, selectableLayer, assets.Material, assets.Definition);
+            // El cristal lleva el brillo (LK-03) y la runa el contorno (usuario, LK-13).
+            BuildDemoObject(
+                CRYSTAL_NAME, assets.Crystal, -OBJECT_OFFSET_X, selectableLayer, assets.GlowMaterial, assets.GlowDefinition);
             BuildDemoObject(RUNE_NAME, assets.Rune, OBJECT_OFFSET_X, selectableLayer, assets.Material, assets.Definition);
             // Antes que el HUD y el audio: los dos montajes buscan el ObjectSelector en la escena.
             ObjectSelector selector = BuildSystems(camera, selectableLayer);
@@ -106,6 +116,7 @@ namespace LumiKit.Editor
             ParameterPanelBuilder.BuildSceneRig();
             UIAudioBuilder.MountInScene();
             BuildControlsHint(assets.HintFont);
+            BuildMenuButton();
 
             if (!CheckMounted(selector))
             {
@@ -144,13 +155,13 @@ namespace LumiKit.Editor
                 return false;
             }
 
-            // La propia 02_Demo_2D no cuenta: se regenera desde cero y sus cambios sin guardar se
-            // perderían igual (D-013). Además queda marcada tras generarla: el lienzo da tamaño a su
-            // RectTransform raíz en la primera actualización del editor, ya guardada la escena.
+            // Las dos escenas generadas (D-013) no cuentan: se regeneran desde cero y quedan marcadas
+            // tras generarlas: el lienzo da tamaño a su RectTransform raíz en la primera actualización
+            // del editor, ya guardada la escena. Sin esto, generar una tras otra se abortaría (LK-13).
             for (int i = 0; i < SceneManager.sceneCount; i++)
             {
                 Scene open = SceneManager.GetSceneAt(i);
-                if (open.isDirty && open.path != SCENE_PATH)
+                if (open.isDirty && !MainMenuSceneBuilder.IsGeneratedScene(open.path))
                 {
                     Abort($"'{open.name}' tiene cambios sin guardar. Guárdala o descártala antes de generar.");
                     return false;
@@ -225,8 +236,8 @@ namespace LumiKit.Editor
             SpriteRenderer spriteRenderer = go.AddComponent<SpriteRenderer>();
             spriteRenderer.sprite = sprite;
 
-            // Por SerializedObject y no por sharedMaterial: D-001 sólo permite leerlo. Los dos sprites
-            // comparten el material; cada uno lleva sus valores en su MaterialPropertyBlock.
+            // Por SerializedObject y no por sharedMaterial: D-001 sólo permite leerlo. Los sprites con
+            // el mismo efecto comparten material; cada uno lleva sus valores en su MaterialPropertyBlock.
             SerializedObject rendererSerialized = new SerializedObject(spriteRenderer);
             SerializedProperty materials = rendererSerialized.FindProperty("m_Materials");
             materials.arraySize = 1;
@@ -327,6 +338,35 @@ namespace LumiKit.Editor
         }
 
         /// <summary>
+        /// Botón "Menú" (LK-13) arriba a la izquierda: un SceneMenu de una entrada que vuelve a
+        /// 01_MainMenu. Último hijo del lienzo, para que nada se pinte ni reciba clics por encima.
+        /// </summary>
+        private static void BuildMenuButton()
+        {
+            GameObject canvas = GameObject.Find(CANVAS_NAME);
+            if (canvas == null)
+            {
+                // CheckMounted lo da por fallo: sin lienzo tampoco hay panel.
+                return;
+            }
+
+            SceneMenu menu = MainMenuSceneBuilder.BuildSceneMenu(
+                canvas.transform, MENU_BUTTON_NAME, 0f, true,
+                new[]
+                {
+                    new MainMenuSceneBuilder.EntrySpec(
+                        MENU_BUTTON_LABEL, LumiButtonStyle.Tertiary, MenuAction.LoadScene, MENU_SCENE_NAME)
+                });
+
+            RectTransform rect = (RectTransform)menu.transform;
+            rect.anchorMin = new Vector2(0f, 1f);
+            rect.anchorMax = new Vector2(0f, 1f);
+            rect.pivot = new Vector2(0f, 1f);
+            rect.anchoredPosition = new Vector2(LumiTheme.PANEL_PADDING, -LumiTheme.PANEL_PADDING);
+            rect.SetAsLastSibling();
+        }
+
+        /// <summary>
         /// Los montajes reutilizados sólo avisan y vuelven si algo falla. Aquí se comprueba lo que
         /// tenían que dejar; si falta algo, la escena no se guarda.
         /// </summary>
@@ -357,6 +397,11 @@ namespace LumiKit.Editor
             if (GameObject.Find(CONTROLS_HINT_NAME) == null)
             {
                 missing.Add(CONTROLS_HINT_NAME);
+            }
+
+            if (Object.FindFirstObjectByType<SceneMenu>(FindObjectsInactive.Include) == null)
+            {
+                missing.Add($"SceneMenu ({MENU_BUTTON_NAME})");
             }
 
             EffectController[] controllers = Object.FindObjectsByType<EffectController>(FindObjectsSortMode.None);
@@ -394,6 +439,8 @@ namespace LumiKit.Editor
             public Sprite Rune { get; private set; }
             public Material Material { get; private set; }
             public EffectDefinition Definition { get; private set; }
+            public Material GlowMaterial { get; private set; }
+            public EffectDefinition GlowDefinition { get; private set; }
             public TMP_FontAsset HintFont { get; private set; }
 
             public static DemoAssets Load()
@@ -404,6 +451,8 @@ namespace LumiKit.Editor
                     Rune = AssetDatabase.LoadAssetAtPath<Sprite>(RUNE_SPRITE_PATH),
                     Material = AssetDatabase.LoadAssetAtPath<Material>(OUTLINE_MATERIAL_PATH),
                     Definition = AssetDatabase.LoadAssetAtPath<EffectDefinition>(OUTLINE_DEFINITION_PATH),
+                    GlowMaterial = AssetDatabase.LoadAssetAtPath<Material>(GLOW_MATERIAL_PATH),
+                    GlowDefinition = AssetDatabase.LoadAssetAtPath<EffectDefinition>(GLOW_DEFINITION_PATH),
                     HintFont = AssetDatabase.LoadAssetAtPath<TMP_FontAsset>(HINT_FONT_PATH)
                 };
             }
@@ -415,6 +464,8 @@ namespace LumiKit.Editor
                 AddIfMissing(missing, Rune, RUNE_SPRITE_PATH);
                 AddIfMissing(missing, Material, OUTLINE_MATERIAL_PATH);
                 AddIfMissing(missing, Definition, OUTLINE_DEFINITION_PATH);
+                AddIfMissing(missing, GlowMaterial, GLOW_MATERIAL_PATH);
+                AddIfMissing(missing, GlowDefinition, GLOW_DEFINITION_PATH);
                 AddIfMissing(missing, HintFont, HINT_FONT_PATH);
                 return missing;
             }

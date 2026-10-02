@@ -142,9 +142,9 @@ cambió una vez (de 512 a 1024) y con sufijo cada cambio obliga a renombrar. **A
 
 ---
 
-## D-013 — Excepción: `DemoSceneBuilder` guarda `02_Demo_2D`
-Fecha: 2026-10-01 · Sesión 12 · Irreversible: **no**
-**Decisión.** El generador de LK-14 guarda él mismo la escena que reconstruye, con `EditorSceneManager.SaveScene` en su sitio (el GUID no
-cambia). Excepción acotada a `DemoSceneBuilder` y a `Assets/LumiKit/Scenes/02_Demo_2D.unity`: los demás generadores siguen dejando la escena
+## D-013 — Excepción: `DemoSceneBuilder` y `MainMenuSceneBuilder` guardan su escena
+Fecha: 2026-10-01 · Sesión 12 · Irreversible: **no** · Ampliada el 2026-10-02 a `01_MainMenu` (usuario, LK-13)
+**Decisión.** Los generadores de LK-14 y LK-13 guardan ellos mismos la escena que reconstruyen, con `EditorSceneManager.SaveScene` en su sitio (el GUID no
+cambia). Excepción acotada a `DemoSceneBuilder` (`Assets/LumiKit/Scenes/02_Demo_2D.unity`) y `MainMenuSceneBuilder` (`01_MainMenu.unity`): los demás generadores siguen dejando la escena
 sin guardar, y por MCP las escenas las guarda, crea y borra el usuario (hook). **Motivo:** decisión del usuario (Sesión 12): un solo paso para
-regenerar la escena que se enseña. **Alcance:** LK-14. Regenerar borra lo que se haya hecho a mano en esa escena (D-002).
+regenerar las escenas que se enseñan. **Alcance:** LK-14, LK-13. Regenerar borra lo que se haya hecho a mano en esa escena (D-002).

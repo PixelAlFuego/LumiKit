@@ -92,6 +92,20 @@ namespace LumiKit.UI
             }
         };
 
+        /// <summary>
+        /// Nivel del botón. Al cambiarlo se repinta al instante; inactivo no pinta nada y lo hace
+        /// OnEnable al activarse (LK-13: los botones del menú salen de una lista).
+        /// </summary>
+        public LumiButtonStyle Style
+        {
+            get => _style;
+            set
+            {
+                _style = value;
+                DoStateTransition(currentSelectionState, true);
+            }
+        }
+
         protected override void Awake()
         {
             base.Awake();

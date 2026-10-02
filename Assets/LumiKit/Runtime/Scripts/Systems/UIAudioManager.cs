@@ -8,7 +8,9 @@ namespace LumiKit.Systems
     {
         Hover,
         Click,
-        Select
+        Select,
+        // LK-17: cambio de escena. Al final: el aviso de clip nulo usa el índice como bit.
+        Transition
     }
 
     /// <summary>
@@ -41,6 +43,7 @@ namespace LumiKit.Systems
         [SerializeField] private AudioClip _hoverClip;
         [SerializeField] private AudioClip _clickClip;
         [SerializeField] private AudioClip _selectClip;
+        [SerializeField] private AudioClip _transitionClip;
 
         private float _lastHoverTime = float.NegativeInfinity;
 
@@ -127,6 +130,8 @@ namespace LumiKit.Systems
                     return _clickClip;
                 case UISound.Select:
                     return _selectClip;
+                case UISound.Transition:
+                    return _transitionClip;
                 default:
                     return null;
             }

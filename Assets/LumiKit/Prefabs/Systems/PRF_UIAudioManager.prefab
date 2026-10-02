@@ -245,3 +245,4 @@ MonoBehaviour:
   _hoverClip: {fileID: 8300000, guid: 38b308371afeeeb43be497d94d7cb66f, type: 3}
   _clickClip: {fileID: 8300000, guid: c14c60e0f86151c49b28c320c4cff9e2, type: 3}
   _selectClip: {fileID: 8300000, guid: dc5f9627585786e4c850b4ccc888ec41, type: 3}
+  _transitionClip: {fileID: 8300000, guid: 3011abb0150df9242af1f3dcde9c87c0, type: 3}
