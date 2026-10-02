@@ -16,7 +16,8 @@ El 2026-10-02: LK-24 + LK-14 = 4 h (6 h con el +50 %). LK-03 suma 2 h si entra.
 
 ## Entregables
 - Build de Windows, sin menú: arranca directo en `02_Demo_2D` (LK-14).
-- LK-27: la prueba del `.unitypackage` en un proyecto vacío pasa a la semana del 2026-10-05.
+- LK-27: el `.unitypackage` se exporta el 2026-10-02; la prueba de importación en un proyecto vacío pasa a la semana del 2026-10-05.
+- Resolución: 16:9 y 16:10 (LK-14).
 - LK-37: vídeo corto. Lo graba el usuario.
 
 ## Fuera
@@ -32,4 +33,5 @@ El 2026-10-02: LK-24 + LK-14 = 4 h (6 h con el +50 %). LK-03 suma 2 h si entra.
 ## Aparcado
 Toda idea nueva va aquí en una línea, sin implementarla.
 - Versiones Shader Graph de LK-01, LK-03 y LK-02, para la versión de Asset Store (D-010).
-- Botón "Comparar" en pantalla y recordatorio de teclas `WASD · Clic · TAB` (GDD líneas 59 y 137): sin ellos, TAB sólo se descubre por la documentación o el vídeo (LK-24).
+- Botón "Comparar" en pantalla (GDD línea 59) e indicador de controles del GDD (línea 137: se desvanece, tecla H). El MVP lleva un texto fijo temporal en `02_Demo_2D` (LK-14), que se quitará.
+- 4:3: la composición de `02_Demo_2D` no se garantiza (usuario, Sesión 12).
