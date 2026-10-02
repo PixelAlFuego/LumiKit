@@ -5,7 +5,7 @@ Actualizado: 2026-10-01 · Sesión 12 (en curso)
 - **Fase 5 en curso:** LK-01 ✅ (Sesión 12, tag `cp-02-outline`). Fase 4 cerrada: LK-52 y LK-23 (`cp-01-audio`).
 - Tarea activa: ninguna. LK-01 cerrada.
 - Siguiente: LK-24, con el flujo de `docs/VERIFICATION.md` > Flujo por tarea.
-- **Modo sprint** hasta el viernes 2026-10-02 por la tarde: rama `sprint/mvp`, alcance y recortes en `docs/MVP_SCOPE.md`. Punto seguro: tag `v0.3-pre-mcp` (2c5d484).
+- **Modo sprint** hasta el viernes 2026-10-02 por la tarde, último día por enfermedad: entran LK-24 y LK-14; LK-03 sólo si LK-14 cierra antes de las 11:00. Rama `sprint/mvp`, alcance y recortes en `docs/MVP_SCOPE.md`. Punto seguro: tag `v0.3-pre-mcp` (2c5d484).
 
 ## Últimas 3 sesiones
 | Sesión | Fecha | Tarea | Resultado | Commit |
@@ -62,7 +62,7 @@ Nada. LK-01 cerrada (Sesión 12).
 - **`MAT_Debug.mat` usa `Universal Render Pipeline/Unlit`** (usuario, Sesión 06; en disco, GUID
   `650dd952…`): sin iluminación, lo acordado en LK-09 para poder cerrar el criterio de Linear.
 - **Materiales de los sprites, para la Fase 5:** los marcadores comparten el material por defecto `Sprite-Unlit-Default`.
-  Cada efecto necesitará el suyo (`MAT_` en `Assets/LumiKit/Materials/2D/`) o tocar un parámetro en uno los cambiará todos. LK-01 trae `MAT_Outline2D_Default`; faltan LK-03 y LK-02.
+  Cada efecto necesitará el suyo (`MAT_` en `Assets/LumiKit/Materials/2D/`) o tocar un parámetro en uno los cambiará todos. LK-01 trae `MAT_Outline2D_Default`; falta LK-03 (LK-02, fuera del MVP).
 - **Los topes no se suben** (usuario, Sesión 05): al llegar al tope se condensa (Sesión 07: `ui-style.md`, D-001 a D-003, por D-009).
 - `SPR_Crystal.png` y `SPR_RuneCoin.png` **definitivos** (LK-20, D-012): en `Assets/LumiKit/Sprites/`, 1024×1024, PPU 512, sin sufijo.
   Movidos por el usuario desde `_Development/` (mismo GUID). Siguen de marcadores en TestBench. `SPR_Lumi` entra si llega, sin bloquear LK-14.
