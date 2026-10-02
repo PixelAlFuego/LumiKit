@@ -21,7 +21,7 @@ Una tarea por sesión. No adelantar fases. 3D y VFX están fuera de alcance.
 |---|---|---|---|---|
 | LK-01 | Outline Shader 2D: color, grosor, modo | Shader | 5 | ✅ |
 | LK-02 | Dissolve Shader 2D: ruido + borde emisivo | Shader | 5 | ⬜ |
-| LK-03 | Glow / Inner Glow Shader 2D: intensidad, pulso | Shader | 5 | ⬜ |
+| LK-03 | Glow / Inner Glow Shader 2D: intensidad, pulso | Shader | 5 | 🟠 |
 | LK-04 | Toon / Cel Shader 3D con bandas | Shader | — | ⬜ fuera de alcance |
 | LK-05 | Water Shader 3D: ondas + transparencia | Shader | — | ⬜ fuera de alcance |
 | LK-06 | Partículas Fire & Smoke | VFX | — | ⬜ fuera de alcance |

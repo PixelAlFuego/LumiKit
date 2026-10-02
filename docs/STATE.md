@@ -3,7 +3,7 @@ Actualizado: 2026-10-02 · Sesión 12 (en curso)
 
 ## Ahora
 - **Fase 5 en curso:** LK-01 ✅ (`cp-02-outline`), LK-24 ✅ (`cp-03-tab`), Sesión 12. Fase 4 cerrada: LK-52 y LK-23 (`cp-01-audio`). Fase 7: LK-14 ✅ (`cp-04-demo`).
-- Tarea activa: ninguna. Siguiente: LK-03 (Glow 2D), flujo completo; entra por decisión del usuario (2026-10-02, pasadas las 11:00).
+- Tarea activa: LK-03 🟠 (Glow 2D), flujo completo; entra por decisión del usuario (2026-10-02, pasadas las 11:00). Spec reescrita en HLSL, en revisión.
 - **Modo sprint** hasta el viernes 2026-10-02 por la tarde, último día por enfermedad. Rama `sprint/mvp`, alcance y recortes en `docs/MVP_SCOPE.md`. Punto seguro: tag `v0.3-pre-mcp` (2c5d484).
 
 ## Hoy (2026-10-02)
