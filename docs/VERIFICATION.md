@@ -45,6 +45,7 @@ El usuario escribe `verificado LK-XX`. Sólo entonces Claude:
 - mueve la sesión a la tabla de últimas 3 sesiones,
 - commit `[LK-XX]`; `grep -rniE "coplay|mcpforunity" Assets/LumiKit/` da 0,
 - tag `cp-NN-nombre` y push con tags.
+Una tarea que no cambia el repositorio (vídeo, página de tienda, publicación) se cierra en BACKLOG y STATE, sin commit [LK-XX] ni tag cp-NN.
 
 Si un criterio falla: el usuario describe el fallo, la tarea vuelve a 🟠 y se corrige
 antes de tocar la siguiente tarea.

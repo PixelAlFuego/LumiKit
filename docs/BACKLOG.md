@@ -6,7 +6,7 @@ Una tarea por sesión. No adelantar fases. 3D y VFX: sin fase asignada. Ideas nu
 
 | Fase | Tareas | Entregable |
 |---|---|---|
-| 0–7 | Andamiaje, LK-09, LK-12, LK-10, LK-11a, LK-11b, LK-49, LK-22a, LK-50, LK-51, LK-22b, LK-52, LK-23, LK-01, LK-24, LK-03, LK-20, LK-14, LK-13, LK-17 | MVP 2D, cerradas; detalle en `docs/archive/MVP_SCOPE_2026-10.md` y en el tag `mvp-1.0`. LK-20 sigue ⬜ (falta Lumi) |
+| 0–7 | Andamiaje, LK-09, LK-12, LK-10, LK-11a, LK-11b, LK-49, LK-22a, LK-50, LK-51, LK-22b, LK-52, LK-23, LK-01, LK-24, LK-03, LK-20, LK-14, LK-13, LK-17 | MVP 2D, cerradas; detalle en `docs/archive/MVP_SCOPE_2026-10.md` y en el tag `mvp-1.0`. LK-20, sin Lumi, pasa a "—" (Sesión 13) |
 | 8 | LK-27, LK-58, LK-53, LK-02, LK-54, LK-55, LK-57 | Post-MVP: validación y pulido. **Activa (Sesión 13)** |
 
 ## Ítems
@@ -33,7 +33,7 @@ Una tarea por sesión. No adelantar fases. 3D y VFX: sin fase asignada. Ideas nu
 | LK-17 | Carga asíncrona entre escenas | Sistema | 7 | ✅ |
 | LK-18 | Pantalla de configuración (calidad, res., idioma) | UI | — | ⬜ |
 | LK-19 | Localización ES / EN | Sistema | — | ⬜ |
-| LK-20 | Objetos demo 2D (Lumi, cristal, runa) | Arte | 6 | ⬜ |
+| LK-20 | Objetos demo 2D (Lumi, cristal, runa). Cristal y Runa definitivos; falta Lumi, la dibuja el usuario | Arte | — | ⬜ |
 | LK-21 | Objetos demo 3D low-poly en Blender | Arte | — | ⬜ fuera de alcance |
 | LK-22a | Pie del panel con Reset y `ui-style.md` al día | UI | 3 | ✅ |
 | LK-22b | Fuentes TMP del pack y sus licencias | Arte | 3 | ✅ |
