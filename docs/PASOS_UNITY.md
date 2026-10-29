@@ -29,7 +29,7 @@ Este archivo se reemplaza entero en cada tarea que necesite acciones del usuario
 
 ## Paso 4 — LK-14: build a 16:10 y 16:9 (build)
 1. Explorador de Windows > carpeta del build > clic en la barra de dirección > escribe `cmd` y Enter. Se abre una consola en esa carpeta.
-2. **16:10.** Escribe (cambia `LumiKit.exe` por el nombre real del `.exe`):
+2. **16:10.** Escribe (cambia `LumiKit.exe` por el nombre real del `.exe`; si tiene espacios, entre comillas: `"Mi Juego.exe"`):
    `LumiKit.exe -screen-fullscreen 0 -screen-width 1440 -screen-height 900`
    **Esperado:** se abre en ventana de 1440×900. Unity exige una resolución que el monitor soporte; si la ventana sale de otro tamaño, anota cuál.
 3. En la ventana: "Demo 2D". **Esperado:** suena la transición, carga la demo y la música sigue sin cortarse.
@@ -46,7 +46,7 @@ al seleccionar el objeto `Cube de Prueba` en la ventana `Hierarchy`. Su primera 
 atraviesa y deselecciona la moneda. Sin selección, TAB no hace nada y la prueba no valdría. Por eso, tras cada botón, se vuelve a seleccionar la moneda.
 1. Ventana `Project` > `Assets > _Development` > doble clic en `TestBench` > Play.
 2. Clic en la moneda (`SPR_RuneCoin` en `Hierarchy`; es la que tiene contorno cian). **Esperado:** el tester dice `seleccionado: SPR_RuneCoin`.
-3. Clic en el botón "Efecto: ON — pulsa para apagar". **Esperado:** el contorno desaparece; el botón pasa a "Efecto: OFF — pulsa para encender".
+3. Clic en el botón "Efecto: ON — pulsa para apagar". **Esperado:** el contorno desaparece; el botón pasa a "Efecto: OFF — pulsa para encender". Si el tester pasa a `seleccionado: ninguno`, es lo esperado (ver **Ojo**).
 4. Clic otra vez en la moneda. **Esperado:** `seleccionado: SPR_RuneCoin`, sigue sin contorno.
 5. Pulsa y suelta TAB. **Esperado:** sigue sin contorno.
 6. Clic en "Efecto: OFF — pulsa para encender". **Esperado:** vuelve el contorno.
@@ -55,7 +55,8 @@ atraviesa y deselecciona la moneda. Sin selección, TAB no hace nada y la prueba
 
 ## Paso 6 — Cierre
 1. Cierra Unity (**Don't Save** si pregunta).
-2. Consola en la carpeta `LumiKit_Project`: `git status`. **Esperado:** `nothing to commit, working tree clean`.
+2. Consola en la carpeta `LumiKit_Project`: `git status`. **Esperado:** `nothing to commit, working tree clean`. Si además dice `Your branch is ahead of 'origin/develop'`, es normal.
+   Si sale algún archivo modificado, no lo deshagas: cópialo en el reporte.
 
 ## Qué reportar
 - Una tabla: paso (1.3, 1.5, 3.2, 4.4c…) · OK o FALLO · qué viste, si falló.

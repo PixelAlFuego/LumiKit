@@ -11,7 +11,7 @@ Actualizado: 2026-10-29 · Sesión 13 (en curso)
 |---|---|---|---|---|
 | 11 | 2026-09-25, 29 y 30 | LK-52 y su cierre · modo sprint · Unity MCP, subagentes y hook · shaders del MVP en HLSL (D-010) · plan de LK-23 (D-011) | ✅ LK-52 | 9cfbb49 · 2c5d484 · 3d2f2b8 · fa4af22 · 087251a · 428efc3 · 1a9fca5 · a5ad5f4 · 0e2cd88 · ba847e5 · 64916f4 · 90c2409 |
 | 12 | 2026-09-30, 10-01 y 10-02 | Sprites sin sufijo (D-012), `SH_` · assets del audio y sprites · LK-23 y su cierre · LK-01 y su cierre · alcance recortado · LK-24 y su cierre · LK-14 (D-013) y su cierre · LK-03 y su cierre · LK-13 + LK-17 y su cierre | ✅ LK-23 · ✅ LK-01 · ✅ LK-24 · ✅ LK-14 · ✅ LK-03 · ✅ LK-13 + LK-17 | b4045d2 · ced99b9 · 2a43e80 · 13454a7 · a69d112 · 98ad2a1 · 83ad8a4 · a633f0f · 67564dc · 5dbfa8a · 4219e96 · 0cc38f3 · 952b864 · 96a9f7e · 1f8a619 · dd33d9f · 19d91bc · 6287e99 · bcdb2f8 · 4bb8847 |
-| 13 | 2026-10-28 y 29 | Cierre del MVP: render del build y tag `mvp-1.0` · salida del modo sprint (fase 8, LK-53 a LK-59) · `PASOS_UNITY.md` · LK-37 y LK-27 · push · cierre sin commit de tarea · LK-20 a "—" · `_Development/` | ✅ LK-37 · 🟡 LK-27 | 9bc896e · 5e26f88 · f7b3204 · este commit |
+| 13 | 2026-10-28 y 29 | Cierre del MVP: render del build y tag `mvp-1.0` · salida del modo sprint (fase 8, LK-53 a LK-59) · `PASOS_UNITY.md` · LK-37 y LK-27 · push · cierre sin commit de tarea · LK-20 a "—" · `_Development/` | ✅ LK-37 · 🟡 LK-27 | 9bc896e · 5e26f88 · f7b3204 · 4e5734a · este commit |
 
 Sesiones 00 a 10 archivadas en `docs/archive/sesiones_2026-Q3.md`. El número de sesión cambia al cerrarla aquí; lo hecho no se renumera (usuario, Sesión 12).
 
