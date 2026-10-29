@@ -13,17 +13,19 @@ bajo `Assets/LumiKit/`. Nada fuera de esa carpeta se exporta.
 3. Al cerrar: actualiza STATE.md, BACKLOG.md y CODEMAP.md; DECISIONS.md sólo si hubo
    decisión estructural. Commit `[LK-XX] descripción`.
 4. `docs/reference/GDD_v2.md` NUNCA se lee completo. `grep -n` y rango de líneas.
+5. Cada tarea que exija acciones del usuario en el editor de Unity REEMPLAZA el contenido
+   de `docs/PASOS_UNITY.md`. STATE dice qué se verifica; PASOS_UNITY dice cómo se hace. No se mezclan.
 
 ## Mapa de documentación
 | Archivo | Léelo cuando |
 |---|---|
 | docs/BACKLOG.md | Vas a elegir o cerrar una tarea |
-| docs/MVP_SCOPE.md | Sprint del MVP: qué entra, qué se recorta y dónde aparcar ideas |
 | docs/specs/LK-XX_*.md | Vas a implementar esa tarea |
 | docs/CODEMAP.md | Vas a tocar código existente |
 | docs/CONVENTIONS.md | Vas a crear archivos o assets nuevos |
 | docs/DECISIONS.md | Dudas por qué algo está hecho así |
 | docs/VERIFICATION.md | Vas a cerrar una tarea |
+| docs/PASOS_UNITY.md | Una tarea deja acciones al usuario en el editor de Unity |
 | docs/reference/GDD_v2.md | Necesitas un dato de diseño puntual (sólo por grep) |
 | docs/reference/UI_ART_BRIEF.md | Vas a tocar sprites de UI o el aspecto del generador |
 
@@ -68,3 +70,4 @@ bajo `Assets/LumiKit/`. Nada fuera de esa carpeta se exporta.
 
 ## Alcance actual
 MVP 2D únicamente. No trabajes en shaders 3D ni VFX aunque el GDD los describa.
+Modo sprint cerrado en la Sesión 13: detalle en STATE > Ahora.
