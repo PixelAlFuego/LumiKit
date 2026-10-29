@@ -55,9 +55,9 @@ editor van en `Assets/Editor/`, que no se exporta.
 
 ## Commits
 Formato: `[LK-XX] descripción en imperativo`. Ejemplos en GDD §4.9 (líneas 1247-1250).
-Fuera de tareas: `chore(tooling):` MCP y agentes · `chore(assets):` arte, audio y fuentes. Nunca mezclados en un commit.
+Fuera de tareas: `chore(tooling):` MCP, agentes y `CLAUDE.md` · `chore(assets):` arte, audio y fuentes · `chore(build):` lo que Unity escribe al compilar un build · `chore(docs):` docs fuera de una tarea. Nunca mezclados en un commit.
 Ramas: `main` estable · `develop` integración · `feature/LK-XX-descripcion`. Sprint del MVP: `sprint/mvp`.
-Tag `cp-NN-nombre` tras cada tarea en ✅: procedimiento en `docs/VERIFICATION.md` > Cierre.
+Tag `cp-NN-nombre` tras cada tarea en ✅: procedimiento en `docs/VERIFICATION.md` > Cierre. Tag `mvp-X.Y`: versión entregada, sobre el commit de su build, con autorización del usuario.
 
 ## Qué se exporta
 Sólo `Assets/LumiKit/`. Quedan fuera: `Assets/Editor/`, `Assets/_Development/`,

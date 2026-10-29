@@ -2,25 +2,19 @@
 Fuente: GDD §3.2–3.4 (líneas 653-721). Estados: ⬜ 🟠 🟡 ✅ ⛔ (ver CLAUDE.md).
 
 ## Orden de ejecución — MVP 2D
-Una tarea por sesión. No adelantar fases. 3D y VFX están fuera de alcance.
+Una tarea por sesión. No adelantar fases. 3D y VFX: sin fase asignada. Ideas nuevas: una fila con fase "—".
 
 | Fase | Tareas | Entregable |
 |---|---|---|
-| 0 | Andamiaje | Docs + carpetas + asmdefs + git |
-| 1 | LK-09 | EffectParameter, ParameterType, EffectDefinition, EffectRegistry, EffectController, MaterialPropertyHelper, Singleton |
-| 2 | LK-12, LK-10 | DemoCameraController ortográfico, ObjectSelector (raycast) |
-| 3 | LK-11a, LK-11b, LK-49, LK-22a, LK-50, LK-51, LK-22b | ParameterWidgetBase + Slider/Color/Toggle/Enum, ParameterPanelUI, LumiTheme.cs con la paleta, prefabs de UI generados por script, pie con Reset, fuentes del pack y `LumiButton`. **✅ Cerrada (Sesión 10)** |
-| 4 | LK-52, LK-23 | Valor del slider editable con clic y `TextInputFocus` para los atajos; UIAudioManager + AMX_LumiKit + enganche hover/click/select + música |
-| 5 | LK-01, LK-24, LK-03, LK-02 | Outline 2D, ComparisonToggle (TAB, necesita `_EffectEnabled` de LK-01), Glow 2D, Dissolve 2D + generador procedural de texturas de ruido y rampas |
-| 6 | LK-20 | Sprites Lumi, Cristal, Runa: PNG 1024, PPU 512, sin sufijo (D-012). Cristal y Runa ya en `Sprites/` |
-| 7 | LK-14, LK-13, LK-17 | Escena 02_Demo_2D y 01_MainMenu construidas por script, SceneLoader |
+| 0–7 | Andamiaje, LK-09, LK-12, LK-10, LK-11a, LK-11b, LK-49, LK-22a, LK-50, LK-51, LK-22b, LK-52, LK-23, LK-01, LK-24, LK-03, LK-20, LK-14, LK-13, LK-17 | MVP 2D, cerradas; detalle en `docs/archive/MVP_SCOPE_2026-10.md` y en el tag `mvp-1.0`. LK-20 sigue ⬜ (falta Lumi) |
+| 8 | LK-27, LK-58, LK-53, LK-02, LK-54, LK-55, LK-57 | Post-MVP: validación y pulido. **Activa (Sesión 13)** |
 
 ## Ítems
 
 | ID | Funcionalidad | Cat. | Fase | Estado |
 |---|---|---|---|---|
 | LK-01 | Outline Shader 2D: color, grosor, modo | Shader | 5 | ✅ |
-| LK-02 | Dissolve Shader 2D: ruido + borde emisivo | Shader | 5 | ⬜ |
+| LK-02 | Dissolve Shader 2D: ruido + borde emisivo | Shader | 8 | ⬜ |
 | LK-03 | Glow / Inner Glow Shader 2D: intensidad, pulso | Shader | 5 | ✅ |
 | LK-04 | Toon / Cel Shader 3D con bandas | Shader | — | ⬜ fuera de alcance |
 | LK-05 | Water Shader 3D: ondas + transparencia | Shader | — | ⬜ fuera de alcance |
@@ -47,7 +41,7 @@ Una tarea por sesión. No adelantar fases. 3D y VFX están fuera de alcance.
 | LK-24 | Comparación antes / después (TAB) | Sistema | 5 | ✅ |
 | LK-25 | Pantalla de créditos e info del pack | UI | — | ⬜ |
 | LK-26 | Documentación técnica bilingüe | Doc | — | ⬜ |
-| LK-27 | Exportación y validación del `.unitypackage` | Distrib. | — | ⬜ |
+| LK-27 | Exportación y validación del `.unitypackage` | Distrib. | 8 | 🟡 |
 | LK-28 | Página del producto en itch.io | Distrib. | — | ⬜ |
 | LK-29 | Copiar valores al portapapeles | Deseable | — | ⬜ |
 | LK-30 | Contador de exploración (X / 8) | Deseable | — | ⬜ |
@@ -57,7 +51,7 @@ Una tarea por sesión. No adelantar fases. 3D y VFX están fuera de alcance.
 | LK-34 | Toasts de confirmación | Deseable | — | ⬜ |
 | LK-35 | Persistencia en `PlayerPrefs` | Deseable | — | ⬜ |
 | LK-36 | Escena `_Playground` con todos los efectos | Deseable | — | ⬜ |
-| LK-37 | Video de demostración para itch.io | Deseable | — | ⬜ |
+| LK-37 | Video de demostración para itch.io | Deseable | — | ✅ |
 | LK-38 | Port de shaders a Godot 4.x | Futura v2.0 | — | ⬜ |
 | LK-39 | Publicación en Unity Asset Store | Futura v1.1 | — | ⬜ |
 | LK-40 | Publicación en Fab (Epic Games) | Futura v2.0 | — | ⬜ |
@@ -73,8 +67,13 @@ Una tarea por sesión. No adelantar fases. 3D y VFX están fuera de alcance.
 | LK-50 | Componente de botón con la jerarquía del GDD §2.7 | UI | 3 | ✅ |
 | LK-51 | Arte de interfaz: sprites propios del pack | Arte | 3 | ✅ |
 | LK-52 | Valor editable en el slider y foco de texto para los atajos | UI | 4 | ✅ |
+| LK-53 | Halo de LK-03 sin capas (fundido entre anillos o más muestras); máximo del `EFF` de 2 a 5 | Shader | 8 | ⬜ |
+| LK-54 | Botón "Comparar" en pantalla e indicador de controles (GDD líneas 59 y 137); quita el texto fijo de `02_Demo_2D` | UI | 8 | ⬜ |
+| LK-55 | Composición de `02_Demo_2D` a 4:3 | Escena | 8 | ⬜ |
+| LK-56 | Versiones Shader Graph de LK-01, LK-02 y LK-03 (D-010) | Futura v1.1 | — | ⬜ |
+| LK-57 | Foco visible de `LumiButton` y del campo del slider (teclado y mando) | UI | 8 | ⬜ |
+| LK-58 | asmdef sólo-editor dentro del pack (`LumiButtonEditor`, `FontFeatureCleaner`) | Distrib. | 8 | ⬜ |
+| LK-59 | `LumiSkin`: arte de UI cambiable sin regenerar (spec de LK-51, línea 78) | UI | — | ⬜ |
 
-Estimaciones y prioridades originales: GDD §3.2 (líneas 655-686).
-LK-49 y LK-50 no vienen del GDD: LK-49 sale de verificar LK-11b (Sesión 05) y LK-50 del corte de
-LK-22 (Sesión 07), y LK-51 del rediseño de UI que pidió el usuario (Sesión 08); LK-52, de verificar LK-22b (Sesión 10).
-LK-22 se partió en LK-22a y LK-22b; no queda ninguna tarea llamada LK-22 a secas.
+Estimaciones y prioridades originales: GDD §3.2 (líneas 655-686). LK-22 se partió en LK-22a y LK-22b; no queda ninguna LK-22 a secas.
+Fuera del GDD: LK-49 (verificar LK-11b, Sesión 05), LK-50 (corte de LK-22, Sesión 07), LK-51 (rediseño de UI, Sesión 08), LK-52 (verificar LK-22b, Sesión 10), LK-53 a LK-59 (MVP_SCOPE, Aparcado y Fuera, Sesión 13).

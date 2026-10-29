@@ -41,7 +41,7 @@ Los dos sprites comparten `MAT_Outline2D_Default` y cada uno lleva sus valores e
 Las cifras de cámara y posiciones son de partida: con Size 2,5, los dos sprites (2 u cada uno) quedan a la izquierda del panel (280 px de 1920).
 
 **Build (el usuario).** Lista de escenas del build: añadir `02_Demo_2D` y desmarcar `01_MainMenu` (`00_Splash` no está); `02_Demo_2D` pasa a ser la
-primera. **Resolución:** el MVP soporta 16:9 y 16:10; 4:3, aparcado (`docs/MVP_SCOPE.md`). Se arranca sin menú (LK-13 y LK-17 fuera del MVP). El índice 0 no coincide con el prefijo `02` (CONVENTIONS > Escenas): se acepta para el MVP.
+primera. **Resolución:** el MVP soporta 16:9 y 16:10; 4:3, aparcado (LK-55). Se arranca sin menú (LK-13 y LK-17 fuera del MVP). El índice 0 no coincide con el prefijo `02` (CONVENTIONS > Escenas): se acepta para el MVP.
 Salir de la build: cerrar la ventana (sin menú de pausa, LK-32 fuera).
 
 ## Banco de pruebas

@@ -62,5 +62,5 @@ y `ComparisonToggle.cs` sin `.material` ni `.materials` (D-001). Tras Play, `git
       perder el foco (`ResetAndDisableNonBackgroundDevices`), pero que un clic en otro panel del editor quite el foco es código nativo.
 
 ## Fuera de alcance
-- Botón "Comparar" en pantalla (GDD línea 59) y recordatorio de teclas (GDD línea 137): aparcados en `docs/MVP_SCOPE.md`.
+- Botón "Comparar" en pantalla (GDD línea 59) y recordatorio de teclas (GDD línea 137): aparcados en LK-54.
 - Comparar todos los objetos a la vez · sonido · mando · máquina de estados `DEMO_*` (GDD §1.11).

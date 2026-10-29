@@ -119,7 +119,7 @@ Fecha: 2026-09-30 · Sesión 11 · Irreversible: **no**
 `.shader` en `Assets/LumiKit/Shaders/2D/`. Cumplen D-005 igual que un grafo: `Float _EffectEnabled` y
 `lerp(base, conEfecto, _EffectEnabled)`. Desviación del GDD §1.12 (línea 313, "Shader Graph 17.x") y del
 árbol §4.2 (líneas 817-820): las versiones Shader Graph quedan aparcadas para la versión de Asset Store
-(`docs/MVP_SCOPE.md` > Aparcado). **Motivo:** decisión del usuario (Sesión 11); desbloquea LK-01.
+(LK-56 del BACKLOG). **Motivo:** decisión del usuario (Sesión 11); desbloquea LK-01.
 **Alcance:** LK-01, LK-02, LK-03 y `.claude/rules/shaders.md`. Keywords, D-001 y nombres de propiedad, sin cambios.
 
 ---
