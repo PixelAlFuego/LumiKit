@@ -1,66 +1,52 @@
 # Pasos en Unity
-Sesión 13 · Criterios sin confirmar de LK-13, LK-14 y LK-24. Qué se verifica: `docs/STATE.md` > Pendiente de verificación. Aquí, cómo.
+Sesión 13 · Diagnóstico del tirón periódico (sin tarea LK). Qué se sabe: `docs/STATE.md` > Dudas abiertas > Tirón periódico. Aquí, cómo se diagnostica.
 Este archivo se reemplaza entero en cada tarea que necesite acciones del usuario en el editor de Unity.
+
+De la prueba más barata a la más cara. **Para en cuanto una dé la respuesta.** Ya hecho: el `.exe` entregado, sin tirón (usuario, 2026-11-10). Por eso se empieza sin el puente del MCP.
 
 ## Antes de empezar
 - Abre el proyecto `LumiKit_Project` con Unity 6000.0.83f1 (rama `develop`).
 - **No guardes ninguna escena** (Ctrl+S o `File > Save`) después de pulsar Play. Si Unity pregunta si guardar al cambiar de escena o al cerrar: **Don't Save**.
-- Consola de Unity: `Window > General > Console`. Anota el texto de cualquier línea roja (error).
+- Qué mirar en cada Play, durante 20 s: el contorno animado de la runa (derecha) y el pulso del brillo del cristal (izquierda). Tirón = los dos se paran a la vez un instante.
 
-## Paso 1 — LK-14: la esquina transparente no selecciona (editor)
-1. Ventana `Project` > `Assets > LumiKit > Scenes` > doble clic en `02_Demo_2D`.
-2. Botón Play (▶, arriba al centro). **Esperado:** fondo liso oscuro; a la izquierda un cristal con brillo; a la derecha una runa (moneda) con contorno cian; suena música.
-3. Clic en el centro del cristal. **Esperado:** suena un clic de selección y se abre el panel de parámetros con el título "Brillo 2D".
-4. Clic en el fondo vacío, lejos de los dos objetos. **Esperado:** el panel se cierra.
-5. Clic en una esquina del cristal donde no hay dibujo (la imagen es un cuadrado con las esquinas transparentes). **Esperado:** no suena nada y no se abre ningún panel.
-6. Repite 3 a 5 con la runa. Título esperado en el 3: "Contorno 2D".
-7. Botón Play otra vez para parar.
+## Paso 1 — Play sin el puente del MCP
+Fuente (paquete `com.coplaydev.unity-mcp` 10.2.0, en `Library/PackageCache/com.coplaydev.unity-mcp@045e809812a8/`):
+`Editor/MenuItems/MCPForUnityMenu.cs` (menú) y `Editor/Windows/Components/Connection/McpConnectionSection.cs` (botón). El paquete **no** tiene un menú que pare el puente: el menú abre una ventana y el puente se para con un botón de esa ventana.
+0. Antes de abrir nada: ¿está abierta la ventana `MCP for Unity`, aunque sea como pestaña acoplada detrás de otra? Anota sí o no.
+1. Menú `Window > MCP for Unity > Toggle MCP Window` (atajo Ctrl+Shift+M). Se abre la ventana `MCP for Unity`, pestaña `Connect`.
+2. Sección `Server`. **Esperado:** el estado dice `Session Active (LumiKit_Project)` y al lado hay un botón `Disconnect`.
+   Si dice `No Session`, el puente ya está parado: anótalo y salta al 4.
+3. Clic en `Disconnect`. **Esperado:** el estado pasa a `No Session` y el botón, a `Connect`. No pulses `Stop Server` (para el servidor, no hace falta).
+4. Cierra la ventana `MCP for Unity` (clic derecho en su pestaña > `Close Tab`). Abierta, revisa la conexión cada 2,0 s (`Editor/Windows/MCPForUnityEditorWindow.cs`, líneas 574 y 600-615).
+5. Ventana `Project` > `Assets > LumiKit > Scenes` > doble clic en `02_Demo_2D` > Play. Mira 20 s (ver "Antes de empezar"). Anota si hay tirón.
+6. Play otra vez para parar.
+7. Comprueba que no se reconectó solo: Ctrl+Shift+M > pestaña `Connect`. **Esperado:** `No Session`. Al pulsar Play, el paquete sólo reanuda el puente si estaba conectado antes (`Editor/Services/HttpBridgeReloadHandler.cs`, línea 74).
+8. Vuelve a conectar: botón `Connect`. **Esperado:** `Session Active (LumiKit_Project)`.
 
-## Paso 2 — Build de Windows
-1. Si conservas la carpeta del build entregado el 2026-10-02, usa **ese** build y salta al paso 3. No compiles uno nuevo.
-2. Sólo si ya no la tienes: `File > Build Profiles`. Selecciona la plataforma de Windows (si no es la activa: `Switch Platform`).
-   En `Scene List` deben estar marcadas, en este orden: `Assets/LumiKit/Scenes/01_MainMenu` (primera) y `Assets/LumiKit/Scenes/02_Demo_2D`. No cambies nada más.
-3. Botón `Build` > elige una carpeta nueva **fuera** de la carpeta del proyecto. **Esperado:** termina sin errores rojos en la consola.
-   Al compilar, Unity puede reescribir `Assets/Settings/*.asset` y `ProjectSettings/GraphicsSettings.asset`: no lo deshagas, sale en el paso 6.
+**Si en el 5 NO hay tirón:** la respuesta es el MCP. Para aquí y salta al "Paso 3 — Cierre". **Si lo hay:** sigue con el paso 2.
 
-## Paso 3 — LK-13: arranque y "Salir" (build)
-1. Doble clic en el `.exe` de la carpeta del build. **Esperado:** arranca en el menú: título, subtítulo, botones "Demo 2D" y "Salir" y número de versión.
-2. Clic en "Salir". **Esperado:** la aplicación se cierra sola, sin ventana colgada ni mensaje de error.
+## Paso 2 — Profiler en el editor
+1. Menú `Window > Analysis > Profiler`.
+2. Arriba a la izquierda del Profiler, el desplegable del destino: `Play Mode`.
+3. Módulo `CPU Usage` (gráfica de arriba). Si no está, menú `Profiler Modules` y márcalo.
+4. Botón Record (círculo, arriba) activado.
+5. Escena `02_Demo_2D` > Play. Espera ~10 s: en la gráfica aparecen picos que se repiten cada ~2 s.
+6. Play otra vez para parar (el Profiler conserva lo grabado).
+7. Clic en uno de esos picos. Panel inferior: en el desplegable de la vista (dice `Timeline`), elige `Hierarchy`.
+8. Clic en la cabecera de la columna `Time ms` hasta que ordene de mayor a menor. Anota las 5 primeras filas con sus ms, tal como salen.
+9. Repite 7 y 8 en otro pico distinto.
 
-## Paso 4 — LK-14: build a 16:10 y 16:9 (build)
-1. Explorador de Windows > carpeta del build > clic en la barra de dirección > escribe `cmd` y Enter. Se abre una consola en esa carpeta.
-2. **16:10.** Escribe (cambia `LumiKit.exe` por el nombre real del `.exe`; si tiene espacios, entre comillas: `"Mi Juego.exe"`):
-   `LumiKit.exe -screen-fullscreen 0 -screen-width 1440 -screen-height 900`
-   **Esperado:** se abre en ventana de 1440×900. Unity exige una resolución que el monitor soporte; si la ventana sale de otro tamaño, anota cuál.
-3. En la ventana: "Demo 2D". **Esperado:** suena la transición, carga la demo y la música sigue sin cortarse.
-4. Comprueba en la demo: a. Lo esperado en el paso 1.2. b. Clic en el cristal: "Brillo 2D"; en la runa: "Contorno 2D".
-   c. Esquina transparente de cada uno: no selecciona. d. Runa seleccionada y TAB mantenido: sin contorno; al soltar, vuelve. Clic en vacío cierra el panel.
-   e. Sin mover la cámara, el panel no tapa la runa y nada sale recortado por los bordes.
-5. Botón "Menú" (arriba a la izquierda) > "Salir".
-6. **16:9.** Repite 2 a 5 con `-screen-width 1600 -screen-height 900`.
-
-## Paso 5 — LK-24: TAB con el efecto apagado por el tester (editor)
-El tester es un recuadro gris arriba a la izquierda de la vista `Game`. Lo dibuja el componente `EffectDebugTester`, que se ve en el `Inspector`
-al seleccionar el objeto `Cube de Prueba` en la ventana `Hierarchy`. Su primera línea dice `LK-10 · seleccionado: <nombre>` (`ninguno` sin selección).
-**Ojo:** el botón del tester usa OnGUI, el sistema de interfaz antiguo de Unity, que no pasa por el `EventSystem` (issue de la Sesión 02): el clic lo
-atraviesa y deselecciona la moneda. Sin selección, TAB no hace nada y la prueba no valdría. Por eso, tras cada botón, se vuelve a seleccionar la moneda.
-1. Ventana `Project` > `Assets > _Development` > doble clic en `TestBench` > Play.
-2. Clic en la moneda (`SPR_RuneCoin` en `Hierarchy`; es la que tiene contorno cian). **Esperado:** el tester dice `seleccionado: SPR_RuneCoin`.
-3. Clic en el botón "Efecto: ON — pulsa para apagar". **Esperado:** el contorno desaparece; el botón pasa a "Efecto: OFF — pulsa para encender". Si el tester pasa a `seleccionado: ninguno`, es lo esperado (ver **Ojo**).
-4. Clic otra vez en la moneda. **Esperado:** `seleccionado: SPR_RuneCoin`, sigue sin contorno.
-5. Pulsa y suelta TAB. **Esperado:** sigue sin contorno.
-6. Clic en "Efecto: OFF — pulsa para encender". **Esperado:** vuelve el contorno.
-7. Clic otra vez en la moneda; mantén TAB. **Esperado:** sin contorno mientras lo mantienes; al soltar, vuelve.
-8. Play otra vez para parar. No guardes la escena.
-
-## Paso 6 — Cierre
-1. Cierra Unity (**Don't Save** si pregunta).
-2. Consola en la carpeta `LumiKit_Project`: `git status`. **Esperado:** `nothing to commit, working tree clean`. Si además dice `Your branch is ahead of 'origin/develop'`, es normal.
-   Si sale algún archivo modificado, no lo deshagas: cópialo en el reporte.
+## Paso 3 — Cierre
+1. Si desconectaste el puente y no lo reconectaste (paso 1.8), hazlo ahora.
+2. Cierra Unity (**Don't Save** si pregunta).
+3. Consola en la carpeta `LumiKit_Project`: `git status`. **Esperado:** `nothing to commit, working tree clean`. Si sale algún archivo modificado, no lo deshagas: cópialo en el reporte.
 
 ## Qué reportar
-- Una tabla: paso (1.3, 1.5, 3.2, 4.4c…) · OK o FALLO · qué viste, si falló.
-- Build usado: el entregado el 2026-10-02 o uno nuevo.
-- Tamaño real de las dos ventanas del paso 4.
-- Texto de cada error rojo de la consola, si hubo.
-- Salida completa de `git status`.
+| Paso | ¿Hay tirón? | Observaciones |
+|---|---|---|
+| a. `.exe` entregado, contorno 20 s | no | Hecho (usuario, 2026-11-10) |
+| 1. Play sin el puente | sí / no | Ventana abierta en 1.0 (sí/no) · estado en 1.2 y en 1.7 |
+| 2. Profiler, pico 1 | sí / no | 5 filas: nombre · ms |
+| 2. Profiler, pico 2 | sí / no | 5 filas: nombre · ms |
+
+Además: texto de cada error rojo de la consola, si hubo, y la salida completa de `git status`.

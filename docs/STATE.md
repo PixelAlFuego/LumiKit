@@ -1,5 +1,5 @@
 # Estado del proyecto
-Actualizado: 2026-10-29 · Sesión 13 (en curso)
+Actualizado: 2026-11-10 · Sesión 13 (en curso)
 
 ## Ahora
 - **MVP 2D entregado** (2026-10-02): build de Windows, `.unitypackage` (LK-27 🟡: falta la prueba de importación) y vídeo (LK-37 ✅, Sesión 13). Tag `mvp-1.0` en `9bc896e`. Fases 0 a 7 cerradas (tags `cp-01` a `cp-06`; LK-20, sin Lumi, pasa a "—"); LK-02 pasa a la fase 8.
@@ -11,15 +11,12 @@ Actualizado: 2026-10-29 · Sesión 13 (en curso)
 |---|---|---|---|---|
 | 11 | 2026-09-25, 29 y 30 | LK-52 y su cierre · modo sprint · Unity MCP, subagentes y hook · shaders del MVP en HLSL (D-010) · plan de LK-23 (D-011) | ✅ LK-52 | 9cfbb49 · 2c5d484 · 3d2f2b8 · fa4af22 · 087251a · 428efc3 · 1a9fca5 · a5ad5f4 · 0e2cd88 · ba847e5 · 64916f4 · 90c2409 |
 | 12 | 2026-09-30, 10-01 y 10-02 | Sprites sin sufijo (D-012), `SH_` · assets del audio y sprites · LK-23 y su cierre · LK-01 y su cierre · alcance recortado · LK-24 y su cierre · LK-14 (D-013) y su cierre · LK-03 y su cierre · LK-13 + LK-17 y su cierre | ✅ LK-23 · ✅ LK-01 · ✅ LK-24 · ✅ LK-14 · ✅ LK-03 · ✅ LK-13 + LK-17 | b4045d2 · ced99b9 · 2a43e80 · 13454a7 · a69d112 · 98ad2a1 · 83ad8a4 · a633f0f · 67564dc · 5dbfa8a · 4219e96 · 0cc38f3 · 952b864 · 96a9f7e · 1f8a619 · dd33d9f · 19d91bc · 6287e99 · bcdb2f8 · 4bb8847 |
-| 13 | 2026-10-28 y 29 | Cierre del MVP: render del build y tag `mvp-1.0` · salida del modo sprint (fase 8, LK-53 a LK-59) · `PASOS_UNITY.md` · LK-37 y LK-27 · push · cierre sin commit de tarea · LK-20 a "—" · `_Development/` | ✅ LK-37 · 🟡 LK-27 | 9bc896e · 5e26f88 · f7b3204 · 4e5734a · este commit |
+| 13 | 2026-10-28, 29 y 11-10 | Cierre del MVP: render del build y tag `mvp-1.0` · salida del modo sprint (fase 8, LK-53 a LK-59) · `PASOS_UNITY.md` · LK-37 y LK-27 · push · cierre sin commit de tarea · LK-20 a "—" · `_Development/` · criterios de LK-13, LK-14 y LK-24 confirmados · tirón del editor | ✅ LK-37 · 🟡 LK-27 | 9bc896e · 5e26f88 · f7b3204 · 4e5734a · b3b754c · este commit |
 
 Sesiones 00 a 10 archivadas en `docs/archive/sesiones_2026-Q3.md`. El número de sesión cambia al cerrarla aquí; lo hecho no se renumera (usuario, Sesión 12).
 
 ## Pendiente de verificación en Unity
-Criterios sin confirmar (usuario). Cómo: `docs/PASOS_UNITY.md`; los de LK-27 llegan con su tarea:
-- [ ] LK-13: build de Windows: arranca en el menú; "Salir" cierra la aplicación.
-- [ ] LK-14: esquina transparente de cada sprite no selecciona; build a 16:9 y 16:10 (ahora entra por el menú).
-- [ ] LK-24: criterio del tester con su botón, confirmado a medias.
+Criterios sin confirmar (usuario). Los de LK-27 llegan a `docs/PASOS_UNITY.md` con su tarea:
 - [ ] LK-27: el `.unitypackage` exportado el 2026-10-02 se importa en un proyecto URP vacío.
 
 ## Entorno confirmado
@@ -32,21 +29,21 @@ Criterios sin confirmar (usuario). Cómo: `docs/PASOS_UNITY.md`; los de LK-27 ll
 - D-001 confirmado en la práctica: tras salir de Play Mode, `MAT_Debug.mat` sin cambios en `git status` y el Mesh Renderer sin "(Instance)".
 
 ## Dudas abiertas y bloqueos
-- **LK-24 cerrada con una confirmación a medias** (usuario, 2026-10-02): repitió el criterio del tester con su botón; al soltar TAB el contorno conserva el estado previo, apagado o encendido. Si TAB y el tester fallan juntos, se reabre.
-- **LK-14 cerrada** (usuario, 2026-10-02). Su confirmación no nombra la esquina transparente ni el build de Windows: si fallan, se reabre.
+- **Tirón periódico** (usuario, 2026-11-10; sin tarea LK: se crea si aparece en el build): cada ~1,9-2 s todo se congela ~0,2-0,25 s. Se paran a la vez el contorno animado de la runa, el pulso del Glow del cristal y la respuesta a TAB.
+  Hipótesis (usuario): un solo tirón global del frame, no tres fallos (los dos shaders usan `_Time.y`; TAB se lee en cada frame). Sin cambios en `Assets/` entre `mvp-1.0` y `develop` (`git diff` vacío). En el `.exe` entregado **no** hay tirón: apunta al editor. Dato del paquete MCP (Claude): su ventana, abierta, revisa la conexión cada 2,0 s (`MCPForUnityEditorWindow.cs`, `EditorUpdateIntervalSeconds`). Diagnóstico: `docs/PASOS_UNITY.md`.
 - **LK-13 + LK-17, sin certeza:** `Application.CanStreamedLevelBeLoaded` (existe en 6000.0, sin ver si está obsoleto) y `characterSpacing` de TMP en centésimas de em.
 - **LK-03, limitación conocida** (usuario, 2026-10-02): a intensidad alta el halo muestra capas (cebolla, 4 anillos de muestras). Máximo del `EFF` a 2, medido en una simulación en CPU (capas tenues desde 2, claras desde 2,5), no en Unity; **a 2 siguen** (usuario, cierre de LK-13). Arreglo: LK-53 (fase 8).
 - **Audio (LK-23).** Por LFS: `Audio/SFX/` con los cinco `SFX_UI_*`, recortados por el usuario (Sesión 12), y `Audio/Music/MUS_Ambient_Loop.mp3`.
   **`SFX_UI_Error` y `SFX_UI_Transition` no entran en LK-23**: el primero espera avisos en pantalla y el segundo el cambio de escena de LK-17. Música en MP3 (usuario, Sesión 09): de WAV (64 MB) a MP3 (4 MB), Streaming, Vorbis al 70 %, sin preload; en WAV no bajaba de 5 MB y recortar
   el bucle lo rompía. `*.mp3` por LFS; nada referenciaba el `.wav`. Hueco en el bucle → el usuario la pasa a OGG. `MUS_` en CONVENTIONS (Sesión 12). Mixer del usuario (D-011): `Assets/LumiKit/Audio/Mixers/AMX_LumiKit.mixer`, grupos UI (−6 dB) y Music. Hover: al usuario le suena algo raro; probablemente no se cambia (Sesión 12).
 - **`LumiButton` pinta `Selected` como reposo** (usuario, Sesión 10; con el cursor encima, como hover): así un usuario de teclado o mando no ve qué botón tiene el foco. Mismo coste en el campo del slider (LK-52), que suelta la selección al terminar de editar. El GDD no define ese estado. Se decide antes de publicar.
-- **Aviso de rango ancho, para la Fase 5:** el campo del valor (LK-52) muestra 6 caracteres (`-10.00`); con 7 o más, la máscara corta. Que el validador (LK-49) avise cuando el rango de un `Float` los necesite, al llegar los `EFF_` reales.
+- **Aviso de rango ancho, al llegar el `EFF_` de LK-02:** el campo del valor (LK-52) muestra 6 caracteres (`-10.00`); con 7 o más, la máscara corta. Que el validador (LK-49) avise cuando el rango de un `Float` los necesite.
 - **El pack no tiene dónde poner un script de editor propio.** `Assets/Editor/` no se exporta (CONVENTIONS) y ningún script bajo
   `Assets/LumiKit/` puede hacer `using UnityEditor`. Sale a la luz con LK-50: su `LumiButtonEditor` funcionará aquí pero el comprador
   no verá los campos del componente en el Inspector. Segunda herramienta, `FontFeatureCleaner` (LK-22b): D-009 da los `.ttf` al comprador, pero si regenera sin él sus fuentes vuelven a pesar 20 MB o más. Haría falta un tercer asmdef sólo-editor dentro del pack. Se decide en LK-27.
 - **`Assets/_Development/` tras cerrar la Fase 5** (usuario, Sesión 13). No se borra ni se toca ningún asset todavía.
   `EFF_Debug.asset` y `MAT_Debug.mat` **se quedan**: los usa TestBench, y el `_BaseColor` de `EFF_Debug` es el control negativo permanente de LK-49.
-  `EffectDebugTester.cs` se retira **después** de verificar LK-24 con `docs/PASOS_UNITY.md`: ya no es el único que llama a `SetEffectEnabled` (también `ComparisonToggle`) y al retirarlo se cierra el issue `OnGUI` de la Sesión 02. Exige quitar el componente de `TestBench.unity` en Unity: irá en su propio PASOS_UNITY.
+  `EffectDebugTester.cs` se retira cuando lo pida el usuario (LK-24 ya confirmada, 2026-11-10): ya no es el único que llama a `SetEffectEnabled` (también `ComparisonToggle`) y al retirarlo se cierra el issue `OnGUI` de la Sesión 02. Exige quitar el componente de `TestBench.unity` en Unity: irá en su propio PASOS_UNITY.
 - **`Assets/_Development/TestBench.unity` no se borra:** banco de pruebas permanente, crece con cada tarea (sección "Banco de pruebas" de cada spec). No se exporta.
 - `Assets/Settings/DefaultVolumeProfile.asset` cambió solo (migración de Unity al importar) y entró en el commit `2cc98ff` sin revisión. Fuera del alcance de LK-09.
 - `EffectController.cs` salió de 316 líneas, más de las ~140 estimadas en el plan.
@@ -57,8 +54,6 @@ Criterios sin confirmar (usuario). Cómo: `docs/PASOS_UNITY.md`; los de LK-27 ll
 - **`EFF_Debug.asset` tiene seis parámetros** y dos son deliberadamente distintos: `_Color` existe en el shader de los sprites y `_BaseColor` **no**. `_BaseColor` se queda como control negativo permanente de LK-49. Los marcadores usan `Sprite-Unlit-Default` (`_MainTex` y `_Color`) y el cubo, un shader URP
   que declara `_BaseColor` **y también `_Color`** en `ObsoleteProperties` (`Unlit.shader` línea 28): por eso reporta cuatro ausentes y no cinco.
 - **`MAT_Debug.mat` usa `Universal Render Pipeline/Unlit`** (usuario, Sesión 06; en disco, GUID `650dd952…`): sin iluminación, lo acordado en LK-09 para poder cerrar el criterio de Linear.
-- **Materiales de los sprites, para la Fase 5:** los marcadores comparten el material por defecto `Sprite-Unlit-Default`.
-  Cada efecto necesitará el suyo (`MAT_` en `Assets/LumiKit/Materials/2D/`) o tocar un parámetro en uno los cambiará todos. LK-01 trae `MAT_Outline2D_Default` y LK-03, `MAT_Glow2D_Default` (LK-02, fuera del MVP).
 - **Los topes no se suben** (usuario, Sesión 05): al llegar al tope se condensa (Sesión 07: `ui-style.md`, D-001 a D-003, por D-009).
 - `SPR_Crystal.png` y `SPR_RuneCoin.png` **definitivos** (LK-20, D-012): en `Assets/LumiKit/Sprites/`, 1024×1024, PPU 512, sin sufijo.
   Movidos por el usuario desde `_Development/` (mismo GUID). Siguen de marcadores en TestBench. `SPR_Lumi` entra si llega, sin bloquear LK-14.
@@ -75,7 +70,7 @@ Criterios sin confirmar (usuario). Cómo: `docs/PASOS_UNITY.md`; los de LK-27 ll
 - **Comentarios que LK-24 deja obsoletos**, sin tocar (fuera de su alcance): `ParameterPanelUI.cs:104`, `ParameterWidgetBase.cs:87` y la spec de LK-11a (45, 80)
   dicen que LK-24 llamará a `RefreshFromController`; no lo hace (Demo no conoce la UI y no hace falta). `EffectController.cs:369-371`: "ningún shader existe todavía".
 - **`ENUM_OPTION_HEIGHT` (28) y `BUTTON_HEIGHT_COMPACT` (28) son el mismo número del GDD con dos nombres** en `LumiTheme`. No lo unifico sin que me lo pidas. LK-50 no lo hizo: las opciones de enum no son `LumiButton`.
-- **Cerradas:** botón del pie, deuda de LK-22a (LK-51: `SPR_UI_Rect_R6_Outline` y `LumiTheme.Transparent`, vista por el usuario) · tamaño de texto sobre el GDD (Label y Mono a 16 px, GDD 13, a 1920×1080; en `LumiTheme`, D-007 y `ui-style.md`) · shaders del MVP (usuario, Sesión 11: HLSL, D-010 y `shaders.md`; `SH_` en CONVENTIONS, Sesión 12) · diferidos de LK-09 (LK-01, Sesión 12: `SetEffectEnabled` visto por el usuario; centro del trazo `#00E5D4` exacto, medido en `Temp/Captures`) · render del build (Sesión 13: `chore(build)` `9bc896e`, con el tag `mvp-1.0`) · LK-20 a "—" (Sesión 13: falta Lumi, la dibuja el usuario).
+- **Cerradas:** botón del pie, deuda de LK-22a (LK-51: `SPR_UI_Rect_R6_Outline` y `LumiTheme.Transparent`, vista por el usuario) · tamaño de texto sobre el GDD (Label y Mono a 16 px, GDD 13, a 1920×1080; en `LumiTheme`, D-007 y `ui-style.md`) · shaders del MVP (usuario, Sesión 11: HLSL, D-010 y `shaders.md`; `SH_` en CONVENTIONS, Sesión 12) · diferidos de LK-09 (LK-01, Sesión 12: `SetEffectEnabled` visto por el usuario; centro del trazo `#00E5D4` exacto, medido en `Temp/Captures`) · render del build (Sesión 13: `chore(build)` `9bc896e`, con el tag `mvp-1.0`) · LK-20 a "—" (Sesión 13: falta Lumi, la dibuja el usuario) · LK-13, LK-14 y LK-24, criterios pendientes confirmados (usuario, 2026-11-10: build en el menú y "Salir"; esquina transparente y build a 16:9 y 16:10; tester con su botón y TAB) · materiales de los sprites (LK-01 y LK-03 traen su `MAT_*_Default` en `Assets/LumiKit/Materials/2D/`; LK-02 traerá el suyo).
 - **`02_Demo_2D` queda marcada como modificada tras generarla** (LK-14): se guarda con la raíz de `UI_Root` a escala 0 y el lienzo la dimensiona en la siguiente
   actualización del editor. Inofensivo; si la guardas tú, el `.unity` cambia según el tamaño del Game view. Regenerar también cambia el `.unity` (IDs nuevos).
 - **`AudioMixer.FindMatchingGroups`, semántica sin confirmar** (LK-23): no sé si `subPath` compara por prefijo. `UIAudioBuilder` filtra además por nombre exacto del grupo.
@@ -86,5 +81,5 @@ Criterios sin confirmar (usuario). Cómo: `docs/PASOS_UNITY.md`; los de LK-27 ll
 ## Handoff
 **Sesión 13:** cierre del MVP, sin código ni assets; siguiente, LK-27. **LK-13 + LK-17 ✅ (Sesión 12).** Nuevos: `Systems/SceneLoader.cs`, `Systems/SceneMenu.cs`, `Assets/Editor/MainMenuSceneBuilder.cs` (genera y guarda `01_MainMenu`, D-013). Orden: `LumiKit/Audio/Añadir sonido de transición (LK-17)`, luego las dos escenas.
   Regenerar una fuente: atlas → `Import Font Features` → `FontFeatureCleaner` (spec de LK-22b). Regenerar el panel: STATE > Pendiente de verificación.
-No tocar: `Core/` y `Utils/` (LK-09, LK-49, LK-52), `Demo/` (LK-10, LK-12), `SH_Outline2D.shader` y `SH_Glow2D.shader`, los cuatro widgets, `EffectDebugTester.cs` hasta verificar LK-24,
+No tocar: `Core/` y `Utils/` (LK-09, LK-49, LK-52), `Demo/` (LK-10, LK-12), `SH_Outline2D.shader` y `SH_Glow2D.shader`, los cuatro widgets, `EffectDebugTester.cs` hasta que el usuario pida retirarlo,
 `ProjectSettings/` (la lista del build la pone el usuario), `Packages/manifest.json`, nada de 3D ni VFX. Las escenas generadas, sólo por sus generadores.
