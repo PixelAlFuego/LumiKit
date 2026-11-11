@@ -11,12 +11,13 @@ Actualizado: 2026-11-11 · Sesión 13 (en curso)
 |---|---|---|---|---|
 | 11 | 2026-09-25, 29 y 30 | LK-52 y su cierre · modo sprint · Unity MCP, subagentes y hook · shaders del MVP en HLSL (D-010) · plan de LK-23 (D-011) | ✅ LK-52 | 9cfbb49 · 2c5d484 · 3d2f2b8 · fa4af22 · 087251a · 428efc3 · 1a9fca5 · a5ad5f4 · 0e2cd88 · ba847e5 · 64916f4 · 90c2409 |
 | 12 | 2026-09-30, 10-01 y 10-02 | Sprites sin sufijo (D-012), `SH_` · assets del audio y sprites · LK-23 y su cierre · LK-01 y su cierre · alcance recortado · LK-24 y su cierre · LK-14 (D-013) y su cierre · LK-03 y su cierre · LK-13 + LK-17 y su cierre | ✅ LK-23 · ✅ LK-01 · ✅ LK-24 · ✅ LK-14 · ✅ LK-03 · ✅ LK-13 + LK-17 | b4045d2 · ced99b9 · 2a43e80 · 13454a7 · a69d112 · 98ad2a1 · 83ad8a4 · a633f0f · 67564dc · 5dbfa8a · 4219e96 · 0cc38f3 · 952b864 · 96a9f7e · 1f8a619 · dd33d9f · 19d91bc · 6287e99 · bcdb2f8 · 4bb8847 |
-| 13 | 2026-10-28, 29, 11-10 y 11 | Cierre del MVP: render del build y tag `mvp-1.0` · salida del modo sprint (fase 8, LK-53 a LK-59) · `PASOS_UNITY.md` · LK-37 y LK-27 · push · cierre sin commit de tarea · LK-20 a "—" · `_Development/` · criterios de LK-13, LK-14 y LK-24 confirmados · tirón del editor, diagnosticado y cerrado | ✅ LK-37 · 🟡 LK-27 | 9bc896e · 5e26f88 · f7b3204 · 4e5734a · b3b754c · 968ada4 · este commit |
+| 13 | 2026-10-28, 29, 11-10 y 11 | Cierre del MVP: render del build y tag `mvp-1.0` · salida del modo sprint (fase 8, LK-53 a LK-59) · `PASOS_UNITY.md` · LK-37 y LK-27 · push · cierre sin commit de tarea · LK-20 a "—" · `_Development/` · criterios de LK-13, LK-14 y LK-24 confirmados · tirón del editor, diagnosticado y cerrado · MCP fijado a `v10.2.0` | ✅ LK-37 · 🟡 LK-27 | 9bc896e · 5e26f88 · f7b3204 · 4e5734a · b3b754c · 968ada4 · 2332d07 · 326e8ff · este commit |
 
 Sesiones 00 a 10 archivadas en `docs/archive/sesiones_2026-Q3.md`. El número de sesión cambia al cerrarla aquí; lo hecho no se renumera (usuario, Sesión 12).
 
 ## Pendiente de verificación en Unity
 Criterios sin confirmar (usuario). Los de LK-27 llegan a `docs/PASOS_UNITY.md` con su tarea:
+- [ ] MCP fijado a `#v10.2.0` (sin tarea LK): al abrir Unity, `Packages/packages-lock.json` sólo cambia en la línea `version` del paquete. Si es así, va en un `chore(tooling)`.
 - [ ] LK-27: el `.unitypackage` exportado el 2026-10-02 se importa en un proyecto URP vacío.
 
 ## Entorno confirmado
@@ -24,7 +25,7 @@ Criterios sin confirmar (usuario). Los de LK-27 llegan a `docs/PASOS_UNITY.md` c
 - Active Input Handling = Input System Package (New) (`activeInputHandler: 1`), confirmado por el usuario. Única API y forma de lectura: D-006.
 - Remoto `origin` = https://github.com/PixelAlFuego/LumiKit.git
 - **Push:** sólo al cerrar una tarea en ✅, con su tag `cp-NN-nombre` (usuario, Sesión 11). Fuera de eso, requiere autorización.
-- Unity MCP: `com.coplaydev.unity-mcp`, servidor 3.4.7, registrado en local como `UnityMCP` (HTTP, 127.0.0.1:8080). Reglas: CLAUDE.md. El registro stdio `unity-mcp`, que no conectaba, borrado (2026-09-30).
+- Unity MCP: `com.coplaydev.unity-mcp` 10.2.0, fijado en el manifest a `#v10.2.0` (commit `30d2207`, Sesión 13), servidor 3.4.7, registrado en local como `UnityMCP` (HTTP, 127.0.0.1:8080). Reglas: CLAUDE.md. El registro stdio `unity-mcp`, que no conectaba, borrado (2026-09-30).
 - Ventana MCP for Unity: cerrarla cuando no se use Code (con el servidor apagado congela el editor 0,25 s cada 2 s).
 - Shaders del MVP: HLSL que escribe Claude (D-010). Los Shader Graph, aparcados, los construye el usuario con la especificación de Claude.
 - D-001 confirmado en la práctica: tras salir de Play Mode, `MAT_Debug.mat` sin cambios en `git status` y el Mesh Renderer sin "(Instance)".
@@ -78,7 +79,7 @@ Criterios sin confirmar (usuario). Los de LK-27 llegan a `docs/PASOS_UNITY.md` c
 - Ramas: `main` (entregas y versiones), `sprint/mvp` (Sesión 11, desde el tag `v0.3-pre-mcp`; en `origin` desde la Sesión 12; cerrada) y `develop` (Sesión 13: rama de trabajo, en `origin`). `feature/LK-XX-*` del GDD §4.9, aún no creadas.
 
 ## Handoff
-**Sesión 13:** cierre del MVP, sin código ni assets; siguiente, LK-27. **LK-13 + LK-17 ✅ (Sesión 12).** Nuevos: `Systems/SceneLoader.cs`, `Systems/SceneMenu.cs`, `Assets/Editor/MainMenuSceneBuilder.cs` (genera y guarda `01_MainMenu`, D-013). Orden: `LumiKit/Audio/Añadir sonido de transición (LK-17)`, luego las dos escenas.
+**Sesión 13:** cierre del MVP, sin código ni assets; siguiente, LK-27. Antes, al abrir Unity: revisar `packages-lock.json` (STATE > Pendiente de verificación). **LK-13 + LK-17 ✅ (Sesión 12).** Nuevos: `Systems/SceneLoader.cs`, `Systems/SceneMenu.cs`, `Assets/Editor/MainMenuSceneBuilder.cs` (genera y guarda `01_MainMenu`, D-013). Orden: `LumiKit/Audio/Añadir sonido de transición (LK-17)`, luego las dos escenas.
   Regenerar una fuente: atlas → `Import Font Features` → `FontFeatureCleaner` (spec de LK-22b). Regenerar el panel: STATE > Pendiente de verificación.
 No tocar: `Core/` y `Utils/` (LK-09, LK-49, LK-52), `Demo/` (LK-10, LK-12), `SH_Outline2D.shader` y `SH_Glow2D.shader`, los cuatro widgets, `EffectDebugTester.cs` hasta que el usuario pida retirarlo,
 `ProjectSettings/` (la lista del build la pone el usuario), `Packages/manifest.json`, nada de 3D ni VFX. Las escenas generadas, sólo por sus generadores.
